@@ -1,151 +1,126 @@
 import greenfoot.*;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TileWorld {
-    private static final int WIDTH = 10;
-    private static final int HEIGHT = 8;
-    private String[][] grid;
+    private static final int TILE_WIDTH = 31;  // Tile width in Greenfoot
+    private static final int TILE_HEIGHT = 32; // Tile height in Greenfoot
+    private static final int ROOM_WIDTH = 400; // Room width in pixels
+    private static final int ROOM_HEIGHT = 400; // Room height in pixels
+
+    private int gridWidth;  // Number of horizontal tiles
+    private int gridHeight; // Number of vertical tiles
+    private String[][] grid; // Tracks the room layout
 
     public TileWorld() {
-        grid = new String[HEIGHT][WIDTH];
+        gridWidth = ROOM_WIDTH / TILE_WIDTH; // Calculate number of tiles horizontally
+        gridHeight = ROOM_HEIGHT / TILE_HEIGHT; // Calculate number of tiles vertically
+        grid = new String[gridHeight][gridWidth];
     }
 
     public void generateRoomIn(World world) {
         Random random = new Random();
 
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
+        // Calculate offsets to center the room and shift it down by 10 pixels
+        int worldWidth = world.getWidth(); // Total world width in pixels
+        int worldHeight = world.getHeight(); // Total world height in pixels
+        int xOffset = (worldWidth - ROOM_WIDTH) / 2; // Horizontal offset
+        int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) + 10; // Vertical offset (shifted down)
+
+        // Generate floor tiles first
+        for (int y = 0; y < gridHeight; y++) {
+            for (int x = 0; x < gridWidth; x++) {
+                grid[y][x] = "Floor"; // Mark the entire grid as floor initially
+                world.addObject(new Floor("FloorN" + random.nextInt(4) + ".png"), xOffset + x * TILE_WIDTH, yOffset + y * TILE_HEIGHT);
+            }
+        }
+
+        // Generate walls
+        for (int y = 0; y < gridHeight; y++) {
+            for (int x = 0; x < gridWidth; x++) {
                 Actor actor = null;
 
                 if (y == 0) { // Top wall
                     if (x == 0) {
                         actor = new Wall("CornerTL.png");
-                    } else if (x == WIDTH - 1) {
+                    } else if (x == gridWidth - 1) {
                         actor = new Wall("CornerTR.png");
                     } else {
                         actor = new Wall("WallT" + random.nextInt(8) + ".png");
                     }
-                } else if (y == HEIGHT - 1) { // Bottom wall
-                    if (x != 0 && x != WIDTH - 1) {
+                    grid[y][x] = "Wall";
+                } else if (y == gridHeight - 1) { // Bottom wall
+                    if (x == 0 || x == gridWidth - 1) {
+                        actor = new Wall("WallT" + random.nextInt(8) + ".png"); // Extend bottom corners
+                    } else {
                         actor = new Wall("WallT" + random.nextInt(8) + ".png");
                     }
+                    grid[y][x] = "Wall";
                 } else if (x == 0) { // Left wall
                     actor = new Wall("WallL" + random.nextInt(3) + ".png");
-                } else if (x == WIDTH - 1) { // Right wall
+                    grid[y][x] = "Wall";
+                } else if (x == gridWidth - 1) { // Right wall
                     actor = new Wall("WallR" + random.nextInt(3) + ".png");
-                } else {
-                    grid[y][x] = "Floor";
+                    grid[y][x] = "Wall";
                 }
 
                 if (actor != null) {
-                    world.addObject(actor, x, y);
-                    grid[y][x] = "Wall";
+                    world.addObject(actor, xOffset + x * TILE_WIDTH, yOffset + y * TILE_HEIGHT);
                 }
             }
         }
 
-        // Add doors
-        for (int i = 0; i < 2; i++) {
-            placeDoorIn(world, random);
+        // Add two doors (either both on top, both on bottom, or one on top and one on bottom)
+        placeDoorsWithGap(world, xOffset, yOffset);
+    }
+
+    private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
+        Random random = new Random();
+        List<Integer> doorPositions = new ArrayList<>();
+        boolean placedTop = false;
+        boolean placedBottom = false;
+
+        // Decide where to place the doors: both top, both bottom, or one on top and one on bottom
+        int doorChoice = random.nextInt(3); // 0 = top and bottom, 1 = both top, 2 = both bottom
+
+        // Handle door placement based on choice
+        if (doorChoice == 0 || doorChoice == 1) { // Doors on the top wall
+            // Place two doors on top wall with a gap
+            placedTop = placeDoorOnWall(world, doorPositions, xOffset, yOffset, 0);
         }
 
-        // Add floors
-        for (int y = 1; y < HEIGHT - 1; y++) {
-            for (int x = 1; x < WIDTH - 1; x++) {
-                if ("Floor".equals(grid[y][x])) {
-                    String tile = determineFloorTile(x, y);
-                    world.addObject(new Floor(tile), x, y);
-                }
-            }
+        if (doorChoice == 0 || doorChoice == 2) { // Doors on the bottom wall
+            // Place two doors on bottom wall with a gap
+            placedBottom = placeDoorOnWall(world, doorPositions, xOffset, yOffset + (gridHeight - 1) * TILE_HEIGHT, gridHeight - 1);
         }
     }
 
-    private void placeDoorIn(World world, Random random) {
-        while (true) {
-            int x = random.nextInt(WIDTH);
-            int y = random.nextInt(HEIGHT);
-
-            if ("Wall".equals(grid[y][x])) {
-                String doorImage = null;
-
-                if (y == 0) {
-                    doorImage = "WallDTO.png";
-                } else if (y == HEIGHT - 1) {
-                    doorImage = "WallDBC.png";
-                } else if (x == 0) {
-                    doorImage = "WallDLC.png";
-                } else if (x == WIDTH - 1) {
-                    doorImage = "WallDRC.png";
+    private boolean placeDoorOnWall(World world, List<Integer> doorPositions, int xOffset, int yOffset, int wallYPosition) {
+        Random random = new Random();
+        boolean placed = false;
+        
+        // Try to place two doors with a gap of at least 2 wall tiles between them
+        while (doorPositions.size() < 2) {
+            int x = random.nextInt(gridWidth - 2) + 1; // Prevent placing doors in corners
+            // Ensure there's a gap of at least 2 tiles between doors
+            if (x > 1 && !doorPositions.contains(x) && !doorPositions.contains(x - 1) && !doorPositions.contains(x + 1)) {
+                doorPositions.add(x);
+                if (wallYPosition == 0) {
+                    world.addObject(new Door("WallDTC.png"), xOffset + x * TILE_WIDTH, yOffset); // Top door
+                } else {
+                    world.addObject(new Door("WallDBC.png"), xOffset + x * TILE_WIDTH, yOffset); // Bottom door
                 }
-
-                if (doorImage != null) {
-                    world.addObject(new Door(doorImage), x, y);
-                    grid[y][x] = "Door";
-                    break;
-                }
+                placed = true;
             }
         }
-    }
 
-    private String determineFloorTile(int x, int y) {
-        boolean top = "Wall".equals(grid[y - 1][x]);
-        boolean bottom = "Wall".equals(grid[y + 1][x]);
-        boolean left = "Wall".equals(grid[y][x - 1]);
-        boolean right = "Wall".equals(grid[y][x + 1]);
-
-        if (top && bottom && left && right)
-        {
-            return "FloorTOBO.png";
-        }
-        if (top && bottom && left)
-        {
-            return "FloorLO.png";
-        }
-        if (top && bottom && right)
-        {
-            return "FloorRO.png";
-        }
-        if (top && bottom) 
-        {
-            return "FloorROLO.png";
-        }
-        if (top && left) 
-        {
-            return "FloorTLS.png";
-        }
-        if (top && right)
-        {
-            return "FloorTRS.png";
-        }
-        if (top) 
-        {
-            return "FloorTS.png";
-        }
-        if (bottom && left) 
-        {
-            return "FloorBLS.png";
-        }
-        if (bottom && right) 
-        {
-            return "FloorBRS.png";
-        }
-        if (bottom) 
-        {
-            return "FloorBS.png";
-        }
-        if (left && right) 
-        {
-            return "FloorTO.png";
-        }
-        if (left)
-        {
-            return "FloorLS.png";
-        }
-        if (right) 
-        {
-            return "FloorRS.png";
-        }
-
-        return "FloorN" + Greenfoot.getRandomNumber(4) + ".png";
+        return placed;
     }
 }
+
+
+
+
+
+
