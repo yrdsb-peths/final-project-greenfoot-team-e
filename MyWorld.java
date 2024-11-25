@@ -5,5 +5,7 @@ public class MyWorld extends World {
         super(400, 600, 1); 
         Player player=new Player();
         addObject(player,300,200);
+        Enemy enemy=new Enemy();
+        addObject(enemy, 300,200);
     }
 }
