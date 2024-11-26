@@ -25,8 +25,8 @@ public class TileWorld {
         // Calculate offsets to center the room and shift it down by 10 pixels
         int worldWidth = world.getWidth(); // Total world width in pixels
         int worldHeight = world.getHeight(); // Total world height in pixels
-        int xOffset = (worldWidth - ROOM_WIDTH) / 2; // Horizontal offset
-        int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) + 10; // Vertical offset (shifted down)
+        int xOffset = (worldWidth - ROOM_WIDTH) / 2 +30; // Horizontal offset
+        int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) -80; // Vertical offset (shifted down)
 
         // Generate floor tiles first
         for (int y = 0; y < gridHeight; y++) {
