@@ -22,6 +22,10 @@ public class TreasureChest extends Actor
         {
             setImage("images/ChestLeC.png");
         }
+        else
+        {
+            setImage((GreenfootImage)null);
+        }
     }
 
     public static void spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
