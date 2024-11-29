@@ -5,10 +5,11 @@ public class GameScreen extends World {
         super(400, 600, 1); 
         TileWorld tileWorld = new TileWorld();
         tileWorld.generateRoomIn(this);
-        Player player=new Player();
-        addObject(player,300,200);
-        Enemy enemy=new Enemy();
-        addObject(enemy, 300,200);
+        Enemy enemy = new Enemy();
+        Player player = new Player(enemy);
+
+        addObject(player, 200, 200);
+        addObject(enemy, Greenfoot.getRandomNumber(400), Greenfoot.getRandomNumber(400));
     }
 }
 

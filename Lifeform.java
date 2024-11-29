@@ -1,33 +1,38 @@
 import greenfoot.Greenfoot;
 
 public interface Lifeform {
-    default void movement(int x,int y, boolean keyHeld) {
-        String key = Greenfoot.getKey(); 
-        
-        if (key != null && !keyHeld) { 
-            keyHeld = true;
-            
-            if (key.equals("a")) {
-                x = Math.max(x - 20, 10); 
-            } else if (key.equals("d")) {
-                x = Math.min(x + 20, 390);
-            } else if (key.equals("w")) {
-                y = Math.max(y - 20, 10); 
-            } else if (key.equals("s")) {
-                y = Math.min(y + 20, 390); 
+    default void movement(Lifeform lifeform, boolean keyHeld) {
+        String key = Greenfoot.getKey();
+
+        if (key != null && !keyHeld) {
+                keyHeld = true;
+                int x = lifeform.getXPosition();
+                int y = lifeform.getYPosition();
+                int direction = Greenfoot.getRandomNumber(4);
+
+            if (direction == 0) {
+                x = Math.max(x - 20, 10);
+            } else if (direction == 1) {
+                x = Math.min(x + 20, 380);
+            } else if (direction == 2) {
+                y = Math.max(y - 20, 10);
+            } else if (direction == 3) {
+                y = Math.min(y + 20, 380);
             }
-            
-        } else if (key == null) {
-            keyHeld = false; 
+
+                updatePosition(x, y);
+            } else if (key == null) {
+                keyHeld = false;
         }
     }
-    default int hp(int health){
-        if(health==1){
-            return 20;
-        }else{
-            return 10;
-        }
-    }
+
+    void updatePosition(int newX, int newY);
+
+    int getXPosition();
+
+    int getYPosition();
 }
+
+
 
 
