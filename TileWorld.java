@@ -73,6 +73,8 @@ public class TileWorld {
 
         // Add two doors (either both on top, both on bottom, or one on top and one on bottom)
         placeDoorsWithGap(world, xOffset, yOffset);
+        TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
