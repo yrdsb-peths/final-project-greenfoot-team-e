@@ -1,13 +1,13 @@
 import greenfoot.*;
+
 public class Player extends Actor implements Lifeform{
-    int x=300;
-    int y=200;
-    boolean gameOn=false;
-    public void act(){
-        gameOn=true;
-        while(gameOn){
-            move(x,y);
-        }
-        
+    private int x = 10;
+    private int y = 10;
+
+    private boolean keyHeld = false;
+
+    public void act() {
+        movement(x,y,keyHeld);
+        setLocation(x, y);
     }
 }
