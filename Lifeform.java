@@ -9,11 +9,11 @@ public interface Lifeform {
             if (direction == 0) {
                 x = Math.max(x - 20, 10);
             } else if (direction == 1) {
-                x = Math.min(x + 20, 380);
+                x = Math.min(x + 20, 370);
             } else if (direction == 2) {
                 y = Math.max(y - 20, 10);
             } else if (direction == 3) {
-                y = Math.min(y + 20, 380);
+                y = Math.min(y + 20, 370);
             } else if(direction==4){
                 
             }
