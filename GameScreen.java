@@ -9,7 +9,7 @@ public class GameScreen extends World {
         Player player = new Player(enemy);
 
         addObject(player, 200, 200);
-        addObject(enemy, Greenfoot.getRandomNumber(400), Greenfoot.getRandomNumber(400));
+        addObject(enemy, Greenfoot.getRandomNumber(370), Greenfoot.getRandomNumber(370));
     }
 }
 
