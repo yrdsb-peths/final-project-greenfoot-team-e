@@ -3,7 +3,7 @@ import greenfoot.*;
 public class GameScreen extends World {
     public GameScreen() {
         super(400, 600, 1); 
-        Inventory inventory = new Inventory();
+        ScannerClass inventory = new ScannerClass("Inventory.txt");
         TileWorld tileWorld = new TileWorld();
         tileWorld.generateRoomIn(this);
 
@@ -13,8 +13,8 @@ public class GameScreen extends World {
         addObject(player, 200, 200);
         addObject(enemy, Greenfoot.getRandomNumber(400), Greenfoot.getRandomNumber(400));
 
-        if (!inventory.wordList.isEmpty()) {
-            System.out.println(inventory.wordList.get(0));
+        if (!inventory.getWordList().isEmpty()) {
+            System.out.println(inventory.getWordList().get(0));
         } else {
             System.out.println("Inventory is empty.");
         }
