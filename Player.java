@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Player<FogOfWar> extends Actor implements Lifeform {
+public class Player extends Actor implements Lifeform {
     private int x = 30;
     private int y = 20;
     private boolean keyHeld = false;

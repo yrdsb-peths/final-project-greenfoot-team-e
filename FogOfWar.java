@@ -1,13 +1,15 @@
-import greenfoot.*; // Import Greenfoot classes
+import greenfoot.*;
 
-public class FogOfWar {
+public class FogOfWar 
+{
     private Actor[][] fogGrid;
     private int gridWidth, gridHeight;
     private int xOffset, yOffset;
-    private int tileWidth = 31, 
+    private int tileWidth = 31; 
     private int tileHeight = 32; 
 
-    public FogOfWar(int[][] grid, int xOffset, int yOffset) {
+    public FogOfWar(String[][] grid, int xOffset, int yOffset) 
+    {
         this.gridWidth = grid.length;
         this.gridHeight = grid[0].length;
         this.xOffset = xOffset;
@@ -16,10 +18,14 @@ public class FogOfWar {
         fogGrid = new Actor[gridWidth][gridHeight];
     }
 
-    public void initializeFog(World world) {
-        for (int x = 0; x < gridWidth; x++) {
-            for (int y = 0; y < gridHeight; y++) {
-                Actor fog = new Actor() {
+    public void initializeFog(World world) 
+    {
+        for (int x = 0; x < gridWidth; x++) 
+        {
+            for (int y = 0; y < gridHeight; y++) 
+            {
+                Actor fog = new Actor() 
+                {
                     { setImage("images/FOW-Tile.png"); }
                 };
                 world.addObject(fog, xOffset + x * tileWidth, yOffset + y * tileHeight);
