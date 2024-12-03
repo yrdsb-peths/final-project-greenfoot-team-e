@@ -1,5 +1,3 @@
-#BlueJ class context
-comment0.target=MyWorld
-comment1.params=
-comment1.target=MyWorld()
-numComments=2
+SwdT1
+SwdT2
+SwdT3
