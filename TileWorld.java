@@ -83,10 +83,6 @@ public class TileWorld extends GameScreen
         TreasureChest.spawnIn(world, grid, xOffset, yOffset);
         FogOfWar fogOfWar = new FogOfWar(grid, xOffset, yOffset);
         fogOfWar.initializeFog(this);
-
-        Player player = new Player(new Enemy(), fogOfWar);
-        addObject(player, 200, 200);
-
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
