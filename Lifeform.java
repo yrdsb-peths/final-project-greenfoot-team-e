@@ -1,17 +1,33 @@
 import greenfoot.Greenfoot;
 
 public interface Lifeform {
-    default void move(int x, int y) {
-        if (Greenfoot.isKeyDown("a")) {
-            x -= 50;
-        } else if (Greenfoot.isKeyDown("d")) {
-            x += 50;
-        } else if (Greenfoot.isKeyDown("w")) {
-            y += 50;
-        } else if (Greenfoot.isKeyDown("s")) {
-            y -= 50;
-        }
+    default void movement(Lifeform lifeform, boolean keyHeld) {
+                int x = lifeform.getXPosition();
+                int y = lifeform.getYPosition();
+                int direction = Greenfoot.getRandomNumber(5);
 
-        System.out.println("New position: x=" + x + ", y=" + y);
-    }
+            if (direction == 0) {
+                x = Math.max(x - 20, 10);
+            } else if (direction == 1) {
+                x = Math.min(x + 20, 380);
+            } else if (direction == 2) {
+                y = Math.max(y - 20, 10);
+            } else if (direction == 3) {
+                y = Math.min(y + 20, 380);
+            } else if(direction==4){
+                
+            }
+                updatePosition(x, y);
+        }
+    
+
+    void updatePosition(int newX, int newY);
+
+    int getXPosition();
+
+    int getYPosition();
 }
+
+
+
+
