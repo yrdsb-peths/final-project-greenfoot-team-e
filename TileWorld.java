@@ -3,23 +3,27 @@ import java.util.Random;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TileWorld {
+public class TileWorld extends world 
+{
     private static final int TILE_WIDTH = 31;  // Tile width in Greenfoot
     private static final int TILE_HEIGHT = 32; // Tile height in Greenfoot
     private static final int ROOM_WIDTH = 400; // Room width in pixels
     private static final int ROOM_HEIGHT = 400; // Room height in pixels
+    private FogOfWar fogOfWar;
 
     private int gridWidth;  // Number of horizontal tiles
     private int gridHeight; // Number of vertical tiles
     private String[][] grid; // Tracks the room layout
 
-    public TileWorld() {
+    public TileWorld() 
+    {
         gridWidth = ROOM_WIDTH / TILE_WIDTH; // Calculate number of tiles horizontally
         gridHeight = ROOM_HEIGHT / TILE_HEIGHT; // Calculate number of tiles vertically
         grid = new String[gridHeight][gridWidth];
     }
 
-    public void generateRoomIn(World world) {
+    public void generateRoomIn(World world) 
+    {
         Random random = new Random();
 
         // Calculate offsets to center the room and shift it down by 10 pixels
@@ -29,16 +33,20 @@ public class TileWorld {
         int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) -80; // Vertical offset (shifted down)
 
         // Generate floor tiles first
-        for (int y = 0; y < gridHeight; y++) {
-            for (int x = 0; x < gridWidth; x++) {
+        for (int y = 0; y < gridHeight; y++) 
+        {
+            for (int x = 0; x < gridWidth; x++) 
+            {
                 grid[y][x] = "Floor"; // Mark the entire grid as floor initially
                 world.addObject(new Floor("FloorN" + random.nextInt(4) + ".png"), xOffset + x * TILE_WIDTH, yOffset + y * TILE_HEIGHT);
             }
         }
 
         // Generate walls
-        for (int y = 0; y < gridHeight; y++) {
-            for (int x = 0; x < gridWidth; x++) {
+        for (int y = 0; y < gridHeight; y++) 
+        {
+            for (int x = 0; x < gridWidth; x++) 
+            {
                 Actor actor = null;
 
                 if (y == 0) { // Top wall
@@ -71,9 +79,13 @@ public class TileWorld {
             }
         }
 
-        // Add two doors (either both on top, both on bottom, or one on top and one on bottom)
         placeDoorsWithGap(world, xOffset, yOffset);
         TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+        FogOfWar fogOfWar = new FogOfWar(grid, xOffset, yOffset);
+        fogOfWar.initializeFog(getWorld());
+
+        Player player = new Player(new Enemy(), fogOfWar);
+        addObject(player, 200, 200);
 
     }
 

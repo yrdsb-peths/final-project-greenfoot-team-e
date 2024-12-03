@@ -1,21 +1,23 @@
 import greenfoot.*;
 
-
-public class Player extends Actor implements Lifeform {
+public class Player<FogOfWar> extends Actor implements Lifeform {
     private int x = 30;
     private int y = 20;
     private boolean keyHeld = false;
     private Enemy enemy;
+    private FogOfWar fogOfWar;
 
-    public Player(Enemy enemy) {
+    public Player(Enemy enemy, FogOfWar fogOfWar) {
         this.enemy = enemy;
+        this.fogOfWar = fogOfWar; 
     }
 
     public void act() {
         movement(this, keyHeld);
     }
+
     @Override
-        public void movement(Lifeform lifeform, boolean keyHeld) {
+    public void movement(Lifeform lifeform, boolean keyHeld) {
         String key = Greenfoot.getKey();
 
         if (key != null && !keyHeld) {
@@ -25,17 +27,18 @@ public class Player extends Actor implements Lifeform {
             int y = lifeform.getYPosition();
 
             if (key.equals("a")) {
-                x = Math.max(x - 20, 20);
+                x = Math.max(x - 31, 31);
             } else if (key.equals("d")) {
-                x = Math.min(x + 20, 370);
+                x = Math.min(x + 31, 400 - 31);
             } else if (key.equals("w")) {
-                y = Math.max(y - 20, 30);
+                y = Math.max(y - 32, 32);
             } else if (key.equals("s")) {
-                y = Math.min(y + 20, 370);
+                y = Math.min(y + 32, 400 - 32);
             }
 
             lifeform.updatePosition(x, y);
             enemy.moveRandomly();
+            fogOfWar.updateFog(x, y);
         } else if (key == null) {
             keyHeld = false;
         }
