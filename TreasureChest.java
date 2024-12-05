@@ -1,4 +1,6 @@
-import greenfoot.*; 
+import greenfoot.*;
+
+import java.util.List;
 import java.util.Random;
 
 public class TreasureChest extends Actor 
@@ -6,7 +8,10 @@ public class TreasureChest extends Actor
     private static final int TILE_WIDTH = 31;  
     private static final int TILE_HEIGHT = 32;
     private int randomNum; 
-
+    private boolean isLooted = false;
+    public void act() {
+        loot(Player.class);
+    }
     public TreasureChest()
     {
         randomNum = Greenfoot.getRandomNumber(100);
@@ -57,5 +62,23 @@ public class TreasureChest extends Actor
             }
         }
     }
+    public void loot(Class<?> Player) {
+
+        Random random = new Random();
+        ScannerClass inventory = new ScannerClass("Inventory.txt");
+        ScannerClass items = new ScannerClass("Items.txt");
+
+        if (!isLooted&&this.isTouching(Player)) {
+            List<String> itemList = items.getWordList();
+            if (!itemList.isEmpty()) {
+                int lootGen = random.nextInt(itemList.size());
+                String lootItem = itemList.get(lootGen);
+                inventory.addWord(lootItem);
+                System.out.println("Player looted: " + lootItem);
+                isLooted = true; // Mark as looted
+            }
+        }
+    }
+
 }
 
