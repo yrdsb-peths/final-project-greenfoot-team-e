@@ -8,9 +8,12 @@ public class GameScreen extends World {
         tileWorld.generateRoomIn(this);
 
         Enemy enemy = new Enemy();
+        Enemy enemy2 = new Enemy();
         Player player = new Player(enemy);
         addObject(player, 200, 200);
-        addObject(enemy, Greenfoot.getRandomNumber(400), Greenfoot.getRandomNumber(400));
+        addObject(enemy, Greenfoot.getRandomNumber(370), Greenfoot.getRandomNumber(370));
+        addObject(enemy2, Greenfoot.getRandomNumber(370), Greenfoot.getRandomNumber(370));
+
 
     }
 }

@@ -13,6 +13,7 @@ public class Player extends Actor implements Lifeform {
 
     public void act() {
         movement(this, keyHeld);
+        enemy.encounter(this);
     }
     @Override
         public void movement(Lifeform lifeform, boolean keyHeld) {
