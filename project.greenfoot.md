@@ -1,4 +1,33 @@
-# Placeholder for project.greenfoot
-
-1. Copy this file
-2. Rename the copied file 'project.greenfoot' 
+#Greenfoot project file
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
+height=813
+package.numDependencies=0
+package.numTargets=1
+project.charset=windows-1252
+publish.hasSource=false
+publish.locked=true
+publish.longDesc=
+publish.shortDesc=
+publish.tags=
+publish.title=
+publish.url=
+readme.height=60
+readme.name=@README
+readme.width=48
+readme.x=10
+readme.y=10
+simulation.speed=50
+target1.height=70
+target1.name=MyWorld
+target1.showInterface=false
+target1.type=ClassTarget
+target1.width=120
+target1.x=0
+target1.y=0
+version=3.1.0
+width=1293
+xPosition=0
+yPosition=0
