@@ -12,6 +12,10 @@ public class Enemy extends Actor implements Lifeform {
 
     }
     public void act() {
+        if(keyHeld){
+        key = Greenfoot.getKey();
+        isPlayerMoved = key != null;
+        }
 
         List<Enemy> enemies = getWorld().getObjects(Enemy.class);
     
