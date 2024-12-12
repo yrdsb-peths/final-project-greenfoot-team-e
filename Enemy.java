@@ -1,15 +1,34 @@
+import java.util.List;
+
 import greenfoot.*;
 
 public class Enemy extends Actor implements Lifeform {
     private boolean keyHeld = false;
     private boolean defeated=false;
-    public void act() {
-        
-    }
+    String key = Greenfoot.getKey();
+    boolean isPlayerMoved = key != null;
 
-    public void moveRandomly() {
-        movement(this, keyHeld); 
+    public Enemy(){
+
     }
+    public void act() {
+        if(keyHeld){
+        key = Greenfoot.getKey();
+        isPlayerMoved = key != null;
+        }
+
+        List<Enemy> enemies = getWorld().getObjects(Enemy.class);
+    
+
+        for (Enemy enemy : enemies) {
+            movement(enemy, keyHeld, isPlayerMoved);  
+            encounter(enemy);  
+        }
+    }
+    
+    
+
+
 
     @Override
     public void updatePosition(int newX, int newY) {
@@ -25,7 +44,7 @@ public class Enemy extends Actor implements Lifeform {
     public int getYPosition() {
         return getY();
     }
-    public void encounter(Lifeform lifeform){
+    public void encounter(Enemy enemy){
         if(!defeated&&this.isTouching(Player.class)){
             System.out.println("FIGHT STARTED");
             defeated=true;
