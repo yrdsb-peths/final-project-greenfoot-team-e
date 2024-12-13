@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TileWorld {
-    private static final int TILE_WIDTH = 31;
-    private static final int TILE_HEIGHT = 32;
-    private static final int ROOM_WIDTH = 400;
-    private static final int ROOM_HEIGHT = 400;
+private static final int TILE_WIDTH = 31;
+private static final int TILE_HEIGHT = 32;
+public static final int ROOM_WIDTH = 400;
+public static final int ROOM_HEIGHT = 400;
 
-    private int gridWidth;
-    private int gridHeight;
-    private String[][] grid;
-    private long seed;
-    private Random random;
+private int gridWidth;
+private int gridHeight;
+private String[][] grid;
+private long seed;
+private Random random;
+private TraderSpawner traderSpawner;
 
     public TileWorld(long seed) {
         this.seed = seed;
@@ -29,6 +30,9 @@ public class TileWorld {
         int xOffset = (worldWidth - ROOM_WIDTH) / 2 + 30;
         int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) - 80;
    
+        Random random = new Random();
+
+        // Generate floor tiles first
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 grid[y][x] = "Floor";
@@ -71,8 +75,11 @@ public class TileWorld {
         }
 
         placeDoorsWithGap(world, xOffset, yOffset);
-        TreasureChest.spawnIn(world, grid, xOffset, yOffset);
 
+        // Spawn chest and trader
+        boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+        traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
+        traderSpawner.spawnTrader(chestPresent);
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
