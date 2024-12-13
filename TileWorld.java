@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TileWorld {
+    // Existing constants and fields
     private static final int TILE_WIDTH = 31;  // Tile width in Greenfoot
     private static final int TILE_HEIGHT = 32; // Tile height in Greenfoot
     private static final int ROOM_WIDTH = 400; // Room width in pixels
@@ -12,6 +13,7 @@ public class TileWorld {
     private int gridWidth;  // Number of horizontal tiles
     private int gridHeight; // Number of vertical tiles
     private String[][] grid; // Tracks the room layout
+    private TraderSpawner traderSpawner;
 
     public TileWorld() {
         gridWidth = ROOM_WIDTH / TILE_WIDTH; // Calculate number of tiles horizontally
@@ -25,8 +27,8 @@ public class TileWorld {
         // Calculate offsets to center the room and shift it down by 10 pixels
         int worldWidth = world.getWidth(); // Total world width in pixels
         int worldHeight = world.getHeight(); // Total world height in pixels
-        int xOffset = (worldWidth - ROOM_WIDTH) / 2 +30; // Horizontal offset
-        int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) -80; // Vertical offset (shifted down)
+        int xOffset = (worldWidth - ROOM_WIDTH) / 2 + 30; // Horizontal offset
+        int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) - 80; // Vertical offset (shifted down)
 
         // Generate floor tiles first
         for (int y = 0; y < gridHeight; y++) {
@@ -73,8 +75,11 @@ public class TileWorld {
 
         // Add two doors (either both on top, both on bottom, or one on top and one on bottom)
         placeDoorsWithGap(world, xOffset, yOffset);
-        TreasureChest.spawnIn(world, grid, xOffset, yOffset);
 
+        // Spawn chest and trader
+        boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+        traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
+        traderSpawner.spawnTrader(chestPresent);
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
