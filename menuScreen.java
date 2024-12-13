@@ -4,8 +4,6 @@ public class MenuScreen extends World
 {
     public MenuScreen() {
         super(400,600,1);
-        TileWorld tileWorld = new TileWorld();
-        tileWorld.generateRoomIn(this);
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png",114, 56), 200, 350);
         Label titleLabel = new Label("Lurking Below", 40);
         addObject(titleLabel, 200, 175);
