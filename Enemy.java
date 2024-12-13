@@ -11,15 +11,14 @@ public class Enemy extends Actor implements Lifeform {
         this.defeated = false;
     }
     public void act() {
-        //String key = Greenfoot.getKey(); 
         keyHeld = Player.keyHeld; 
         encounter(Player.class); 
     
         if (!defeated) {
-            //if (key != null && (key.equals("a") || key.equals("s") || key.equals("w") || key.equals("d"))) {
-                eMovement(keyHeld); 
-            //}
+            eMovement(keyHeld);
         }
+        
+        
     }
     
 
@@ -46,10 +45,11 @@ public class Enemy extends Actor implements Lifeform {
         }
     }
     public void eMovement(boolean keyHeld) {
-        if (keyHeld) { 
-            //if (key.equals("a") || key.equals("s") || key.equals("w") || key.equals("d")) {
-                movement(this); 
-            //}
+        if (keyHeld) {
+            String key = Player.key; 
+            if ("a".equals(key) || "s".equals(key) || "w".equals(key) || "d".equals(key)) {
+                movement(this);
+            }
         }
     }
 }
