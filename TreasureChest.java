@@ -37,7 +37,7 @@ public class TreasureChest extends Actor {
         Random random = new Random();
         int gridWidth = grid[0].length;
         int gridHeight = grid.length;
-
+        boolean chestPlaced = false;
         if (random.nextInt(2) == 0) 
         {
             for (int i = 0; i < 10; i++) 
@@ -58,9 +58,10 @@ public class TreasureChest extends Actor {
                 chestPlaced = true;
             }
         }
-
+    }
         return false;
     }
+
     public void loot(Class<?> Player) {
 
         Random random = new Random();
