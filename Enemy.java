@@ -3,29 +3,24 @@ import java.util.List;
 import greenfoot.*;
 
 public class Enemy extends Actor implements Lifeform {
-    private boolean keyHeld = false;
-    private boolean defeated=false;
-    String key = Greenfoot.getKey();
-    boolean isPlayerMoved = key != null;
+    public boolean keyHeld=Player.keyHeld;
 
-    public Enemy(){
+    private boolean defeated; 
 
+    public Enemy() {
+        this.defeated = false;
     }
     public void act() {
-        if(keyHeld){
-        key = Greenfoot.getKey();
-        isPlayerMoved = key != null;
-        }
-
-        List<Enemy> enemies = getWorld().getObjects(Enemy.class);
+        //String key = Greenfoot.getKey(); 
+        keyHeld = Player.keyHeld; 
+        encounter(Player.class); 
     
-
-        for (Enemy enemy : enemies) {
-            movement(enemy, keyHeld, isPlayerMoved);  
-            encounter(enemy);  
+        if (!defeated) {
+            //if (key != null && (key.equals("a") || key.equals("s") || key.equals("w") || key.equals("d"))) {
+                eMovement(keyHeld); 
+            //}
         }
     }
-    
     
 
 
@@ -44,10 +39,17 @@ public class Enemy extends Actor implements Lifeform {
     public int getYPosition() {
         return getY();
     }
-    public void encounter(Enemy enemy){
+    public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
             System.out.println("FIGHT STARTED");
             defeated=true;
+        }
+    }
+    public void eMovement(boolean keyHeld) {
+        if (keyHeld) { 
+            //if (key.equals("a") || key.equals("s") || key.equals("w") || key.equals("d")) {
+                movement(this); 
+            //}
         }
     }
 }

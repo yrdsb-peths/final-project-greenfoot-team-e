@@ -4,7 +4,8 @@ import greenfoot.*;
 public class Player extends Actor implements Lifeform {
     private int x=200;
     private int y=200;
-    private boolean keyHeld = false;
+    public static boolean keyHeld = false;
+    Enemy enemy= new Enemy();
 
     public void act() {
         String key = Greenfoot.getKey();

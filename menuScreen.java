@@ -2,7 +2,6 @@ import greenfoot.*;
 
 public class MenuScreen extends World 
 {
-    private Label titleLabel;
     public MenuScreen() {
         super(400,600,1);
         TileWorld tileWorld = new TileWorld();
