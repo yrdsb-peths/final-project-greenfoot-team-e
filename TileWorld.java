@@ -28,7 +28,7 @@ public class TileWorld {
         int worldHeight = world.getHeight();
         int xOffset = (worldWidth - ROOM_WIDTH) / 2 + 30;
         int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) - 80;
-
+   
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
                 grid[y][x] = "Floor";
@@ -72,6 +72,7 @@ public class TileWorld {
 
         placeDoorsWithGap(world, xOffset, yOffset);
         TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
