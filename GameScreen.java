@@ -3,7 +3,7 @@ import java.util.Random;
 import greenfoot.*;
 
 public class GameScreen extends World {
-    private static final int NUM_ENEMIES = 2;
+    private static final int NUM_ENEMIES = 1;
     private Random random= new Random();
     private long seed;
     public GameScreen() {
