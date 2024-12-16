@@ -8,3 +8,9 @@ SwdT2
 ArmT3
 SwdT1
 ArmT3
+ArmT2
+ArmT3
+ArmT1
+SwdT3
+SwdT1
+ArmT2

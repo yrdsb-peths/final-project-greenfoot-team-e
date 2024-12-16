@@ -13,16 +13,14 @@ public class TreasureChest extends Actor {
     }
     public TreasureChest(World world)
     {
-        randomNum = Greenfoot.getRandomNumber(100);
-        if (randomNum >= 1 && randomNum <= 60) {
-            setImage("images/ChestCoC.png");
-        } else if (randomNum >= 61 && randomNum <= 90) {
+        randomNum = Greenfoot.getRandomNumber(50);
+        if (randomNum == 21 || randomNum == 24) {
             setImage("images/ChestLeC.png");
-        } else if (randomNum == 6 || randomNum == 24) {
+        } else if (randomNum >= 30 && randomNum <= 40) {
             setImage("images/ChestRaC.png");
-        } else {
-            world.removeObject(this); 
-        }
+        } else if (randomNum >= 0 && randomNum <= 50) {
+            setImage("images/ChestCoC.png");
+        } 
     }
 
 
@@ -31,10 +29,11 @@ public class TreasureChest extends Actor {
         Random random = new Random();
         int gridWidth = grid[0].length;
         int gridHeight = grid.length;
-        int maxChests = 1; 
-        int placedChests = 0;
 
-        while (placedChests < maxChests) {
+        if (random.nextInt(100) < 50) { 
+        }
+
+        for (int i = 0; i < 10; i++) { 
             int x = random.nextInt(gridWidth);
             int y = random.nextInt(gridHeight);
 
@@ -44,15 +43,17 @@ public class TreasureChest extends Actor {
                 int pixelX = xOffset + x * TILE_WIDTH;
                 int pixelY = yOffset + y * TILE_HEIGHT;
 
-                world.addObject(new TreasureChest(world), pixelX, pixelY);
+                TreasureChest chest = new TreasureChest(world);
 
-                placedChests++;
-                return true; 
+                if (chest.getImage() != null) { 
+                    world.addObject(chest, pixelX, pixelY);
+                    return true; 
+                }
             }
         }
-
         return false; 
     }
+
 
 
     public void loot(Class<?> Player) {
