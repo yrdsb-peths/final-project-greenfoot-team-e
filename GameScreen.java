@@ -26,4 +26,8 @@ public class GameScreen extends World {
             addObject(enemy, x, y); // Add the enemy to the world at the random position
         }
     }
+
+    public void helpButton(){
+        
+    }
 }
