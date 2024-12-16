@@ -4,10 +4,11 @@ import greenfoot.*;
 public class Player extends Actor implements Lifeform {
     private int x=200;
     private int y=200;
-    private boolean keyHeld = false;
+    public static boolean keyHeld = false;
+    public static String key;
 
     public void act() {
-        String key = Greenfoot.getKey();
+        key = Greenfoot.getKey();
         if (key != null && !keyHeld) {
             keyHeld = true;
             movePlayer(key);
