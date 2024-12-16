@@ -4,10 +4,11 @@ import greenfoot.*;
 
 public class GameScreen extends World {
     private static final int NUM_ENEMIES = 2;
-    private Random random;
+    private Random random= new Random();
+    private long seed;
     public GameScreen() {
         super(400, 600, 1); 
-        long seed = random.nextLong(); 
+        seed = random.nextLong(); 
         TileWorld tileWorld = new TileWorld(seed);
         tileWorld.generateRoomIn(this);
         createRandomEnemies(NUM_ENEMIES);
