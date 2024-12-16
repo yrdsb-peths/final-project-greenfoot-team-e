@@ -1,19 +1,20 @@
-import java.util.Random;
-
 import greenfoot.*;
 
 public class GameScreen extends World {
-    private static final int NUM_ENEMIES = 2;
-    private Random random;
+    private static final int NUM_ENEMIES = 5;
     public GameScreen() {
         super(400, 600, 1); 
-        long seed = random.nextLong(); 
-        TileWorld tileWorld = new TileWorld(seed);
+
+        TileWorld tileWorld = new TileWorld();
         tileWorld.generateRoomIn(this);
-        createRandomEnemies(NUM_ENEMIES);
+
+        Enemy enemy = new Enemy();
         Player player = new Player();
         addObject(player, 200, 200);
-        
+        addObject(enemy, Math.max(10, Greenfoot.getRandomNumber(370)), Math.max(10, Greenfoot.getRandomNumber(370)));
+
+
+        //createRandomEnemies(NUM_ENEMIES);
     }
 
     // Method to create enemies at random positions
