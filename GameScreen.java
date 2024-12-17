@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Random;
 
 import greenfoot.*;
@@ -14,7 +15,11 @@ public class GameScreen extends World {
         createRandomEnemies(NUM_ENEMIES);
         Player player = new Player();
         addObject(player, 200, 200);
-        
+        try {
+            ScannerClass.clearFile("Inventory.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Method to create enemies at random positions
