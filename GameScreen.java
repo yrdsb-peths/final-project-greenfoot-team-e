@@ -6,20 +6,36 @@ import greenfoot.*;
 public class GameScreen extends World {
     private static final int NUM_ENEMIES = 1;
     private Random random= new Random();
-    private long seed;
+    private long seed1= random.nextLong();
+    private long seed2= random.nextLong();
+    private long seed3= random.nextLong();
+
+    public static int level=1;
     public GameScreen() {
         super(400, 600, 1); 
-        seed = random.nextLong(); 
-        TileWorld tileWorld = new TileWorld(seed);
-        tileWorld.generateRoomIn(this);
+        level=1;
+        if(level==1){ 
+            TileWorld tileWorld = new TileWorld(seed1);
+            tileWorld.generateRoomIn(this);
+            try {
+                ScannerClass.clearFile("Inventory.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }else if(level==2){
+            TileWorld tileWorld = new TileWorld(seed2);
+            tileWorld.generateRoomIn(this);
+
+        }else if(level==3){
+            TileWorld tileWorld = new TileWorld(seed3);
+            tileWorld.generateRoomIn(this);
+        }else{
+
+        }
         createRandomEnemies(NUM_ENEMIES);
         Player player = new Player();
         addObject(player, 200, 200);
-        try {
-            ScannerClass.clearFile("Inventory.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     // Method to create enemies at random positions
