@@ -16,7 +16,7 @@ public class TileWorld {
     private Random random;
     private TraderSpawner traderSpawner;
 
-    // New variables to store door positions
+    //door position variables
     private int door1X = -1;
     private int door1Y = -1;
     private int door2X = -1;
@@ -104,14 +104,30 @@ public class TileWorld {
 
     private boolean placeDoorOnWall(World world, List<Integer> doorPositions, int xOffset, int yOffset, int wallYPosition) {
         boolean placed = false;
-
+    
         while (doorPositions.size() < 2) {
             int x = random.nextInt(gridWidth - 2) + 1;
             if (x > 1 && !doorPositions.contains(x) && !doorPositions.contains(x - 1) && !doorPositions.contains(x + 1)) {
                 doorPositions.add(x);
-
+    
+                // Calculate the door's exact position
+                int doorX = xOffset + x * TILE_WIDTH;
+                int doorY = yOffset;
+    
+                // Remove any existing "Wall" object at this position
+                List<Actor> objectsAtLocation = world.getObjectsAt(doorX, doorY, Actor.class);
+                for (Actor obj : objectsAtLocation) {
+                    if (obj instanceof Wall) {
+                        Wall wall = (Wall) obj;
+                        if (wall.getImage().toString().toLowerCase().contains("wall")) {
+                            world.removeObject(wall);
+                        }
+                    }
+                }
+    
+                // Add the door object
                 if (wallYPosition == 0) {
-                    world.addObject(new Door("WallDTC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                    world.addObject(new Door("WallDTC.png"), doorX, doorY);
                     if (door1X == -1) { // First door position
                         door1X = x;
                         door1Y = wallYPosition;
@@ -120,7 +136,7 @@ public class TileWorld {
                         door2Y = wallYPosition;
                     }
                 } else {
-                    world.addObject(new Door("WallDBC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                    world.addObject(new Door("WallDBC.png"), doorX, doorY);
                     if (door1X == -1) { // First door position
                         door1X = x;
                         door1Y = wallYPosition;
@@ -132,9 +148,10 @@ public class TileWorld {
                 placed = true;
             }
         }
-
+    
         return placed;
     }
+    
 
     public int[] getDoor1Position() {
         return new int[]{door1X, door1Y};
