@@ -22,10 +22,10 @@ public class Player extends Actor implements Lifeform {
         int y = getY();
 
         switch (key) {
-            case "a" -> x = Math.max(x - 20, 10);
-            case "d" -> x = Math.min(x + 20, 390);
-            case "w" -> y = Math.max(y - 20, 10);
-            case "s" -> y = Math.min(y + 20, 390);
+            case "a" -> x = Math.max(x - 31, 10);
+            case "d" -> x = Math.min(x + 31, 390);
+            case "w" -> y = Math.max(y - 32, 10);
+            case "s" -> y = Math.min(y + 32, 390);
         }
 
         updatePosition(x, y);

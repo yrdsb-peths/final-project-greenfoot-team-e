@@ -4,21 +4,27 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TileWorld {
-private static final int TILE_WIDTH = 31;
-private static final int TILE_HEIGHT = 32;
-public static final int ROOM_WIDTH = 400;
-public static final int ROOM_HEIGHT = 400;
+    private static final int TILE_WIDTH = 31;
+    private static final int TILE_HEIGHT = 32;
+    public static final int ROOM_WIDTH = 400;
+    public static final int ROOM_HEIGHT = 400;
 
-private int gridWidth;
-private int gridHeight;
-private String[][] grid;
-private long seed;
-private Random random;
-private TraderSpawner traderSpawner;
+    private int gridWidth;
+    private int gridHeight;
+    private String[][] grid;
+    private long seed;
+    private Random random;
+    private TraderSpawner traderSpawner;
+
+    // New variables to store door positions
+    private int door1X = -1;
+    private int door1Y = -1;
+    private int door2X = -1;
+    private int door2Y = -1;
 
     public TileWorld(long seed) {
         this.seed = seed;
-        this.random = new Random(seed); 
+        this.random = new Random(seed);
         gridWidth = ROOM_WIDTH / TILE_WIDTH;
         gridHeight = ROOM_HEIGHT / TILE_HEIGHT;
         grid = new String[gridHeight][gridWidth];
@@ -29,7 +35,7 @@ private TraderSpawner traderSpawner;
         int worldHeight = world.getHeight();
         int xOffset = (worldWidth - ROOM_WIDTH) / 2 + 30;
         int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) - 80;
-   
+
         Random random = new Random();
 
         // Generate floor tiles first
@@ -103,15 +109,38 @@ private TraderSpawner traderSpawner;
             int x = random.nextInt(gridWidth - 2) + 1;
             if (x > 1 && !doorPositions.contains(x) && !doorPositions.contains(x - 1) && !doorPositions.contains(x + 1)) {
                 doorPositions.add(x);
+
                 if (wallYPosition == 0) {
                     world.addObject(new Door("WallDTC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                    if (door1X == -1) { // First door position
+                        door1X = x;
+                        door1Y = wallYPosition;
+                    } else { // Second door position
+                        door2X = x;
+                        door2Y = wallYPosition;
+                    }
                 } else {
                     world.addObject(new Door("WallDBC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                    if (door1X == -1) { // First door position
+                        door1X = x;
+                        door1Y = wallYPosition;
+                    } else { // Second door position
+                        door2X = x;
+                        door2Y = wallYPosition;
+                    }
                 }
                 placed = true;
             }
         }
 
         return placed;
+    }
+
+    public int[] getDoor1Position() {
+        return new int[]{door1X, door1Y};
+    }
+
+    public int[] getDoor2Position() {
+        return new int[]{door2X, door2Y};
     }
 }

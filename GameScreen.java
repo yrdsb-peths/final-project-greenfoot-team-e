@@ -13,8 +13,14 @@ public class GameScreen extends World {
         tileWorld.generateRoomIn(this);
         createRandomEnemies(NUM_ENEMIES);
         Player player = new Player();
-        addObject(player, 200, 200);
-        
+        int[] door1 = tileWorld.getDoor1Position();
+        if (door1[1] == 0) {
+            addObject(player, door1[0], door1[1] - 31);
+        }
+        else{
+            addObject(player, door1[0], door1[1] + 31);
+        }
+        System.out.println(door1[1]);
     }
 
     // Method to create enemies at random positions
