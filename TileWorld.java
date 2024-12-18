@@ -129,8 +129,8 @@ public class TileWorld {
                 if (wallYPosition == 0) {
                     world.addObject(new Door("WallDTC.png"), doorX, doorY);
                     if (door1X == -1) { // First door position
-                        door1X = x;
-                        door1Y = wallYPosition;
+                        door1X = x * 31;
+                        door1Y = wallYPosition * 32;
                     } else { // Second door position
                         door2X = x;
                         door2Y = wallYPosition;
