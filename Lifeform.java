@@ -1,4 +1,4 @@
-import greenfoot.Actor;
+
 import greenfoot.Greenfoot;
 
 public interface Lifeform {
@@ -22,20 +22,6 @@ public interface Lifeform {
             if (newX != x || newY != y) {
                 lifeform.updatePosition(newX, newY);
             }
-    }
-    
-    default boolean isTouchingWall() {
-        if (this instanceof Actor actor) {
-            for (Object obj : actor.getIntersectingObjects(Actor.class)) {
-                if (obj instanceof Actor otherActor) {
-                    String imageName = otherActor.getImage().toString().toLowerCase();
-                    if (imageName.contains("wall")) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     void updatePosition(int newX, int newY);
