@@ -3,6 +3,7 @@ import java.util.Random;
 import greenfoot.*;
 
 public class GameScreen extends World {
+    GreenfootImage helpImage = new GreenfootImage("Help-Image.png");
     private static final int NUM_ENEMIES = 2;
     private Random random;
     public GameScreen() {
@@ -13,7 +14,7 @@ public class GameScreen extends World {
         createRandomEnemies(NUM_ENEMIES);
         Player player = new Player();
         addObject(player, 200, 200);
-        
+        addObject(new Button(this::helpButton, "help-button.png",114, 56), 200, 350);
     }
 
     // Method to create enemies at random positions
@@ -28,6 +29,6 @@ public class GameScreen extends World {
     }
 
     public void helpButton(){
-        
+        setImage(helpImage);
     }
 }
