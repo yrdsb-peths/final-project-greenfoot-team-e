@@ -7,6 +7,7 @@ public class MenuScreen extends World
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png",114, 56), 200, 350);
         Label titleLabel = new Label("Lurking Below", 40);
         addObject(titleLabel, 200, 175);
+        GameStateManager.currentLevel=1;
     }
 
     public void goToGameScreen() 

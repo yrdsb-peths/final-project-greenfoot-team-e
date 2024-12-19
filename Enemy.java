@@ -41,6 +41,7 @@ public class Enemy extends Actor implements Lifeform {
     public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
             System.out.println("FIGHT STARTED");
+            Greenfoot.setWorld(new CombatScreen());
             defeated=true;
         }
     }

@@ -1,37 +1,41 @@
 import greenfoot.*;
 
 public class Door extends Actor {
-    private static int nextDoorType = 0; // Shared counter for all Door instances
-    private int doorType;               // Unique type for each Door
+    private int doorType; // 0 for entrance, 1 for exit
     private boolean interacted = false;
-    public Door(String imageFile) {
+
+    public Door(String imageFile, int type) {
         setImage(imageFile);
-        this.doorType = nextDoorType; // Assign the current value of nextDoorType
-        nextDoorType++;               // Increment for the next Door
+        this.doorType = type; // Set type via constructor
     }
 
     public void act() {
         if (!interacted) {
             if (doorType == 1) {
-                Exit(Player.class); // Exit logic
+                Exit(Player.class);
             } else {
-                Entrance(Player.class); // Entrance logic
+                Entrance(Player.class);
             }
         }
     }
 
     public void Exit(Class<?> playerClass) {
         if (this.isTouching(playerClass)) {
-            // GameScreen.level++; // Uncomment if GameScreen is implemented
             System.out.println("Exit");
-            interacted = true; 
+            interacted = true;
+
+            // Update game state and load the next level
+            GameStateManager.currentLevel++;
+            Greenfoot.setWorld(new GameScreen());
         }
     }
+
     public void Entrance(Class<?> playerClass) {
         if (this.isTouching(playerClass)) {
-            // GameScreen.level++; // Uncomment if GameScreen is implemented
             System.out.println("Entrance");
-            interacted = true; 
+            interacted = true;
+
+            // Define behavior for entrances if needed
         }
     }
 }

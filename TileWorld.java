@@ -18,7 +18,7 @@ private TraderSpawner traderSpawner;
 
     public TileWorld(long seed) {
         this.seed = seed;
-        this.random = new Random(seed); 
+        this.random = new Random(seed);
         gridWidth = ROOM_WIDTH / TILE_WIDTH;
         gridHeight = ROOM_HEIGHT / TILE_HEIGHT;
         grid = new String[gridHeight][gridWidth];
@@ -30,7 +30,7 @@ private TraderSpawner traderSpawner;
         int xOffset = (worldWidth - ROOM_WIDTH) / 2 + 30;
         int yOffset = ((worldHeight - ROOM_HEIGHT) / 2) - 80;
    
-        Random random = new Random();
+        Random random = new Random(seed);
 
         // Generate floor tiles first
         for (int y = 0; y < gridHeight; y++) {
@@ -104,14 +104,24 @@ private TraderSpawner traderSpawner;
             if (x > 1 && !doorPositions.contains(x) && !doorPositions.contains(x - 1) && !doorPositions.contains(x + 1)) {
                 doorPositions.add(x);
                 if (wallYPosition == 0) {
-                    world.addObject(new Door("WallDTC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                        if(doorPositions.size()==1){
+                            world.addObject(new Door("WallDTO.png", 1), xOffset + x * TILE_WIDTH, yOffset);
+                        }else{ 
+                            world.addObject(new Door("WallDTC.png", 0), xOffset + x * TILE_WIDTH, yOffset);
+                        }
                 } else {
-                    world.addObject(new Door("WallDBC.png"), xOffset + x * TILE_WIDTH, yOffset);
+                    if(doorPositions.size()==1){
+                        world.addObject(new Door("WallDBO.png",1), xOffset + x * TILE_WIDTH, yOffset);
+                    }else{
+                        world.addObject(new Door("WallDBC.png",0), xOffset + x * TILE_WIDTH, yOffset);
+                    }
                 }
                 placed = true;
             }
         }
-
         return placed;
     }
+
 }
+
+

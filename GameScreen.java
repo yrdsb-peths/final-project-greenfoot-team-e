@@ -1,51 +1,87 @@
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import greenfoot.*;
+import greenfoot.Greenfoot;
+import greenfoot.World;
 
 public class GameScreen extends World {
     private static final int NUM_ENEMIES = 1;
-    private Random random= new Random();
-    private long seed1= random.nextLong();
-    private long seed2= random.nextLong();
-    private long seed3= random.nextLong();
+    private Player player;
 
-    public static int level=1;
     public GameScreen() {
-        super(400, 600, 1); 
-        level=1;
-        if(level==1){ 
-            TileWorld tileWorld = new TileWorld(seed1);
-            tileWorld.generateRoomIn(this);
-            try {
-                ScannerClass.clearFile("Inventory.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        super(400, 600, 1);
 
-        }else if(level==2){
-            TileWorld tileWorld = new TileWorld(seed2);
-            tileWorld.generateRoomIn(this);
-
-        }else if(level==3){
-            TileWorld tileWorld = new TileWorld(seed3);
-            tileWorld.generateRoomIn(this);
-        }else{
-
+        // Check if this is the first initialization
+        if (GameStateManager.levelSeeds.isEmpty()) {
+            initializeSeeds();
         }
-        createRandomEnemies(NUM_ENEMIES);
-        Player player = new Player();
-        addObject(player, 200, 200);
+
+        // Restore level and player state
+        initializeLevel();
     }
 
-    // Method to create enemies at random positions
+    private void initializeSeeds() {
+        Random random = new Random();
+        GameStateManager.levelSeeds.put(1, random.nextLong());
+        GameStateManager.levelSeeds.put(2, random.nextLong());
+        GameStateManager.levelSeeds.put(3, random.nextLong());
+    }
+
+    private void initializeLevel() {
+        if (GameStateManager.currentLevel == 0) {
+            GameStateManager.currentLevel = 1; // Default to level 1 if not set
+        }
+        loadLevel(GameStateManager.currentLevel);
+
+        // Restore or create the player
+        if (GameStateManager.playerX == 0 && GameStateManager.playerY == 0) {
+            GameStateManager.playerX = getWidth() / 2;
+            GameStateManager.playerY = getHeight() / 2;
+        }
+        player = new Player();
+        addObject(player, GameStateManager.playerX, GameStateManager.playerY);
+    }
+
+    private void loadLevel(int levelToLoad) {
+        Long seed = GameStateManager.levelSeeds.get(levelToLoad);
+        if (seed == null) {
+            System.err.println("Level not found: " + levelToLoad);
+            return;
+        }
+
+        removeObjects(getObjects(null));
+        TileWorld tileWorld = new TileWorld(seed);
+        tileWorld.generateRoomIn(this);
+
+        createRandomEnemies(NUM_ENEMIES);
+    }
+
+    public void changeLevel(int newLevel) {
+        if (GameStateManager.levelSeeds.containsKey(newLevel)) {
+            saveGameState();
+            GameStateManager.currentLevel = newLevel;
+            loadLevel(newLevel);
+        }
+    }
+
+    private void saveGameState() {
+        GameStateManager.playerX = player.getX();
+        GameStateManager.playerY = player.getY();
+    }
+
     public void createRandomEnemies(int numEnemies) {
         for (int i = 0; i < numEnemies; i++) {
-            int x = Greenfoot.getRandomNumber(370); // Random x within world width
-            int y = Greenfoot.getRandomNumber(370); // Random y within world height
-            
-            Enemy enemy = new Enemy(); // Create a new enemy instance
-            addObject(enemy, x, y); // Add the enemy to the world at the random position
+            int x = Greenfoot.getRandomNumber(getWidth() - 30);
+            int y = Greenfoot.getRandomNumber(getHeight() - 30);
+            Enemy enemy = new Enemy();
+            addObject(enemy, x, y);
         }
+    }
+
+    private Player getPlayer() {
+        List<Player> players = getObjects(Player.class);
+        return players.isEmpty() ? null : players.get(0);
     }
 }
