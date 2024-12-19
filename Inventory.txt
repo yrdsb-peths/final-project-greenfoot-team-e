@@ -14,3 +14,8 @@ ArmT1
 SwdT3
 SwdT1
 ArmT2
+SwdT3
+ArmT3
+ArmT1
+ArmT3
+SwdT3

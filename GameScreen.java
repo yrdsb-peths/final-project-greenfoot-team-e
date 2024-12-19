@@ -15,22 +15,21 @@ public class GameScreen extends World {
         Player player = new Player();
         int[] door1 = tileWorld.getDoor1Position();
         if (door1[1] == 0) {
-            addObject(player, door1[0], door1[1] - 31);
+            addObject(player, door1[0] + 29, door1[1] + 20);
         }
         else{
-            addObject(player, door1[0], door1[1] + 31);
+            addObject(player, door1[0] + 30, door1[1] + 17);
         }
-        System.out.println(door1[1]);
     }
 
     // Method to create enemies at random positions
     public void createRandomEnemies(int numEnemies) {
         for (int i = 0; i < numEnemies; i++) {
-            int x = Greenfoot.getRandomNumber(370); // Random x within world width
-            int y = Greenfoot.getRandomNumber(370); // Random y within world height
+            int x = Greenfoot.getRandomNumber(11); // Random x within world width
+            int y = Greenfoot.getRandomNumber(11); // Random y within world height
             
             Enemy enemy = new Enemy(); // Create a new enemy instance
-            addObject(enemy, x, y); // Add the enemy to the world at the random position
+            addObject(enemy, 30 + (x * 31), 20 + (y * 32)); // Add the enemy to the world at the random position
         }
     }
 }
