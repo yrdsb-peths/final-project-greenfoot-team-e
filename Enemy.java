@@ -20,15 +20,7 @@ public class Enemy extends Actor implements Lifeform {
         
         
     }
-    public boolean isTouchingWall() 
-    {
-        Actor intersectingActor = getOneIntersectingObject(Actor.class);
-        if (intersectingActor != null) {
-            String imageName = intersectingActor.getImage().toString().toLowerCase();
-            return imageName.contains("Wall");
-        }
-        return false;
-    }
+    
 
 
 

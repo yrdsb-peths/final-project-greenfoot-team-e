@@ -20,8 +20,6 @@ public class Player extends Actor implements Lifeform {
     private void movePlayer(String key) {
         int x = getX();
         int y = getY();
-        int oldX = getX();
-        int oldY = getY();
 
         switch (key) {
             case "a" -> x = Math.max(x - 31, 30);
@@ -31,24 +29,8 @@ public class Player extends Actor implements Lifeform {
         }
 
         updatePosition(x, y);
-        
-        if(isTouchingWall())
-        {
-            updatePosition(oldX, oldY);
-        }
-        
     }
-    
-    public boolean isTouchingWall() 
-    {
-        Actor intersectingActor = getOneIntersectingObject(Actor.class);
-        if (intersectingActor != null) {
-            String imageName = intersectingActor.getImage().toString().toLowerCase();
-            return imageName.contains("Wall");
-        }
-        return false;
-    }
-    
+
     @Override
     public void updatePosition(int newX, int newY) {
         x = newX;
