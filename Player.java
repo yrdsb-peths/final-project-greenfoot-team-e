@@ -23,8 +23,8 @@ public class Player extends Actor implements Lifeform {
 
         switch (key) {
             case "a" -> x = Math.max(x - 31, 30);
-            case "d" -> x = Math.min(x + 31, 340);
-            case "w" -> y = Math.max(y - 32, 20);
+            case "d" -> x = Math.min(x + 31, 372);
+            case "w" -> y = Math.max(y - 32, 52);
             case "s" -> y = Math.min(y + 32, 340);
         }
 
