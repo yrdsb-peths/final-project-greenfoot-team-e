@@ -145,21 +145,12 @@ public class TileWorld {
                         door2X = x;
                         door2Y = wallYPosition;
                     }
-                    if (door1X == -1) { // First door position
-                        door1X = x * 31;
-                        door1Y = wallYPosition * 32;
-                    } else { // Second door position
-                        door2X = x;
-                        door2Y = wallYPosition;
-                    }
-                    
-                }
                 placed = true;
             }
         }
-    
-        return placed;
     }
+    return placed;
+}
     
 
     public int[] getDoor1Position() {

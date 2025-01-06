@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import greenfoot.Greenfoot;
@@ -44,12 +41,12 @@ public class GameScreen extends World {
             int[] door1 = tileWorld.getDoor1Position();
             if (door1 != null) {
                 if (door1[1] == 0) {
-                    addObject(player, door1[0] + 29, door1[1] + 20);
+                    addObject(player, door1[0] + 30, door1[1] + 24);
                 } else {
-                    addObject(player, door1[0] + 30, door1[1] + 17);
+                    addObject(player, door1[0] + 30, door1[1] + 21);
                 }
             } else {
-                addObject(player, getWidth() / 2, getHeight() / 2); // Fallback to center
+                addObject(player, 30, 52); // Fallback to center
             }
         } else {
             addObject(player, GameStateManager.playerX, GameStateManager.playerY);
@@ -100,11 +97,5 @@ public class GameScreen extends World {
             Enemy enemy = new Enemy();
             addObject(enemy, x, y);
         }
-    }
-    
-
-    private Player getPlayer() {
-        List<Player> players = getObjects(Player.class);
-        return players.isEmpty() ? null : players.get(0);
     }
 }

@@ -12,17 +12,23 @@ public class TreasureChest extends Actor {
         loot(Player.class);
     }
     public TreasureChest(World world)
-    {
+    {   
+        if(GameStateManager.treasureType==null){
         randomNum = Greenfoot.getRandomNumber(50);
         if (randomNum == 21 || randomNum == 24) {
             setImage("images/ChestLeC.png");
+            GameStateManager.treasureType="images/ChestLeC.png";
         } else if (randomNum >= 30 && randomNum <= 40) {
             setImage("images/ChestRaC.png");
+            GameStateManager.treasureType="images/ChestRaC.png";
         } else if (randomNum >= 0 && randomNum <= 50) {
             setImage("images/ChestCoC.png");
+            GameStateManager.treasureType="images/ChestCoC.png";
         } 
+    }else{
+        setImage(GameStateManager.treasureType);
     }
-
+}
 
     public static boolean spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
     {
@@ -73,7 +79,8 @@ public class TreasureChest extends Actor {
             }
         }
     }
-
 }
+
+
 
 
