@@ -4,23 +4,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class TileWorld {
-    private static final int TILE_WIDTH = 31;
-    private static final int TILE_HEIGHT = 32;
-    public static final int ROOM_WIDTH = 400;
-    public static final int ROOM_HEIGHT = 400;
+private static final int TILE_WIDTH = 31;
+private static final int TILE_HEIGHT = 32;
+public static final int ROOM_WIDTH = 400;
+public static final int ROOM_HEIGHT = 400;
 
-    private int gridWidth;
-    private int gridHeight;
-    private String[][] grid;
-    private long seed;
-    private Random random;
-    private TraderSpawner traderSpawner;
-
-    //door position variables
-    private int door1X = -1;
-    private int door1Y = -1;
-    private int door2X = -1;
-    private int door2Y = -1;
+private int gridWidth;
+private int gridHeight;
+private String[][] grid;
+private long seed;
+private Random random;
+private TraderSpawner traderSpawner;
 
     public TileWorld(long seed) {
         this.seed = seed;
@@ -104,28 +98,11 @@ public class TileWorld {
 
     private boolean placeDoorOnWall(World world, List<Integer> doorPositions, int xOffset, int yOffset, int wallYPosition) {
         boolean placed = false;
-    
+
         while (doorPositions.size() < 2) {
             int x = random.nextInt(gridWidth - 2) + 1;
             if (x > 1 && !doorPositions.contains(x) && !doorPositions.contains(x - 1) && !doorPositions.contains(x + 1)) {
                 doorPositions.add(x);
-    
-                // Calculate the door's exact position
-                int doorX = xOffset + x * TILE_WIDTH;
-                int doorY = yOffset;
-    
-                // Remove any existing "Wall" object at this position
-                List<Actor> objectsAtLocation = world.getObjectsAt(doorX, doorY, Actor.class);
-                for (Actor obj : objectsAtLocation) {
-                    if (obj instanceof Wall) {
-                        Wall wall = (Wall) obj;
-                        if (wall.getImage().toString().toLowerCase().contains("wall")) {
-                            world.removeObject(wall);
-                        }
-                    }
-                }
-    
-                // Add the door object
                 if (wallYPosition == 0) {
                         if(doorPositions.size()==1){
                             world.addObject(new Door("WallDTO.png", 1), xOffset + x * TILE_WIDTH, yOffset);
@@ -138,37 +115,13 @@ public class TileWorld {
                     }else{
                         world.addObject(new Door("WallDBC.png",0), xOffset + x * TILE_WIDTH, yOffset);
                     }
-                    if (door1X == -1) { // First door position
-                        door1X = x * 31;
-                        door1Y = wallYPosition * 32;
-                    } else { // Second door position
-                        door2X = x;
-                        door2Y = wallYPosition;
-                    }
-                    if (door1X == -1) { // First door position
-                        door1X = x * 31;
-                        door1Y = wallYPosition * 32;
-                    } else { // Second door position
-                        door2X = x;
-                        door2Y = wallYPosition;
-                    }
-                    
                 }
                 placed = true;
             }
         }
-    
         return placed;
     }
-    
 
-    public int[] getDoor1Position() {
-        return new int[]{door1X, door1Y};
-    }
-
-    public int[] getDoor2Position() {
-        return new int[]{door2X, door2Y};
-    }
 }
 
 
