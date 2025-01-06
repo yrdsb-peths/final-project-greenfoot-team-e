@@ -29,6 +29,6 @@ public class GameScreen extends World {
     }
 
     public void helpButton(){
-        setImage(helpImage);
+        world.addObject(helpImage, 200, 200);
     }
 }
