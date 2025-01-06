@@ -1,5 +1,3 @@
-import java.util.List;
-
 import greenfoot.*;
 
 public class Enemy extends Actor implements Lifeform {
@@ -21,8 +19,6 @@ public class Enemy extends Actor implements Lifeform {
         
     }
     
-
-
 
     @Override
     public void updatePosition(int newX, int newY) {

@@ -9,16 +9,15 @@ import greenfoot.World;
 public class GameScreen extends World {
     private static final int NUM_ENEMIES = 1;
     private Player player;
+    private TileWorld tileWorld; // Field for reuse across methods
 
     public GameScreen() {
         super(400, 600, 1);
 
-        // Check if this is the first initialization
         if (GameStateManager.levelSeeds.isEmpty()) {
             initializeSeeds();
         }
 
-        // Restore level and player state
         initializeLevel();
     }
 
@@ -31,17 +30,30 @@ public class GameScreen extends World {
 
     private void initializeLevel() {
         if (GameStateManager.currentLevel == 0) {
-            GameStateManager.currentLevel = 1; // Default to level 1 if not set
+            GameStateManager.currentLevel = 1; // Default to level 1
         }
+
+        // Create the player
+        player = new Player();
+
+        // Load the current level
         loadLevel(GameStateManager.currentLevel);
 
-        // Restore or create the player
+        // Place the player at the correct position
         if (GameStateManager.playerX == 0 && GameStateManager.playerY == 0) {
-            GameStateManager.playerX = getWidth() / 2;
-            GameStateManager.playerY = getHeight() / 2;
+            int[] door1 = tileWorld.getDoor1Position();
+            if (door1 != null) {
+                if (door1[1] == 0) {
+                    addObject(player, door1[0] + 29, door1[1] + 20);
+                } else {
+                    addObject(player, door1[0] + 30, door1[1] + 17);
+                }
+            } else {
+                addObject(player, getWidth() / 2, getHeight() / 2); // Fallback to center
+            }
+        } else {
+            addObject(player, GameStateManager.playerX, GameStateManager.playerY);
         }
-        player = new Player();
-        addObject(player, GameStateManager.playerX, GameStateManager.playerY);
     }
 
     private void loadLevel(int levelToLoad) {
@@ -52,7 +64,7 @@ public class GameScreen extends World {
         }
 
         removeObjects(getObjects(null));
-        TileWorld tileWorld = new TileWorld(seed);
+        tileWorld = new TileWorld(seed); // Initialize tileWorld
         tileWorld.generateRoomIn(this);
 
         createRandomEnemies(NUM_ENEMIES);
@@ -72,13 +84,24 @@ public class GameScreen extends World {
     }
 
     public void createRandomEnemies(int numEnemies) {
+        int tileRows = 11; // Number of rows in the tile grid
+        int tileCols = 11; // Number of columns in the tile grid
+        int tileWidth = 31; // Width of a single tile
+        int tileHeight = 32; // Height of a single tile
+    
         for (int i = 0; i < numEnemies; i++) {
-            int x = Greenfoot.getRandomNumber(getWidth() - 30);
-            int y = Greenfoot.getRandomNumber(getHeight() - 30);
+            int randomRow = Greenfoot.getRandomNumber(tileRows);
+            int randomCol = Greenfoot.getRandomNumber(tileCols);
+    
+            // Calculate the pixel coordinates for the center of the tile
+            int x = (randomCol * tileWidth) + (tileWidth / 2);
+            int y = (randomRow * tileHeight) + (tileHeight / 2);
+    
             Enemy enemy = new Enemy();
             addObject(enemy, x, y);
         }
     }
+    
 
     private Player getPlayer() {
         List<Player> players = getObjects(Player.class);
