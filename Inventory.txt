@@ -1,7 +1,0 @@
-SwdT3
-ArmT3
-SwdT2
-SwdT1
-SwdT2
-SwdT1
-SwdT3
