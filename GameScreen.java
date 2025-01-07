@@ -128,7 +128,7 @@ public class GameScreen extends World {
             int x = (randomCol * tileWidth) + (tileWidth / 2);
             int y = (randomRow * tileHeight) + (tileHeight / 2);
     
-            Enemy enemy = new Enemy();
+            Enemy enemy=EnemyManager.createRandomEnemy();
             addObject(enemy, x, y);
 
             Map<String, Object> data = new HashMap<>();
