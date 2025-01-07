@@ -1,5 +1,4 @@
 import greenfoot.*;
-import java.util.List;
 
 public class Enemy extends Actor implements Lifeform {
     public enum State { IDLE, WALK, ATTACK, HIT, DEATH }
@@ -85,6 +84,8 @@ public class Enemy extends Actor implements Lifeform {
 
     protected String[] getDeathFrames() {
         return new String[0];
+    public boolean isActive(){
+        return defeated;
     }
 
     @Override
