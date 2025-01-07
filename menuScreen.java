@@ -8,6 +8,8 @@ public class MenuScreen extends World
         Label titleLabel = new Label("Lurking Below", 40);
         addObject(titleLabel, 200, 175);
         GameStateManager.currentLevel=1;
+        ScannerClass inventory=new ScannerClass("Inventory.txt");
+        ScannerClass.clearFile("Inventory.txt");
     }
 
     public void goToGameScreen() 
