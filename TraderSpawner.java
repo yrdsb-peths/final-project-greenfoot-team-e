@@ -36,8 +36,16 @@ public class TraderSpawner
                 // Check for valid placement (no walls or chest in the same location)
                 if (world.getObjectsAt(worldX, worldY, Wall.class).isEmpty() &&
                     world.getObjectsAt(worldX, worldY, TreasureChest.class).isEmpty()) {
-                    world.addObject(new Trader(), worldX, worldY);
-                    traderPlaced = true;
+                        if(GameStateManager.traderExists){
+                            world.addObject(new Trader(), GameStateManager.traderX, GameStateManager.traderY);
+                            traderPlaced = true;
+                        }else{
+                            world.addObject(new Trader(), worldX, worldY);
+                            GameStateManager.traderX=worldX;
+                            GameStateManager.traderY=worldY;
+                            GameStateManager.traderExists=true;
+                            traderPlaced = true;
+                        }
                 }
             }
         }

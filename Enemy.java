@@ -1,11 +1,9 @@
-import java.util.List;
-
 import greenfoot.*;
 
 public class Enemy extends Actor implements Lifeform {
     public boolean keyHeld=Player.keyHeld;
 
-    private boolean defeated; 
+    public boolean defeated; 
 
     public Enemy() {
         this.defeated = false;
@@ -17,12 +15,10 @@ public class Enemy extends Actor implements Lifeform {
         if (!defeated) {
             eMovement(keyHeld);
         }
-        
-        
     }
-    
-
-
+    public boolean isActive(){
+        return defeated;
+    }
 
     @Override
     public void updatePosition(int newX, int newY) {
@@ -41,6 +37,7 @@ public class Enemy extends Actor implements Lifeform {
     public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
             System.out.println("FIGHT STARTED");
+            Greenfoot.setWorld(new CombatScreen());
             defeated=true;
         }
     }
