@@ -3,7 +3,7 @@ import java.util.Random;
 import greenfoot.*;
 
 public class GameScreen extends World {
-    GreenfootImage helpImage = new GreenfootImage("Help-Image.png");
+    
     private static final int NUM_ENEMIES = 2;
     private Random random;
     public GameScreen() {
@@ -29,6 +29,6 @@ public class GameScreen extends World {
     }
 
     public void helpButton(){
-        world.addObject(helpImage, 200, 200);
+        addObject(HelpImage, 200, 200);
     }
 }
