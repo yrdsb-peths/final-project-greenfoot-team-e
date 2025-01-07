@@ -84,6 +84,7 @@ public class Enemy extends Actor implements Lifeform {
 
     protected String[] getDeathFrames() {
         return new String[0];
+    }
     public boolean isActive(){
         return defeated;
     }
