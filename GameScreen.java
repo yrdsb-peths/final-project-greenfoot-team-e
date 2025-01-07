@@ -1,12 +1,17 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import greenfoot.Greenfoot;
 import greenfoot.World;
 
 public class GameScreen extends World {
-    private static final int NUM_ENEMIES = 1;
+    private static final int NUM_ENEMIES = 2;
     private Player player;
     private TileWorld tileWorld; // Field for reuse across methods
+    private List<Map<String, Object>> enemyData = new ArrayList<>(); // Store enemy data
 
     public GameScreen() {
         super(400, 600, 1);
@@ -64,7 +69,11 @@ public class GameScreen extends World {
         tileWorld = new TileWorld(seed); // Initialize tileWorld
         tileWorld.generateRoomIn(this);
 
-        createRandomEnemies(NUM_ENEMIES);
+        if (enemyData.isEmpty()) {
+            createRandomEnemies(NUM_ENEMIES);
+        } else {
+            reloadEnemies();
+        }
     }
 
     public void changeLevel(int newLevel) {
@@ -78,6 +87,31 @@ public class GameScreen extends World {
     private void saveGameState() {
         GameStateManager.playerX = player.getX();
         GameStateManager.playerY = player.getY();
+        saveEnemyData();
+    }
+
+    private void saveEnemyData() {
+        enemyData.clear();
+        for (Enemy enemy : getObjects(Enemy.class)) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("x", enemy.getX());
+            data.put("y", enemy.getY());
+            data.put("active", enemy.isActive()); // Assuming Enemy class has an `isActive` method
+            enemyData.add(data);
+        }
+    }
+
+    private void reloadEnemies() {
+        for (Map<String, Object> data : enemyData) {
+            int x = (int) data.get("x");
+            int y = (int) data.get("y");
+            boolean active = (boolean) data.get("active");
+
+            if (active) {
+                Enemy enemy = new Enemy();
+                addObject(enemy, x, y);
+            }
+        }
     }
 
     public void createRandomEnemies(int numEnemies) {
@@ -96,6 +130,12 @@ public class GameScreen extends World {
     
             Enemy enemy = new Enemy();
             addObject(enemy, x, y);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("x", x);
+            data.put("y", y);
+            data.put("active", true); // New enemies start as active
+            enemyData.add(data);
         }
     }
 }

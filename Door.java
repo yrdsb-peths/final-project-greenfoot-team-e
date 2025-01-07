@@ -30,9 +30,9 @@ public class Door extends Actor {
 
     private boolean isPlayerAtDoor() {
         if(doorY>200){
-            return (doorX-1) == GameStateManager.playerX && (doorY + TILE_SIZE) == GameStateManager.playerY;
+            return (doorX) == GameStateManager.playerX && (doorY + TILE_SIZE) == GameStateManager.playerY;
         }else{
-            return (doorX-1) == GameStateManager.playerX && (doorY - TILE_SIZE) == GameStateManager.playerY;
+            return (doorX) == GameStateManager.playerX && (doorY - TILE_SIZE) == GameStateManager.playerY;
         }
     }
 

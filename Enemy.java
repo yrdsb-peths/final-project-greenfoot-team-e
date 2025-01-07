@@ -3,7 +3,7 @@ import greenfoot.*;
 public class Enemy extends Actor implements Lifeform {
     public boolean keyHeld=Player.keyHeld;
 
-    private boolean defeated; 
+    public boolean defeated; 
 
     public Enemy() {
         this.defeated = false;
@@ -15,10 +15,10 @@ public class Enemy extends Actor implements Lifeform {
         if (!defeated) {
             eMovement(keyHeld);
         }
-        
-        
     }
-    
+    public boolean isActive(){
+        return defeated;
+    }
 
     @Override
     public void updatePosition(int newX, int newY) {

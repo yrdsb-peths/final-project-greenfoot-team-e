@@ -2,7 +2,6 @@ import greenfoot.*;
 
 import java.util.List;
 import java.util.Random;
-
 public class TreasureChest extends Actor {
     private static final int TILE_WIDTH = 31;  
     private static final int TILE_HEIGHT = 32;
@@ -51,9 +50,18 @@ public class TreasureChest extends Actor {
 
                 TreasureChest chest = new TreasureChest(world);
 
+
                 if (chest.getImage() != null) { 
-                    world.addObject(chest, pixelX, pixelY);
-                    return true; 
+                    if(GameStateManager.treasureExists){
+                        world.addObject(chest, GameStateManager.treasureChestX, GameStateManager.treasureChestY);
+                        return true;
+                    }else{
+                        world.addObject(chest, pixelX, pixelY);
+                        GameStateManager.treasureChestX=pixelX;
+                        GameStateManager.treasureChestY=pixelY;
+                        GameStateManager.treasureExists=true;
+                        return true; 
+                    }
                 }
             }
         }
@@ -68,13 +76,14 @@ public class TreasureChest extends Actor {
         ScannerClass inventory = new ScannerClass("Inventory.txt");
         ScannerClass items = new ScannerClass("Items.txt");
 
-        if (!isLooted&&this.isTouching(Player)) {
+        if (!GameStateManager.chestLooted&&this.isTouching(Player)) {
             List<String> itemList = items.getWordList();
             if (!itemList.isEmpty()) {
                 int lootGen = random.nextInt(itemList.size());
                 String lootItem = itemList.get(lootGen);
                 inventory.addWord(lootItem);
                 System.out.println("Player looted: " + lootItem);
+                GameStateManager.chestLooted=true;
                 isLooted = true; 
             }
         }
