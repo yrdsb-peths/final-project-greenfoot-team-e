@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameStateManager {
@@ -14,4 +16,5 @@ public class GameStateManager {
     public static int traderY;
     public static boolean traderExists=false;
     public static Map<Integer, Long> levelSeeds = new HashMap<>();
+    public static List<Map<String, Object>> enemyData = new ArrayList<>();
 }
