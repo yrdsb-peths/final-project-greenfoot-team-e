@@ -15,11 +15,15 @@ public class Door extends Actor {
     public void addedToWorld(World world) {
         doorX = getX();
         doorY = getY();
+        if(doorType==0){
+            GameStateManager.entranceX=doorX;
+            GameStateManager.entranceY=doorY;
+        }
         System.out.println(doorX+","+doorY);
     }
 
     public void act() {
-        if (!interacted && isPlayerAtDoor()) {
+        if (!interacted && isPlayerNearDoor()) {
             if (doorType == 1) {
                 handleExit();
             } else {
@@ -28,19 +32,21 @@ public class Door extends Actor {
         }
     }
 
-    private boolean isPlayerAtDoor() {
-        if(doorY>200){
-            return (doorX) == GameStateManager.playerX && (doorY + TILE_SIZE) == GameStateManager.playerY;
-        }else{
-            return (doorX) == GameStateManager.playerX && (doorY - TILE_SIZE) == GameStateManager.playerY;
-        }
+    private boolean isPlayerNearDoor() {
+        int range = TILE_SIZE; // Define how close is considered "near" (e.g., one tile)
+        int dx = GameStateManager.playerX - doorX; // Horizontal distance
+        int dy = Math.abs(GameStateManager.playerY - doorY); // Vertical distance
+        return (Math.abs(dx) <= range/2 && dy == -TILE_SIZE) || // Above the door
+        (Math.abs(dx) <= range/2 && dy == TILE_SIZE);
     }
 
     private void handleExit() {
-        System.out.println("Exit");
-        interacted = true;
-        GameStateManager.currentLevel++;
-        Greenfoot.setWorld(new GameScreen());
+        if (!interacted) {
+            interacted = true; // Mark as executed
+            System.out.println("Exit");
+            GameStateManager.currentLevel++;
+            Greenfoot.setWorld(new GameScreen());
+        }
     }
 
     private void handleEntrance() {

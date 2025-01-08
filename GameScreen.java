@@ -43,19 +43,14 @@ public class GameScreen extends World {
         loadLevel(GameStateManager.currentLevel);
 
         // Place the player at the correct position
-        if (GameStateManager.playerX == 0 && GameStateManager.playerY == 0) {
-            int[] door1 = tileWorld.getDoor1Position();
-            if (door1 != null) {
-                if (door1[1] == 0) {
-                    addObject(player, door1[0] + 30, door1[1] + 24);
-                } else {
-                    addObject(player, door1[0] + 30, door1[1] + 21);
-                }
-            } else {
-                addObject(player, 30, 52); // Fallback to center
-            }
-        } else {
+        if (GameStateManager.playerX > 0 && GameStateManager.playerY > 0) {
             addObject(player, GameStateManager.playerX, GameStateManager.playerY);
+        } else {
+            if(GameStateManager.entranceY<200){
+                addObject(player, GameStateManager.entranceX,GameStateManager.entranceY+32);
+            }else{
+                addObject(player, GameStateManager.entranceX,GameStateManager.entranceY-32);
+            }
         }
     }
 

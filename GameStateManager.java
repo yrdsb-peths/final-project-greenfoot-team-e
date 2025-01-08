@@ -15,6 +15,8 @@ public class GameStateManager {
     public static int traderX;
     public static int traderY;
     public static boolean traderExists=false;
+    public static int entranceX;
+    public static int entranceY;
     public static Map<Integer, Long> levelSeeds = new HashMap<>();
     public static List<Map<String, Object>> enemyData = new ArrayList<>();
 }
