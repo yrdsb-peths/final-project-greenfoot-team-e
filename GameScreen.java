@@ -15,9 +15,7 @@ public class GameScreen extends World {
         Player player = new Player();
         addObject(player, 200, 200);
         addObject(new Button(this::helpButton, "help-button.png",114, 56), 200, 350);
-        if(Greenfoot.isKeyDown("h")) {
-            helpButton();;
-        }
+        
     }
     // Method to create enemies at random positions
     public void createRandomEnemies(int numEnemies) {
