@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ScannerClass extends Actor {
+public class ScannerClass {
     List<String> wordList = new ArrayList<>();
     private String txtFile;
 

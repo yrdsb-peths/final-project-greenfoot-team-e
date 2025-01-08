@@ -11,7 +11,8 @@ public class GameScreen extends World {
     private static final int NUM_ENEMIES = 2;
     private Player player;
     private TileWorld tileWorld; // Field for reuse across methods
-    private List<Map<String, Object>> enemyData = new ArrayList<>(); // Store enemy data
+    private static final Random random = new Random();
+ // Store enemy data
 
     public GameScreen() {
         super(400, 600, 1);
@@ -69,7 +70,7 @@ public class GameScreen extends World {
         tileWorld = new TileWorld(seed); // Initialize tileWorld
         tileWorld.generateRoomIn(this);
 
-        if (enemyData.isEmpty()) {
+        if (GameStateManager.enemyData.isEmpty()) {
             createRandomEnemies(NUM_ENEMIES);
         } else {
             reloadEnemies();
@@ -84,32 +85,44 @@ public class GameScreen extends World {
         }
     }
 
-    private void saveGameState() {
+    public void saveGameState() {
         GameStateManager.playerX = player.getX();
         GameStateManager.playerY = player.getY();
         saveEnemyData();
     }
 
     private void saveEnemyData() {
-        enemyData.clear();
+        GameStateManager.enemyData.clear();
         for (Enemy enemy : getObjects(Enemy.class)) {
             Map<String, Object> data = new HashMap<>();
             data.put("x", enemy.getX());
             data.put("y", enemy.getY());
-            data.put("active", enemy.isActive()); // Assuming Enemy class has an `isActive` method
-            enemyData.add(data);
+            data.put("defeated", enemy.isDefeated()); 
+            GameStateManager.enemyData.add(data);
         }
     }
 
     private void reloadEnemies() {
-        for (Map<String, Object> data : enemyData) {
+        for (Map<String, Object> data : GameStateManager.enemyData) {
             int x = (int) data.get("x");
             int y = (int) data.get("y");
-            boolean active = (boolean) data.get("active");
+            boolean defeated = (boolean) data.get("defeated");
+            int enemyType = (int) data.get("enemyType");
+            if (!defeated) {
+                Enemy enemy;
 
-            if (active) {
-                Enemy enemy = new Enemy();
+                switch (enemyType) {
+                case 0:
+                enemy=new Skeleton();
+                case 1:
+                enemy=new Slime();
+                case 2:
+                default:
+                enemy=new Zombie();
+            }
                 addObject(enemy, x, y);
+            }else{
+
             }
         }
     }
@@ -127,15 +140,29 @@ public class GameScreen extends World {
             // Calculate the pixel coordinates for the center of the tile
             int x = (randomCol * tileWidth) + (tileWidth / 2);
             int y = (randomRow * tileHeight) + (tileHeight / 2);
-    
-            Enemy enemy = new Enemy();
+            
+            
+            int enemyType = random.nextInt(3); // Generates 0, 1, or 2
+            Enemy enemy;
+
+            switch (enemyType) {
+            case 0:
+                enemy=new Skeleton();
+            case 1:
+                enemy=new Slime();
+            case 2:
+            default:
+                enemy=new Zombie();
+            }
+            enemy.gameScreen(this);
             addObject(enemy, x, y);
 
             Map<String, Object> data = new HashMap<>();
             data.put("x", x);
             data.put("y", y);
-            data.put("active", true); // New enemies start as active
-            enemyData.add(data);
+            data.put("type", enemyType);
+            data.put("defeated", false); 
+            GameStateManager.enemyData.add(data);
         }
     }
 }

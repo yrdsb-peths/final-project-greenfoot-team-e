@@ -10,17 +10,28 @@ public class Enemy extends Actor implements Lifeform {
     private String[] currentAnimationFrames; // Holds the current animation frames
 
     private boolean defeated;
+    private GameScreen gameScreen;
 
     public Enemy() {
+        updateAnimation();
         this.defeated = false;
+        
     }
 
     @Override
     public void act() {
         updateAnimation();
+        
         if (!defeated) {
+            if (gameScreen != null) {
+                gameScreen.saveGameState(); // Save the game state before transitioning
+            }    
             eMovement(Player.keyHeld);
+            encounter(Player.class);
         }
+    }
+    public void gameScreen(GameScreen gameScreen){
+        this.gameScreen=gameScreen;
     }
 
     public void setAnimationFrames(String[] frames) {
@@ -85,9 +96,6 @@ public class Enemy extends Actor implements Lifeform {
     protected String[] getDeathFrames() {
         return new String[0];
     }
-    public boolean isActive(){
-        return defeated;
-    }
 
     @Override
     public void updatePosition(int newX, int newY) {
@@ -104,6 +112,10 @@ public class Enemy extends Actor implements Lifeform {
         return getY();
     }
 
+    public boolean isDefeated(){
+        return this.defeated;
+    }
+
     public void eMovement(boolean keyHeld) {
         if (keyHeld) {
             String key = Player.key;
@@ -115,4 +127,15 @@ public class Enemy extends Actor implements Lifeform {
             changeState(State.IDLE);
         }
     }
+    public void encounter(Class<?> Player) {
+        if(!defeated&&this.isTouching(Player.class)){
+            System.out.println("FIGHT STARTED");
+            if (gameScreen != null) {
+                gameScreen.saveGameState(); // Save the game state before transitioning
+            }    
+            Greenfoot.setWorld(new CombatScreen());
+            defeated=true;
+        }
+    }
 }
+
