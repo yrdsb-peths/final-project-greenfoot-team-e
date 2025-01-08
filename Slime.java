@@ -6,9 +6,10 @@ public class Slime extends Enemy {
     private static final String[] ATTACK_FRAMES = { "slime-attack-0.png", "slime-attack-1.png", "slime-attack-2.png", "slime-attack-3.png", "slime-attack-4.png" };
     private static final String[] HIT_FRAMES = { "slime-hurt-0.png", "slime-hurt-1.png", "slime-hut-2.png", "slime-hurt-3.png" };
     private static final String[] DEATH_FRAMES = { "slime-die-0.png", "slime-die-1.png", "slime-die-2.png", "slime-die-3.png" };
-
-    public Slime() {
+    private boolean defeated;
+    public Slime(boolean defeated) {
         changeState(State.IDLE);
+        this.defeated=defeated;
     }
 
     @Override
@@ -34,5 +35,9 @@ public class Slime extends Enemy {
     @Override
     protected String[] getDeathFrames() {
         return DEATH_FRAMES;
+    }
+    @Override
+    public int getType() {
+        return 1; // Skeleton's type
     }
 }

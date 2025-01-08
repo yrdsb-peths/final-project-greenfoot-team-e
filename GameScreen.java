@@ -97,7 +97,8 @@ public class GameScreen extends World {
             Map<String, Object> data = new HashMap<>();
             data.put("x", enemy.getX());
             data.put("y", enemy.getY());
-            data.put("defeated", enemy.isDefeated()); 
+            data.put("type", enemy.getType());
+            data.put("defeated", enemy.isDefeated());
             GameStateManager.enemyData.add(data);
         }
     }
@@ -107,62 +108,58 @@ public class GameScreen extends World {
             int x = (int) data.get("x");
             int y = (int) data.get("y");
             boolean defeated = (boolean) data.get("defeated");
-            int enemyType = (int) data.get("enemyType");
+            int enemyType = (int) data.get("type");
+    
             if (!defeated) {
-                Enemy enemy;
-
-                switch (enemyType) {
-                case 0:
-                enemy=new Skeleton();
-                case 1:
-                enemy=new Slime();
-                case 2:
-                default:
-                enemy=new Zombie();
-            }
-                addObject(enemy, x, y);
-            }else{
-
+                Enemy enemy = createEnemyByType(enemyType, defeated);
+                if (enemy != null) {
+                    enemy.gameScreen(this);
+                    addObject(enemy, x, y);
+                } else {
+                    System.err.println("Unknown enemy type: " + enemyType);
+                }
             }
         }
     }
 
     public void createRandomEnemies(int numEnemies) {
-        int tileRows = 11; // Number of rows in the tile grid
-        int tileCols = 11; // Number of columns in the tile grid
-        int tileWidth = 31; // Width of a single tile
-        int tileHeight = 32; // Height of a single tile
+        int tileRows = 11;
+        int tileCols = 11;
+        int tileWidth = 31;
+        int tileHeight = 32;
     
         for (int i = 0; i < numEnemies; i++) {
             int randomRow = Greenfoot.getRandomNumber(tileRows);
             int randomCol = Greenfoot.getRandomNumber(tileCols);
     
-            // Calculate the pixel coordinates for the center of the tile
             int x = (randomCol * tileWidth) + (tileWidth / 2);
             int y = (randomRow * tileHeight) + (tileHeight / 2);
-            
-            
-            int enemyType = random.nextInt(3); // Generates 0, 1, or 2
-            Enemy enemy;
-
-            switch (enemyType) {
+    
+            int enemyType = random.nextInt(3);
+            Enemy enemy = createEnemyByType(enemyType, false);
+            if (enemy != null) {
+                enemy.gameScreen(this);
+                addObject(enemy, x, y);
+    
+                Map<String, Object> data = new HashMap<>();
+                data.put("x", x);
+                data.put("y", y);
+                data.put("type", enemyType);
+                data.put("defeated", false);
+                GameStateManager.enemyData.add(data);
+            }
+        }
+        
+    }
+    private Enemy createEnemyByType(int enemyType, boolean defeated) {
+        switch (enemyType) {
             case 0:
-                enemy=new Skeleton();
+                return new Skeleton(defeated);
             case 1:
-                enemy=new Slime();
+                return new Slime(defeated);
             case 2:
             default:
-                enemy=new Zombie();
-            }
-            enemy.gameScreen(this);
-            addObject(enemy, x, y);
-
-            Map<String, Object> data = new HashMap<>();
-            data.put("x", x);
-            data.put("y", y);
-            data.put("type", enemyType);
-            data.put("defeated", false); 
-            GameStateManager.enemyData.add(data);
+                return new Zombie(defeated);
         }
     }
 }

@@ -7,9 +7,10 @@ public class Skeleton extends Enemy {
     private static final String[] HIT_FRAMES = { "SkelHit0.png", "SkelHit1.png", "SkelHit2.png", "SkelHit3.png", "SkelHit4.png", "SkelHit5.png","SkelHit6.png", "SkelHit7.png", "SkelHit8.png" };
     private static final String[] DEATH_FRAMES = { "SkelDeath0.png", "SkelDeath1.png", "SkelDeath2.png", "SkelDeath3.png", "SkelDeath4.png", "SkelDeath5.png", "SkelDeath6.png", "SkelDeath7.png", "SkelDeath8.png", "SkelDeath9.png", "SkelDeath10.png", "SkelDeath11.png", "SkelDeath12.png", "SkelDeath13.png", "SkelDeath14.png" };
     private static final String[] REACT_FRAMES = { "SkelReact0.png", "SkelReact1.png", "SkelReact2.png", "SkelReact3.png"};
-
-    public Skeleton() {
+    private boolean defeated;
+    public Skeleton(boolean defeated) {
         changeState(State.IDLE);
+        this.defeated=defeated;
     }
 
     @Override
@@ -39,5 +40,9 @@ public class Skeleton extends Enemy {
 
     protected String[] getReactFrames() {
         return REACT_FRAMES;
+    }
+    @Override
+    public int getType() {
+        return 0; // Skeleton's type
     }
 }
