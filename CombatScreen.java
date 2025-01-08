@@ -14,7 +14,7 @@ public class CombatScreen extends World
         {
             super(400,600,1);
             
-            generateCombatRoom(world);
+            //generateCombatRoom(world);
     }
         
     private void generateCombatRoom(World world) 
