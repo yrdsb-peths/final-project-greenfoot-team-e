@@ -5,7 +5,7 @@ public abstract class Enemy extends Actor implements Lifeform {
 
     private State currentState = State.IDLE;
     private int frameIndex = 0; // Current frame of the animation
-    private int frameDelay = 5; // Controls animation speed
+    private int frameDelay = 8; // Controls animation speed
     private int frameCounter = 0; // Counter to manage delay
     private String[] currentAnimationFrames; // Holds the current animation frames
 
