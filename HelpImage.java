@@ -3,7 +3,7 @@ import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 
 public class HelpImage extends Actor {
-    GreenfootImage helpImage = new GreenfootImage("Help-Image.png");
+    GreenfootImage helpImage = new GreenfootImage("HelpImage.png");
     public HelpImage() {
         setImage(helpImage);
     }
