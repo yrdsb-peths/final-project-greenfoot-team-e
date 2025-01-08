@@ -7,9 +7,10 @@ public class Zombie extends Enemy {
     private static final String[] HIT_FRAMES = { "ZombieHit0.png", "ZombieHit1.png", "ZombieHit2.png", "ZombieHit3.png" };
     private static final String[] DEATH_FRAMES = { "ZombieDeath0.png", "ZombieDeath1.png", "ZombieDeath2.png", "ZombieDeath3.png", "ZombieDeath4.png" , "ZombieDeath5.png", "ZombieDeath6.png", "ZombieDeath7.png"};
     private static final String[] HEAVY_ATTACK_FRAMES = { "ZombieHeavyAttack0.png", "ZombieHeavyAttack1.png", "ZombieHeavyAttack2.png", "ZombieHeavyAttack3.png", "ZombieHeavyAttack4.png", "ZombieHeavyAttack5.png", "ZombieHeavyAttack6.png", "ZombieHeavyAttack7.png", "ZombieHeavyAttack8.png", "ZombieHeavyAttack9.png", "ZombieHeavyAttack10.png", "ZombieHeavyAttack11.png", "ZombieHeavyAttack12.png", "ZombieHeavyAttack13.png", "ZombieHeavyAttack14.png", "ZombieHeavyAttack15.png", "ZombieHeavyAttack16.png", "ZombieHeavyAttack17.png", "ZombieHeavyAttack18.png", "ZombieHeavyAttack19.png", "ZombieHeavyAttack20.png", "ZombieHeavyAttack21.png"};
-
-    public Zombie() {
+    private boolean defeated;
+    public Zombie(boolean defeated) {
         changeState(State.IDLE);
+        this.defeated=defeated;
     }
 
     @Override
@@ -39,5 +40,9 @@ public class Zombie extends Enemy {
 
     protected String[] getHeavyAttackFrames() {
         return HEAVY_ATTACK_FRAMES;
+    }
+    @Override
+    public int getType() {
+        return 2; // Skeleton's type
     }
 }

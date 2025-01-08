@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Enemy extends Actor implements Lifeform {
+public abstract class Enemy extends Actor implements Lifeform {
     public enum State { IDLE, WALK, ATTACK, HIT, DEATH }
 
     private State currentState = State.IDLE;
@@ -115,6 +115,7 @@ public class Enemy extends Actor implements Lifeform {
     public boolean isDefeated(){
         return this.defeated;
     }
+    public abstract int getType();
 
     public void eMovement(boolean keyHeld) {
         if (keyHeld) {
@@ -129,12 +130,12 @@ public class Enemy extends Actor implements Lifeform {
     }
     public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
+            defeated=true; 
             System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
                 gameScreen.saveGameState(); // Save the game state before transitioning
-            }    
+            }   
             Greenfoot.setWorld(new CombatScreen());
-            defeated=true;
         }
     }
 }
