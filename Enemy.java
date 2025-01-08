@@ -11,6 +11,7 @@ public abstract class Enemy extends Actor implements Lifeform {
 
     private boolean defeated;
     private GameScreen gameScreen;
+    private TileWorld tileWorld;
 
     public Enemy() {
         updateAnimation();
@@ -135,7 +136,7 @@ public abstract class Enemy extends Actor implements Lifeform {
             if (gameScreen != null) {
                 gameScreen.saveGameState(); // Save the game state before transitioning
             }   
-            Greenfoot.setWorld(new CombatScreen());
+            Greenfoot.setWorld(new CombatScreen(tileWorld.getGrid()));
         }
     }
 }
