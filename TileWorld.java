@@ -160,6 +160,11 @@ public class TileWorld {
     public int[] getDoor2Position() {
         return new int[]{door2X, door2Y};
     }
+    
+    public String[][] getGrid() {
+        return grid;
+    }
+    
 }
 
 

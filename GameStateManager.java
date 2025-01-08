@@ -17,4 +17,5 @@ public class GameStateManager {
     public static boolean traderExists=false;
     public static Map<Integer, Long> levelSeeds = new HashMap<>();
     public static List<Map<String, Object>> enemyData = new ArrayList<>();
+    public static int currentEnemyType;
 }
