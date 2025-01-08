@@ -10,7 +10,7 @@ public class CombatScreen extends World
     private int gridHeight;
     private String[][] grid;
 
-    public CombatScreen(Object world)
+    public CombatScreen()
         {
             super(400,600,1);
             
