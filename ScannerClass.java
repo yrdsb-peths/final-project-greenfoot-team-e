@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ScannerClass extends Actor {
+public class ScannerClass {
     List<String> wordList = new ArrayList<>();
     private String txtFile;
 
@@ -36,30 +36,37 @@ public class ScannerClass extends Actor {
     public List<String> getWordList() {
         return new ArrayList<>(wordList); // Return a copy to prevent external modification
     }
-    public static void removeWords(String fileName, List<String> wordsToRemove) throws IOException {
+    public static void removeWord(String fileName, String wordToRemove) throws IOException {
         File file = new File(fileName);
-
+    
         Scanner scanner = new Scanner(file);
         StringBuilder modifiedContent = new StringBuilder();
-        
+    
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] words = line.split("\\s+");
             for (String word : words) {
-                if (!wordsToRemove.contains(word)) {
+                if (!word.equals(wordToRemove)) {
                     modifiedContent.append(word).append(" ");
                 }
             }
             modifiedContent.append("\n");
         }
-
+    
         scanner.close();
-
+    
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(modifiedContent.toString());
+            writer.write(modifiedContent.toString().trim());
         }
-
-        System.out.println("Words removed successfully.");
+    
+        System.out.println("Word '" + wordToRemove + "' removed successfully.");
     }
+    
+    public static void clearFile(String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(""); // Write an empty string to clear the file
+        }
+    }
+    
 }
 
