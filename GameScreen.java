@@ -8,6 +8,7 @@ import greenfoot.Greenfoot;
 import greenfoot.World;
 
 public class GameScreen extends World {
+    
     private static final int NUM_ENEMIES = 2;
     private Player player;
     private TileWorld tileWorld; // Field for reuse across methods
