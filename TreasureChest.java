@@ -2,6 +2,7 @@ import greenfoot.*;
 
 import java.util.List;
 import java.util.Random;
+
 public class TreasureChest extends Actor {
     private static final int TILE_WIDTH = 31;  
     private static final int TILE_HEIGHT = 32;
@@ -11,64 +12,55 @@ public class TreasureChest extends Actor {
         loot(Player.class);
     }
     public TreasureChest(World world)
-    {   
-        if(GameStateManager.treasureType==null){
-        randomNum = Greenfoot.getRandomNumber(50);
-        if (randomNum == 21 || randomNum == 24) {
-            setImage("images/ChestLeC.png");
-            GameStateManager.treasureType="images/ChestLeC.png";
-        } else if (randomNum >= 30 && randomNum <= 40) {
-            setImage("images/ChestRaC.png");
-            GameStateManager.treasureType="images/ChestRaC.png";
-        } else if (randomNum >= 0 && randomNum <= 50) {
+    {
+        randomNum = Greenfoot.getRandomNumber(100);
+        if(randomNum >= 1 && randomNum <= 60)
+        {
             setImage("images/ChestCoC.png");
-            GameStateManager.treasureType="images/ChestCoC.png";
-        } 
-    }else{
-        setImage(GameStateManager.treasureType);
+        }
+        else if(randomNum >= 10 && randomNum <=21)
+        {
+            setImage("images/ChestLeC.png");
+        }
+        else if(randomNum == 6 || randomNum == 24)
+        {
+            setImage("images/ChestRaC.png");
+        }
+        else
+        {
+            world.removeObject(this);
+        }
     }
-}
 
     public static boolean spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
     {
         Random random = new Random();
         int gridWidth = grid[0].length;
         int gridHeight = grid.length;
+        boolean chestPlaced = false;
+        if (random.nextInt(2) == 0) 
+        {
+            for (int i = 0; i < 10; i++) 
+            {
+                int x = random.nextInt(gridWidth);
+                int y = random.nextInt(gridHeight);
 
-        if (random.nextInt(100) < 50) { 
-        }
+                
+                if (!"Wall".equals(grid[y][x]) && !"Chest".equals(grid[y][x])) {
+                    grid[y][x] = "Chest"; 
 
-        for (int i = 0; i < 10; i++) { 
-            int x = random.nextInt(gridWidth);
-            int y = random.nextInt(gridHeight);
-
-            if (!"Wall".equals(grid[y][x]) && !"Chest".equals(grid[y][x])) {
-                grid[y][x] = "Chest"; 
-
-                int pixelX = xOffset + x * TILE_WIDTH;
-                int pixelY = yOffset + y * TILE_HEIGHT;
-
-                TreasureChest chest = new TreasureChest(world);
+                    int pixelX = xOffset + x * TILE_WIDTH;
+                    int pixelY = yOffset + y * TILE_HEIGHT;
 
 
-                if (chest.getImage() != null) { 
-                    if(GameStateManager.treasureExists){
-                        world.addObject(chest, GameStateManager.treasureChestX, GameStateManager.treasureChestY);
-                        return true;
-                    }else{
-                        world.addObject(chest, pixelX, pixelY);
-                        GameStateManager.treasureChestX=pixelX;
-                        GameStateManager.treasureChestY=pixelY;
-                        GameStateManager.treasureExists=true;
-                        return true; 
-                    }
-                }
+                world.addObject(new TreasureChest(world), pixelX, pixelY);
+
+                chestPlaced = true;
             }
         }
-        return false; 
     }
-
-
+        return false;
+    }
 
     public void loot(Class<?> Player) {
 
@@ -76,20 +68,18 @@ public class TreasureChest extends Actor {
         ScannerClass inventory = new ScannerClass("Inventory.txt");
         ScannerClass items = new ScannerClass("Items.txt");
 
-        if (!GameStateManager.chestLooted&&this.isTouching(Player)) {
+        if (!isLooted&&this.isTouching(Player)) {
             List<String> itemList = items.getWordList();
             if (!itemList.isEmpty()) {
                 int lootGen = random.nextInt(itemList.size());
                 String lootItem = itemList.get(lootGen);
                 inventory.addWord(lootItem);
                 System.out.println("Player looted: " + lootItem);
-                GameStateManager.chestLooted=true;
-                isLooted = true; 
+                isLooted = true; // Mark as looted
             }
         }
     }
+
 }
-
-
 
 
