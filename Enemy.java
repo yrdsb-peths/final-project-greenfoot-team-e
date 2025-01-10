@@ -143,7 +143,7 @@ public abstract class Enemy extends Actor implements Lifeform {
             if (gameScreen != null) {
             gameScreen.saveGameState(); // Save the game state before transitioning
             }   
-            Greenfoot.setWorld(new CombatScreen(tileWorld.getGrid()));
+            Greenfoot.setWorld(new CombatScreen());
         }
     }
 }
