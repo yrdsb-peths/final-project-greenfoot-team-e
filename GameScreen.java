@@ -11,9 +11,8 @@ public class GameScreen extends World {
     
     private static final int NUM_ENEMIES = 2;
     private Player player;
-    private TileWorld tileWorld; // Field for reuse across methods
+    private TileWorld tileWorld;
     private static final Random random = new Random();
- // Store enemy data
 
     public GameScreen() {
         super(400, 600, 1);
