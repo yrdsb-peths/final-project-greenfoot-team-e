@@ -45,6 +45,8 @@ public class Door extends Actor {
             interacted = true; // Mark as executed
             System.out.println("Exit");
             GameStateManager.currentLevel++;
+            GameStateManager.enemyData.clear();
+            GameStateManager.chestLooted=false;
             Greenfoot.setWorld(new GameScreen());
         }
     }
