@@ -131,10 +131,17 @@ public abstract class Enemy extends Actor implements Lifeform {
     }
     public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
+            if(this.getClass()==Skeleton.class){
+                GameStateManager.currentEnemy=0;
+            }else if(this.getClass()==Slime.class){
+                GameStateManager.currentEnemy=1;
+            }else if(this.getClass()==Zombie.class){
+                GameStateManager.currentEnemy=2;
+            }
             defeated=true; 
             System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
-                gameScreen.saveGameState(); // Save the game state before transitioning
+            gameScreen.saveGameState(); // Save the game state before transitioning
             }   
             Greenfoot.setWorld(new CombatScreen(tileWorld.getGrid()));
         }

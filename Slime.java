@@ -7,6 +7,7 @@ public class Slime extends Enemy {
     private static final String[] HIT_FRAMES = { "slime-hurt-0.png", "slime-hurt-1.png", "slime-hut-2.png", "slime-hurt-3.png" };
     private static final String[] DEATH_FRAMES = { "slime-die-0.png", "slime-die-1.png", "slime-die-2.png", "slime-die-3.png" };
     private boolean defeated;
+    
     public Slime(boolean defeated) {
         changeState(State.IDLE);
         this.defeated=defeated;

@@ -18,6 +18,9 @@ public class CombatScreen extends World {
         this.grid = new String[gridHeight][gridWidth];
 
         generateBattleRoom(originalGrid);
+
+        EnemyCombatSprite enemy=new EnemyCombatSprite();
+        addObject(enemy,300,300);
     }
 
     private void generateBattleRoom(String[][] originalGrid) {
