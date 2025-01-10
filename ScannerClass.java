@@ -61,7 +61,29 @@ public class ScannerClass {
     
         System.out.println("Word '" + wordToRemove + "' removed successfully.");
     }
+    public static String searchWord(String fileName, String targetWord) throws IOException {
+        File file = new File(fileName);
     
+        Scanner scanner = new Scanner(file);
+        StringBuilder modifiedContent = new StringBuilder();
+    
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] words = line.split("\\s+");
+            for (String word : words) {
+                if (word.equals(targetWord)) {
+                    return word;
+                }
+            }
+        }
+    
+        scanner.close();
+    
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(modifiedContent.toString().trim());
+        }
+        return " ";
+    }
     public static void clearFile(String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write(""); // Write an empty string to clear the file
