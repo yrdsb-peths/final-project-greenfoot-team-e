@@ -10,7 +10,6 @@ public class Skeleton extends Enemy {
     private boolean defeated;
     GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
     public Skeleton(boolean defeated) {
-        setImage(skeletonImage);
         changeState(State.IDLE);
         this.defeated=defeated;
     }
