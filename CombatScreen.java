@@ -1,7 +1,9 @@
-import greenfoot.*;
-import java.util.Random;
+import greenfoot.Actor;
+import greenfoot.Greenfoot;
+import greenfoot.World;
 
-public class CombatScreen extends World {
+public class CombatScreen extends World 
+{
     private static final int TILE_WIDTH = 31;
     private static final int TILE_HEIGHT = 32;
     private static final int ROOM_WIDTH = 5; // 5 tiles wide
@@ -10,14 +12,36 @@ public class CombatScreen extends World {
     private int gridWidth;
     private int gridHeight;
     private String[][] grid;
-
-    public CombatScreen(String[][] originalGrid) {
-        super(400, 600, 1); // Set world dimensions
+    private Enemy enemy;
+    private String enemyType;
+    
+        public CombatScreen(String enemyType, String[][] originalGrid) {
+            super(400, 600, 1); // Set world dimensions
+            this.enemyType = enemyType; // Store the enemy instance
         this.gridWidth = ROOM_WIDTH;
         this.gridHeight = ROOM_HEIGHT;
-        this.grid = new String[gridHeight][gridWidth];
 
         generateBattleRoom(originalGrid);
+        spawnEnemyInRoom();
+    }
+
+    private void spawnEnemyInRoom() {
+        int centerX = getWidth() / 2;
+        int centerY = getHeight() / 2;
+
+        Enemy enemy = createEnemyFromType(enemyType);
+        addObject(enemy, centerX, centerY);
+    }
+
+    private Enemy createEnemyFromType(String type) {
+        switch (type) {
+            case "Skeleton":
+                return new Skeleton();
+            case "Zombie":
+                return new Zombie();
+            case "Slime":
+                return new Slime();
+        }
     }
 
     private void generateBattleRoom(String[][] originalGrid) {
@@ -41,5 +65,8 @@ public class CombatScreen extends World {
             }
         }
     }
+
+
 }
+
 

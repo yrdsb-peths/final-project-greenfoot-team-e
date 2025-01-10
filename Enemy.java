@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Map;
+
 import greenfoot.*;
 
 public abstract class Enemy extends Actor implements Lifeform {
@@ -28,7 +31,6 @@ public abstract class Enemy extends Actor implements Lifeform {
                 gameScreen.saveGameState(); // Save the game state before transitioning
             }    
             eMovement(Player.keyHeld);
-            encounter(Player.class);
         }
     }
     public void gameScreen(GameScreen gameScreen){
@@ -129,15 +131,19 @@ public abstract class Enemy extends Actor implements Lifeform {
             changeState(State.IDLE);
         }
     }
+
+    /* remenant of an older time
     public void encounter(Class<?> Player) {
+        List<Map<String, Object>>data = GameStateManager.enemyData;
         if(!defeated&&this.isTouching(Player.class)){
             defeated=true; 
             System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
                 gameScreen.saveGameState(); // Save the game state before transitioning
             }   
-            Greenfoot.setWorld(new CombatScreen(tileWorld.getGrid()));
+            GameStateManager.currentEnemyType=(int) data.get("type");
+            Greenfoot.setWorld(new CombatScreen());
         }
-    }
+    } */
 }
 

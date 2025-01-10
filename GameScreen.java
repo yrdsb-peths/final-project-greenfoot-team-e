@@ -22,6 +22,7 @@ public class GameScreen extends World {
         }
 
         initializeLevel();
+        checkForCollisionWithEnemy();
     }
 
     private void initializeSeeds() {
@@ -162,4 +163,16 @@ public class GameScreen extends World {
                 return new Zombie(defeated);
         }
     }
+
+    private void checkForCollisionWithEnemy() {
+        List<Enemy> enemies = getObjects(Enemy.class);
+        for (Enemy enemy : enemies) {
+            if (enemy.intersects(player)) {
+                String enemyType = enemy.getClass().getSimpleName(); // Get the enemy type as a string
+                Greenfoot.setWorld(new CombatScreen(enemyType, tileWorld.getGrid())); // Pass enemy type
+                return;
+            }
+        }
+    }
+    
 }
