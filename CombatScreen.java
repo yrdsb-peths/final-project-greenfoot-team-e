@@ -116,25 +116,25 @@ public class CombatScreen extends World
         WallII wall56 = new WallII();
         addObject(wall56 , 278, 212);
         FloorII floor17 = new FloorII();
-        addObject(floor17, 92, 84);
+        addObject(floor17, 309, 84);
         CornerTR cornertr = new CornerTR();
-        addObject(cornertr, 92, 84);
+        addObject(cornertr, 309, 84);
         FloorI floor27 = new FloorI();
-        addObject(floor27, 92, 116);
+        addObject(floor27, 309, 116);
         RightWall rightwall1 = new RightWall();
-        addObject(rightwall1, 92, 116);
+        addObject(rightwall1, 309, 116);
         FloorII floor37 = new FloorII();
-        addObject(floor37, 92, 148);
+        addObject(floor37, 309, 148);
         RightWall rightwall2 = new RightWall();
-        addObject(rightwall2, 92, 148);
+        addObject(rightwall2, 309, 148);
         FloorI floor47 = new FloorI();
-        addObject(floor47, 92, 180);
+        addObject(floor47, 309, 180);
         RightWall rightwall3 = new RightWall();
-        addObject(rightwall3, 92, 180);
+        addObject(rightwall3, 309, 180);
         FloorI floor57 = new FloorI();
-        addObject(floor57, 92, 212);
+        addObject(floor57, 309, 212);
         RightWall rightwall4 = new RightWall();
-        addObject(rightwall4, 92, 212);
+        addObject(rightwall4, 309, 212);
     }
 
 }
