@@ -140,9 +140,9 @@ public class CombatScreen extends World
         WallI wall57 = new WallI();
         addObject(wall57, 309, 212);
         Player player1 = new Player();
-        addObject(player1, 215, 180);
+        addObject(player1, 185, 148);
         EnemyCombatSprite enemy = new EnemyCombatSprite();
-        addObject(enemy, 262, 180);
+        addObject(enemy, 231, 148);
 
     }
 
