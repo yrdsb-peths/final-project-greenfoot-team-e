@@ -15,7 +15,7 @@ public class EnemyCombatSprite extends Actor {
                 break;
             case 2:
             default:
-                setImage("ZombieIdle0");
+                setImage("ZombieIdle0.png");
                 break;
         }
     }

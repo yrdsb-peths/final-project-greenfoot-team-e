@@ -1,7 +1,10 @@
 import greenfoot.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 public class TreasureChest extends Actor {
     private static final int TILE_WIDTH = 31;  
     private static final int TILE_HEIGHT = 32;
@@ -71,23 +74,30 @@ public class TreasureChest extends Actor {
 
 
     public void loot(Class<?> Player) {
-
         Random random = new Random();
         ScannerClass inventory = new ScannerClass("Inventory.txt");
         ScannerClass items = new ScannerClass("Items.txt");
-
-        if (!GameStateManager.chestLooted&&this.isTouching(Player)) {
+    
+        if (!GameStateManager.chestLooted && this.isTouching(Player)) {
             List<String> itemList = items.getWordList();
+            List<String> inventoryList = inventory.getWordList();
+    
             if (!itemList.isEmpty()) {
-                int lootGen = random.nextInt(itemList.size());
-                String lootItem = itemList.get(lootGen);
+                String lootItem;
+                do {
+                    int lootGen = random.nextInt(itemList.size());
+                    lootItem = itemList.get(lootGen);
+                } while (inventoryList.contains(lootItem)); // Reroll if duplicate found
+    
                 inventory.addWord(lootItem);
                 System.out.println("Player looted: " + lootItem);
-                GameStateManager.chestLooted=true;
-                isLooted = true; 
+    
+                GameStateManager.chestLooted = true;
+                isLooted = true;
             }
         }
     }
+    
 }
 
 

@@ -122,7 +122,7 @@ public abstract class Enemy extends Actor implements Lifeform {
         if (keyHeld) {
             String key = Player.key;
             if ("a".equals(key) || "s".equals(key) || "w".equals(key) || "d".equals(key)) {
-                movement(this);
+                Movement(this);
                 changeState(State.WALK);
             }
         } else {
