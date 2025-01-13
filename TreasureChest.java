@@ -12,25 +12,33 @@ public class TreasureChest extends Actor {
     private boolean isLooted = false;
     public void act() {
         loot(Player.class);
+
     }
     public TreasureChest(World world)
     {   
-        if(GameStateManager.treasureType==null){
-        randomNum = Greenfoot.getRandomNumber(50);
-        if (randomNum == 21 || randomNum == 24) {
-            setImage("images/ChestLeC.png");
-            GameStateManager.treasureType="images/ChestLeC.png";
-        } else if (randomNum >= 30 && randomNum <= 40) {
-            setImage("images/ChestRaC.png");
-            GameStateManager.treasureType="images/ChestRaC.png";
-        } else if (randomNum >= 0 && randomNum <= 50) {
-            setImage("images/ChestCoC.png");
-            GameStateManager.treasureType="images/ChestCoC.png";
-        } 
-    }else{
-        setImage(GameStateManager.treasureType);
+        if(!GameStateManager.chestLooted){
+            if(GameStateManager.treasureTypeClosed==null){
+            randomNum = Greenfoot.getRandomNumber(50);
+            if (randomNum == 21 || randomNum == 24) {
+                setImage("images/ChestLeC.png");
+                GameStateManager.treasureTypeClosed="images/ChestLeC.png";
+                GameStateManager.treasureTypeOpen="images/ChestLeO.png";
+            } else if (randomNum >= 30 && randomNum <= 40) {
+                setImage("images/ChestRaC.png");
+                GameStateManager.treasureTypeClosed="images/ChestRaC.png";
+                GameStateManager.treasureTypeOpen="images/ChestRaO.png";
+            } else if (randomNum >= 0 && randomNum <= 50) {
+                setImage("images/ChestCoC.png");
+                GameStateManager.treasureTypeClosed="images/ChestCoC.png";
+                GameStateManager.treasureTypeOpen="images/ChestCoO.png";
+            } 
+            }else{
+                setImage(GameStateManager.treasureTypeClosed);
+            }
+        }else{
+            setImage(GameStateManager.treasureTypeOpen);
+        }
     }
-}
 
     public static boolean spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
     {
@@ -91,7 +99,7 @@ public class TreasureChest extends Actor {
     
                 inventory.addWord(lootItem);
                 System.out.println("Player looted: " + lootItem);
-    
+                setImage(GameStateManager.treasureTypeOpen);
                 GameStateManager.chestLooted = true;
                 isLooted = true;
             }

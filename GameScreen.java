@@ -17,7 +17,7 @@ public class GameScreen extends World {
 
     public GameScreen() {
         super(400, 600, 1);
-        
+        setBackground("background.png");
         if (GameStateManager.levelSeeds.isEmpty()) {
             initializeSeeds();
         }
