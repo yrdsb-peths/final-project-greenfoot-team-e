@@ -31,9 +31,11 @@ public class CombatScreen extends World
         addObject(floor50, 92, 212);
         LeftWall leftwall4 = new LeftWall();
         addObject(leftwall4, 92, 212);
+        WallI wall50 = new WallI();
+        addObject(wall50, 92, 212);
         FloorII floor11 = new FloorII();
         addObject(floor11, 123,84);
-        WallI wall11 = new WallI();
+        WallI wall11 = new WallI(); 
         addObject(wall11, 123, 84);
         FloorII floor21 = new FloorII();
         addObject(floor21, 123,116);
@@ -135,6 +137,8 @@ public class CombatScreen extends World
         addObject(floor57, 309, 212);
         RightWall rightwall4 = new RightWall();
         addObject(rightwall4, 309, 212);
+        WallI wall57 = new WallI();
+        addObject(wall57, 309, 212);
     }
 
 }
