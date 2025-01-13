@@ -11,20 +11,17 @@ public class Player extends Actor implements Lifeform {
     private static final String[] HIT_FRAMES = { "HeroHit0.png", "HeroHit1.png", "HeroHit2.png", "HeroHit3.png" };
     private static final String[] WALK_FRAMES = { "HeroWalk0.png", "HeroWalk1.png", "HeroWalk2.png", "HeroWalk3.png", "HeroWalk4.png", "HeroWalk5.png", "HeroWalk6.png", "HeroWalk7.png" };
     private static final String[] ATTACK_FRAMES = { "HeroAttack1-0.png", "HeroAttack1-1.png", "HeroAttack1-2.png", "HeroAttack1-3.png", "HeroAttack1-4.png", "HeroAttack1-5.png" };
-    
+
     private int animationFrame = 0;
     private int frameCounter = 0;
     private String[] currentAnimation = IDLE_FRAMES;
     private boolean isAnimating = false;
 
-    private int moveSpeed = 5; // Speed at which the hero moves per frame
-    private double targetX, targetY;
-
     public void act() {
         key = Greenfoot.getKey();
         if (key != null && !keyHeld) {
             keyHeld = true;
-            setTargetPosition(key); // Set the target position for smooth movement
+            movePlayer(key);
             if (!isAnimating) {
                 heroWalk(); // Play walk animation during movement
             }
@@ -34,39 +31,24 @@ public class Player extends Actor implements Lifeform {
                 heroIdle(); // Default to idle animation when not moving
             }
         }
-        updatePositionSmoothly(); // Move the hero incrementally
         playAnimation();
     }
 
-    private void setTargetPosition(String key) {
-        // Set the target position for the hero based on the key input
+    private void movePlayer(String key) {
+        int x = getX();
+        int y = getY();
+
         switch (key) {
-            case "a" -> targetX = Math.max(getX() - 31, 30); // Move left
-            case "d" -> targetX = Math.min(getX() + 31, 372); // Move right
-            case "w" -> targetY = Math.max(getY() - 32, 52); // Move up
-            case "s" -> targetY = Math.min(getY() + 32, 340); // Move down
-        }
-    }
-
-    private void updatePositionSmoothly() {
-        // Move towards the target position incrementally
-        int currentX = getX();
-        int currentY = getY();
-
-        // Move smoothly towards the target position in smaller steps
-        if (Math.abs(targetX - currentX) > moveSpeed) {
-            currentX += (targetX > currentX) ? moveSpeed : -moveSpeed;
-        } else {
-            currentX = (int) targetX; // Directly set to target when within range
+            case "a" -> x = Math.max(x - 31, 30);
+            case "d" -> x = Math.min(x + 31, 372);
+            case "w" -> y = Math.max(y - 32, 52);
+            case "s" -> y = Math.min(y + 32, 340);
         }
 
-        if (Math.abs(targetY - currentY) > moveSpeed) {
-            currentY += (targetY > currentY) ? moveSpeed : -moveSpeed;
-        } else {
-            currentY = (int) targetY; // Directly set to target when within range
-        }
-
-        updatePosition(currentX, currentY);
+        updatePosition(x, y);
+        GameStateManager.playerX = x;
+        GameStateManager.playerY = y;
+        System.out.println(GameStateManager.playerX + "," + GameStateManager.playerY);
     }
 
     @Override
@@ -115,7 +97,7 @@ public class Player extends Actor implements Lifeform {
 
     private void playAnimation() {
         if (isAnimating) {
-            if (frameCounter++ % 5 == 0) { // Adjust the speed of animation (higher -> slower)
+            if (frameCounter++ % 10 == 0) { // Adjust the speed of animation (higher -> slower)
                 setImage(currentAnimation[animationFrame]);
                 animationFrame++;
                 if (animationFrame >= currentAnimation.length) {
