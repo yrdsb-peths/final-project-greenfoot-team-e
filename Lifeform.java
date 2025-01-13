@@ -38,41 +38,34 @@ public interface Lifeform {
             }
         }
     
+        int newX = enemyX;
+        int newY = enemyY;
+    
         if (closestPlayer != null) { // Move towards the closest player
             int playerX = closestPlayer.getXPosition();
             int playerY = closestPlayer.getYPosition();
     
-            int newX = enemyX;
-            int newY = enemyY;
-    
-            if (playerX > enemyX) newX = Math.min(enemyX + 31, 371);
-            else if (playerX < enemyX) newX = Math.max(enemyX - 31, 30);
-    
-            if (playerY > enemyY) newY = Math.min(enemyY + 32, 340);
-            else if (playerY < enemyY) newY = Math.max(enemyY - 32, 52);
-    
-            if (newX != enemyX || newY != enemyY) {
-                enemy.updatePosition(newX, newY);
+            if (Math.abs(playerX - enemyX) > Math.abs(playerY - enemyY)) {
+                newX += (playerX > enemyX) ? 31 : -31;
+            } else {
+                newY += (playerY > enemyY) ? 32 : -32;
             }
         } else { // Random movement if no players nearby
-            int direction = Greenfoot.getRandomNumber(5);
-    
-            int newX = enemyX;
-            int newY = enemyY;
+            int direction = Greenfoot.getRandomNumber(4);
     
             switch (direction) {
                 case 0 -> newX = Math.max(enemyX - 31, 30);
                 case 1 -> newX = Math.min(enemyX + 31, 371);
                 case 2 -> newY = Math.max(enemyY - 32, 52);
                 case 3 -> newY = Math.min(enemyY + 32, 340);
-                case 4 -> {}
-            }
-    
-            if (newX != enemyX || newY != enemyY) {
-                enemy.updatePosition(newX, newY);
             }
         }
+    
+        if (newX != enemyX || newY != enemyY) {
+            enemy.updatePosition(newX, newY);
+        }
     }
+    
 
     void updatePosition(int newX, int newY);
 
