@@ -86,7 +86,7 @@ public class CombatScreen extends World
         FloorII floor44 = new FloorII();
         addObject(floor44, 216,180);
         FloorII floor54 = new FloorII();
-        addObject(floor54, 154,212);
+        addObject(floor54, 216,212);
         WallI wall54 = new WallI();
         addObject(wall54 , 216, 212);
         FloorII floor15 = new FloorII();
