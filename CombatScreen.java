@@ -139,6 +139,11 @@ public class CombatScreen extends World
         addObject(rightwall4, 309, 212);
         WallI wall57 = new WallI();
         addObject(wall57, 309, 212);
+        Player player1 = new Player();
+        addObject(player1, 215, 180);
+        EnemyCombatSprite enemy = new EnemyCombatSprite();
+        addObject(enemy, 262, 180);
+
     }
 
 }
