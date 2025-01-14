@@ -17,7 +17,7 @@ public class GameScreen extends World {
     private List<Heart> hearts = new ArrayList<>();
     public GameScreen() {
         super(400, 600, 1);
-        setBackground("Background.png");
+        setBackground("background.png");
         if (GameStateManager.levelSeeds.isEmpty()) {
             initializeSeeds();
         }

@@ -9,7 +9,7 @@ public class CombatScreen extends World {
     private static final Random random = new Random();
     public CombatScreen(){   
         super(400,600,1);
-        setBackground("Background.png");
+        setBackground("background.png");
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
