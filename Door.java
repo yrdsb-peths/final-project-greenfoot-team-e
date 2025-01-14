@@ -19,7 +19,6 @@ public class Door extends Actor {
             GameStateManager.entranceX=doorX;
             GameStateManager.entranceY=doorY;
         }
-        System.out.println(doorX+","+doorY);
     }
 
     public void act() {
