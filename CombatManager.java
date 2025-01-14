@@ -1,6 +1,7 @@
 import greenfoot.Greenfoot;
 public class CombatManager {
-     public static int playerHP=10;
+     public static int playerHP=9;
+     public static final int playerHPMax=10;
      public static int playerATK=1;
      public static int playerSPD=2;
      public static int armorType=0;

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import greenfoot.Greenfoot;
+import greenfoot.GreenfootImage;
 import greenfoot.World;
 
 public class GameScreen extends World {
@@ -13,15 +14,15 @@ public class GameScreen extends World {
     private Player player;
     private TileWorld tileWorld; // Field for reuse across methods
     private static final Random random = new Random();
- // Store enemy data
-
+    private List<Heart> hearts = new ArrayList<>();
     public GameScreen() {
         super(400, 600, 1);
-        setBackground("background.png");
+        setBackground("Background.png");
         if (GameStateManager.levelSeeds.isEmpty()) {
             initializeSeeds();
         }
         initializeLevel();
+        initializeHearts();
     }
 
     private void initializeSeeds() {
@@ -157,4 +158,22 @@ public class GameScreen extends World {
                 return new Zombie(defeated);
         }
     }
+    private void initializeHearts() {
+        for (int i = 0; i < CombatManager.playerHPMax; i++) {
+            Heart heart = new Heart();
+            hearts.add(heart);
+            addObject(heart, 200 + (i *20), 420); // Adjust positions as needed
+        }
+    }
+
+    public void updateHearts(int health) {
+        for (int i = 0; i < hearts.size(); i++) {
+            if (i < health) {
+                hearts.get(i).setFull();
+            } else {
+                hearts.get(i).setEmpty();
+            }
+        }
+    }
 }
+
