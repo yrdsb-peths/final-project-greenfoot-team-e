@@ -33,6 +33,12 @@ public class CombatScreen extends World {
                 CombatManager.currentEnemyATK=CombatManager.zombieATK;
                 CombatManager.currentEnemyACC=CombatManager.zombieACC;
                 break;
+            case 3:
+                CombatManager.currentEnemyHP=CombatManager.deathKnightHP;
+                CombatManager.currentEnemyMaxHP=CombatManager.deathKnightHP;
+                CombatManager.currentEnemySPD=CombatManager.deathKnightSPD;
+                CombatManager.currentEnemyATK=CombatManager.deathKnightATK;
+                CombatManager.currentEnemyACC=CombatManager.deathKnightACC;
                 
         }
 
