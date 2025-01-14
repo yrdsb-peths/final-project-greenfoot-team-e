@@ -10,7 +10,8 @@ public class GameStateManager {
     public static int treasureChestX;
     public static int treasureChestY;
     public static boolean treasureExists=false;
-    public static String treasureType;
+    public static String treasureTypeOpen;
+    public static String treasureTypeClosed;
     public static boolean chestLooted=false;
     public static int traderX;
     public static int traderY;

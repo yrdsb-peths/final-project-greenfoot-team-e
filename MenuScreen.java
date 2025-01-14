@@ -22,6 +22,6 @@ public class MenuScreen extends World {
         Greenfoot.setWorld(new GameScreen());
     }
     public void helpButton(){
-        addObject(new HelpImage(), 300,300);
+        addObject(new HelpImage(this), 200,300);
     }
 }
