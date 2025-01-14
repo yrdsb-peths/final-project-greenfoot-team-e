@@ -9,6 +9,7 @@ public class Skeleton extends Enemy {
     private static final String[] REACT_FRAMES = { "SkelReact0.png", "SkelReact1.png", "SkelReact2.png", "SkelReact3.png"};
     private boolean defeated;
     GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
+    
     public Skeleton(boolean defeated) {
         changeState(State.IDLE);
         this.defeated=defeated;

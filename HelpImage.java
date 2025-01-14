@@ -9,14 +9,9 @@ public class HelpImage extends Actor {
     }
     public void act()
     {
-         
-        
         if(Greenfoot.isKeyDown("e")) {
             this.getWorld().removeObject(this);
         }
-        
-        
-        
     }
     
 }
