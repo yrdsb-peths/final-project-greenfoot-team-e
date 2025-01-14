@@ -24,5 +24,9 @@ public class CombatManager {
      public static final int zombieATK=2;
      public static final int zombieSPD=1;
      public static final int zombieACC=40;
+     public static final int deathKnightHP=20;
+     public static final int deathKnightATK=5;
+     public static final int deathKnightSPD=1;
+     public static final int deathKnightACC=60;
 
 }

@@ -5,6 +5,7 @@ public class EnemyCombatSprite extends Actor {
     GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
     GreenfootImage zombieImage = new GreenfootImage("ZombieIdle0.png");
     GreenfootImage slimeImage = new GreenfootImage("slime-idle-0.png");
+    GreenfootImage deathKnightImage = new GreenfootImage("deathKnightIdle0.png");
     public EnemyCombatSprite(){
         switch (GameStateManager.currentEnemy) {
             case 0:
@@ -16,6 +17,9 @@ public class EnemyCombatSprite extends Actor {
             case 2:
             default:
                 setImage("ZombieIdle0.png");
+                break;
+            case 3:
+                setImage("DeathKnightIdle0.png");
                 break;
         }
     }
