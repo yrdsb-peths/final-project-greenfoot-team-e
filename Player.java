@@ -31,7 +31,6 @@ public class Player extends Actor implements Lifeform {
         updatePosition(x, y);
         GameStateManager.playerX=x;
         GameStateManager.playerY=y;
-        System.out.println(GameStateManager.playerX+","+GameStateManager.playerY);
     }
 
     @Override

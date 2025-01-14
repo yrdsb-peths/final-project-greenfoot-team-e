@@ -25,10 +25,16 @@ public class InventoryChecker {
         }
         if (wordList.contains("ArmT3")) {
             CombatManager.armorType=3;
+            CombatManager.playerHPMax=16;
+            CombatManager.playerHP=16;
         } else if(wordList.contains("ArmT2")){
             CombatManager.armorType=2;
+            CombatManager.playerHPMax=14;
+            CombatManager.playerHP=14;
         } else if(wordList.contains("ArmT1")){
             CombatManager.armorType=1;
+            CombatManager.playerHPMax=12;
+            CombatManager.playerHP=12;
         } else{
             CombatManager.armorType=0;
         }
