@@ -159,20 +159,18 @@ public class GameScreen extends World {
         }
     }
     private void initializeHearts() {
-        for (int i = 0; i < CombatManager.playerHPMax; i++) {
+        int heartsCount = (int) Math.ceil(CombatManager.playerHPMax / 2.0); // Total hearts needed
+        for (int i = 0; i < heartsCount; i++) {
             Heart heart = new Heart();
-            hearts.add(heart);
-            addObject(heart, 200 + (i *20), 420); // Adjust positions as needed
-        }
-    }
-
-    public void updateHearts(int health) {
-        for (int i = 0; i < hearts.size(); i++) {
-            if (i < health) {
-                hearts.get(i).setFull();
+            if (i < CombatManager.playerHP / 2) {
+                heart.setFull(); // Full heart
+            } else if (i == CombatManager.playerHP / 2 && CombatManager.playerHP % 2 != 0) {
+                heart.setHalf(); // Half heart
             } else {
-                hearts.get(i).setEmpty();
+                heart.setEmpty(); // Empty heart
             }
+            hearts.add(heart);
+            addObject(heart, 375 - (i * 20), 420); // Adjust positions as needed
         }
     }
 }

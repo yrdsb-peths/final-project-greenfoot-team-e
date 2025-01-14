@@ -10,6 +10,7 @@ public class TreasureChest extends Actor {
     private static final int TILE_HEIGHT = 32;
     public static int randomNum; 
     private boolean isLooted = false;
+    InventoryChecker checkInventory=new InventoryChecker();
     public void act() {
         loot(Player.class);
 
@@ -100,8 +101,10 @@ public class TreasureChest extends Actor {
                 inventory.addWord(lootItem);
                 System.out.println("Player looted: " + lootItem);
                 setImage(GameStateManager.treasureTypeOpen);
+                checkInventory=new InventoryChecker();
                 GameStateManager.chestLooted = true;
                 isLooted = true;
+                
             }
         }
     }
