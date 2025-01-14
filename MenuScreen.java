@@ -3,6 +3,7 @@ import java.io.IOException;
 import greenfoot.*;
 
 public class MenuScreen extends World {
+    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public MenuScreen() {
         super(400, 600, 1);
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 350);
@@ -16,6 +17,8 @@ public class MenuScreen extends World {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        backgroudMusic.playLoop();
+        
     }
 
     public void goToGameScreen() {
