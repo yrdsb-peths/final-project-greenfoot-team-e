@@ -7,9 +7,14 @@ public class CombatScreen extends World {
     private List<Heart> hearts = new ArrayList<>();
     private List<Heart> enemyHearts = new ArrayList<>();
     private static final Random random = new Random();
+    GreenfootImage battlImage=new GreenfootImage("BattleBackground.png");
+    InventoryChecker checkInventory=new InventoryChecker();
+    Label battleCircle;
     public CombatScreen(){   
         super(400,600,1);
-        setBackground("Background.png");
+        setBackground("background.png");
+        battleCircle=new Label(battlImage, "",0);
+        addObject(battleCircle, 200, 200);
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
@@ -45,6 +50,7 @@ public class CombatScreen extends World {
     public void returnGameScreen(){
         if(CombatManager.currentEnemyHP<=0){
             System.out.println("You defeated the enemy!");
+            loot();
             Greenfoot.setWorld(new GameScreen());
         }
     }
@@ -58,19 +64,23 @@ public class CombatScreen extends World {
         }else{
             System.out.println("You missed!");
         }
-        if(enemyACC<CombatManager.currentEnemyACC){
-            CombatManager.playerHP-=CombatManager.currentEnemyATK;
-            System.out.println("The enemy dealt "+CombatManager.currentEnemyATK+" damage");
+        returnGameScreen();
+        if(!(CombatManager.currentEnemyHP<=0)&&enemyACC<CombatManager.currentEnemyACC){
+            CombatManager.playerHP-=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 0);
+            int totalDamage=CombatManager.currentEnemyATK-CombatManager.armorType;
+            if(totalDamage<=0){
+                System.out.println("Your armor negates all damage");
+            }else{
+                System.out.println("The enemy dealt "+CombatManager.currentEnemyATK+" damage");
+            }
         }else{
             System.out.println("Enemy missed!");
         }
-
-        initializeHearts();
-        initializeEnemyHearts();
         if(CombatManager.playerHP<=0){
             handleGameOver();
         }
-        returnGameScreen();
+        initializeHearts();
+        initializeEnemyHearts();
     }
     private void initializeEnemyHearts() {
         enemyHearts.clear();
@@ -106,6 +116,50 @@ public class CombatScreen extends World {
     private void handleGameOver() {
         System.out.println("Game Over!");
         Greenfoot.stop(); // Stop the game
+    }
+    public void loot() {
+        Random random = new Random();
+        ScannerClass inventory = new ScannerClass("Inventory.txt");
+        ScannerClass items = new ScannerClass("Items.txt");
+        ScannerClass itemsHealth = new ScannerClass("ItemsHealthPots.txt");
+    
+        if (defeated) {
+            List<String> itemList = items.getWordList();
+            List<String> itemHealthList = itemsHealth.getWordList();
+            List<String> inventoryList = inventory.getWordList();
+    
+            if (!itemList.isEmpty() || !itemHealthList.isEmpty()) {
+                String lootItem = null;
+                boolean lootAdded = false;
+    
+                while (!lootAdded) {
+                    int listType = random.nextInt(2);
+                    if (listType == 0 && !itemList.isEmpty()) {
+                        List<String> availableItems = itemList.stream()
+                            .filter(item -> !inventoryList.contains(item))
+                            .toList();
+    
+                        if (!availableItems.isEmpty()) {
+                            int lootGen = random.nextInt(availableItems.size());
+                            lootItem = availableItems.get(lootGen);
+                            inventory.addWord(lootItem);
+                            lootAdded = true;
+                        } else {
+                            itemList.clear(); // Prevent unnecessary retries
+                        }
+                    } else if (listType == 1 && !itemHealthList.isEmpty()) {
+                        int lootGen = random.nextInt(itemHealthList.size());
+                        lootItem = itemHealthList.get(lootGen);
+                        inventory.addWord(lootItem);
+                        lootAdded = true;
+                    }
+                }
+    
+                if (lootItem != null) {
+                    System.out.println("Player looted: " + lootItem);
+                }
+            }
+        }
     }
 
 }

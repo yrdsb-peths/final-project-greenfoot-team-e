@@ -86,28 +86,50 @@ public class TreasureChest extends Actor {
         Random random = new Random();
         ScannerClass inventory = new ScannerClass("Inventory.txt");
         ScannerClass items = new ScannerClass("Items.txt");
+        ScannerClass itemsHealth = new ScannerClass("ItemsHealthPots.txt");
     
         if (!GameStateManager.chestLooted && this.isTouching(Player)) {
             List<String> itemList = items.getWordList();
+            List<String> itemHealthList = itemsHealth.getWordList();
             List<String> inventoryList = inventory.getWordList();
     
-            if (!itemList.isEmpty()) {
-                String lootItem;
-                do {
-                    int lootGen = random.nextInt(itemList.size());
-                    lootItem = itemList.get(lootGen);
-                } while (inventoryList.contains(lootItem)); // Reroll if duplicate found
+            if (!itemList.isEmpty() || !itemHealthList.isEmpty()) {
+                String lootItem = null;
+                boolean lootAdded = false;
     
-                inventory.addWord(lootItem);
-                System.out.println("Player looted: " + lootItem);
-                setImage(GameStateManager.treasureTypeOpen);
-                checkInventory=new InventoryChecker();
-                GameStateManager.chestLooted = true;
-                isLooted = true;
-                
+                while (!lootAdded) {
+                    int listType = random.nextInt(2);
+                    if (listType == 0 && !itemList.isEmpty()) {
+                        List<String> availableItems = itemList.stream()
+                            .filter(item -> !inventoryList.contains(item))
+                            .toList();
+    
+                        if (!availableItems.isEmpty()) {
+                            int lootGen = random.nextInt(availableItems.size());
+                            lootItem = availableItems.get(lootGen);
+                            inventory.addWord(lootItem);
+                            lootAdded = true;
+                        } else {
+                            itemList.clear(); // Prevent unnecessary retries
+                        }
+                    } else if (listType == 1 && !itemHealthList.isEmpty()) {
+                        int lootGen = random.nextInt(itemHealthList.size());
+                        lootItem = itemHealthList.get(lootGen);
+                        inventory.addWord(lootItem);
+                        lootAdded = true;
+                    }
+                }
+    
+                if (lootItem != null) {
+                    System.out.println("Player looted: " + lootItem);
+                    setImage(GameStateManager.treasureTypeOpen);
+                    GameStateManager.chestLooted = true;
+                    isLooted = true;
+                }
             }
         }
     }
+    
     
 }
 

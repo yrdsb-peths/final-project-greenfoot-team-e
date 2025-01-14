@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 import greenfoot.*;
 
 public abstract class Enemy extends Actor implements Lifeform {
@@ -8,7 +11,6 @@ public abstract class Enemy extends Actor implements Lifeform {
     private int frameDelay = 8; // Controls animation speed
     private int frameCounter = 0; // Counter to manage delay
     private String[] currentAnimationFrames; // Holds the current animation frames
-
     private boolean defeated;
     private GameScreen gameScreen;
     private TileWorld tileWorld;
