@@ -46,7 +46,7 @@ public class CombatScreen extends World {
         EnemyCombatSprite enemy=new EnemyCombatSprite();
         addObject(enemy,200,300);
         addObject(new Button(this::attack, "Attack-button.png",150, 100), 100, 500);
-        addObject(new Button(this::healthPotion, "heatlth-button.png",  150, 100), 100, 550  );
+        addObject(new Button(this::healthPotion, "heatlth-button.png",  150, 100), 300, 500  );
         initializeHearts();
         initializeEnemyHearts();
     }
@@ -69,13 +69,9 @@ public class CombatScreen extends World {
         }
         returnGameScreen();
         if(!(CombatManager.currentEnemyHP<=0)&&enemyACC<CombatManager.currentEnemyACC){
-            CombatManager.playerHP-=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 0);
-            int totalDamage=CombatManager.currentEnemyATK-CombatManager.armorType;
-            if(totalDamage<=0){
-                System.out.println("Your armor negates all damage");
-            }else{
+            CombatManager.playerHP-=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
+            int totalDamage=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
                 System.out.println("The enemy dealt "+CombatManager.currentEnemyATK+" damage");
-            }
         }else{
             System.out.println("Enemy missed!");
         }
@@ -168,7 +164,7 @@ public class CombatScreen extends World {
                     } else if (listType == 1 && !itemHealthList.isEmpty()) {
                         int lootGen = random.nextInt(itemHealthList.size());
                         lootItem = itemHealthList.get(lootGen);
-                        inventory.addWord(lootItem);
+                        CombatManager.playerHealthPot+=1;
                         lootAdded = true;
                     }
                 }

@@ -115,7 +115,7 @@ public class TreasureChest extends Actor {
                     } else if (listType == 1 && !itemHealthList.isEmpty()) {
                         int lootGen = random.nextInt(itemHealthList.size());
                         lootItem = itemHealthList.get(lootGen);
-                        inventory.addWord(lootItem);
+                        CombatManager.playerHealthPot+=1;
                         lootAdded = true;
                     }
                 }
