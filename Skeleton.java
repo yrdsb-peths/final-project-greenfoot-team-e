@@ -8,9 +8,9 @@ public class Skeleton extends Enemy {
     private static final String[] DEATH_FRAMES = { "SkelDeath0.png", "SkelDeath1.png", "SkelDeath2.png", "SkelDeath3.png", "SkelDeath4.png", "SkelDeath5.png", "SkelDeath6.png", "SkelDeath7.png", "SkelDeath8.png", "SkelDeath9.png", "SkelDeath10.png", "SkelDeath11.png", "SkelDeath12.png", "SkelDeath13.png", "SkelDeath14.png" };
     private static final String[] REACT_FRAMES = { "SkelReact0.png", "SkelReact1.png", "SkelReact2.png", "SkelReact3.png"};
     private boolean defeated;
-    GreenfootImage skeletonImage = new GreenfootImage("SkelIdle0.png");
+    GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
+    
     public Skeleton(boolean defeated) {
-        setImage(skeletonImage);
         changeState(State.IDLE);
         this.defeated=defeated;
     }
