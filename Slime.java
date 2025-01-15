@@ -40,6 +40,6 @@ public class Slime extends Enemy {
     }
     @Override
     public int getType() {
-        return 1; // Skeleton's type
+        return 1; 
     }
 }

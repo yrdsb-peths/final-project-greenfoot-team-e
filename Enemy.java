@@ -140,6 +140,9 @@ public abstract class Enemy extends Actor implements Lifeform {
             }else if(this.getClass()==Zombie.class){
                 GameStateManager.currentEnemy=2;
             }
+            else if(this.getClass()==DeathKnight.class){
+                GameStateManager.currentEnemy=3;
+            }
             defeated=true; 
             System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
