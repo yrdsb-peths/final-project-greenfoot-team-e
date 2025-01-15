@@ -55,7 +55,7 @@ public class CombatScreen extends World {
         if(playerACC<CombatManager.playerACC){
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
-            hitSound.play
+            hitSound.play();
             System.out.println("You dealt "+totalDamage+" damage");
         }else{
             System.out.println("You missed!");
