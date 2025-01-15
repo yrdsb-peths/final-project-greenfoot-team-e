@@ -7,7 +7,6 @@ import java.util.Map;
 import greenfoot.*;
 
 public class MenuScreen extends World {
-    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public MenuScreen() {
         super(400, 600, 1);
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 350);
@@ -22,15 +21,13 @@ public class MenuScreen extends World {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        backgroudMusic.playLoop();
-        
     }
 
     public void goToGameScreen() {
         Greenfoot.setWorld(new GameScreen());
     }
     public void helpButton(){
-        addObject(new HelpImage(), 200,300);
+        addObject(new HelpImage(this), 200,300);
     }
     public void newGame(){
         CombatManager.playerHP=10;

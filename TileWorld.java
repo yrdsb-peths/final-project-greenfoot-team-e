@@ -154,6 +154,7 @@ public class TileWorld {
     return placed;
 }
     
+
     public int[] getDoor1Position() {
         return new int[]{door1X, door1Y};
     }
