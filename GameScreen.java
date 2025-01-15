@@ -30,6 +30,7 @@ public class GameScreen extends World {
         GameStateManager.levelSeeds.put(1, random.nextLong());
         GameStateManager.levelSeeds.put(2, random.nextLong());
         GameStateManager.levelSeeds.put(3, random.nextLong());
+        GameStateManager.levelSeeds.put(4, random.nextLong());
     }
 
     private void initializeLevel() {
@@ -65,11 +66,14 @@ public class GameScreen extends World {
         removeObjects(getObjects(null));
         tileWorld = new TileWorld(seed); // Initialize tileWorld
         tileWorld.generateRoomIn(this);
-
-        if (GameStateManager.enemyData.isEmpty()) {
-            createRandomEnemies(NUM_ENEMIES);
-        } else {
-            reloadEnemies();
+        if(GameStateManager.currentLevel<4){
+            if (GameStateManager.enemyData.isEmpty()) {
+                createRandomEnemies(NUM_ENEMIES);
+            } else {
+                reloadEnemies();
+            }
+        }else{
+            
         }
     }
 
