@@ -1,21 +1,30 @@
 import greenfoot.Actor;
-import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
+
 public class EnemyCombatSprite extends Actor {
-    GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
-    GreenfootImage zombieImage = new GreenfootImage("ZombieIdle0.png");
-    GreenfootImage slimeImage = new GreenfootImage("slime-idle-0.png");
-    public EnemyCombatSprite(){
+    GreenfootImage skeletonImage;
+    GreenfootImage zombieImage;
+    GreenfootImage slimeImage;
+
+    public EnemyCombatSprite() {
+        skeletonImage = new GreenfootImage("SkelAttack0.png");
+        zombieImage = new GreenfootImage("ZombieIdle0.png");
+        slimeImage = new GreenfootImage("slime-idle-0.png");
+
+        skeletonImage.scale(200, 200);
+        slimeImage.scale(200, 200);
+        zombieImage.scale(200, 200);
+
         switch (GameStateManager.currentEnemy) {
             case 0:
-                setImage("SkelAttack0.png");
+                setImage(skeletonImage);
                 break;
             case 1:
-                setImage("slime-idle-0.png");
+                setImage(slimeImage);
                 break;
             case 2:
             default:
-                setImage("ZombieIdle0.png");
+                setImage(zombieImage);
                 break;
         }
     }
