@@ -4,6 +4,7 @@ import java.util.Random;
 import greenfoot.*;
 public class CombatScreen extends World {
     GreenfootSound hitSound = new GreenfootSound("hitSound.wav");
+    GreenfootSound combatMusic = new GreenfootSound("combatMusic.wav");
     private boolean defeated=true;
     private List<Heart> hearts = new ArrayList<>();
     private List<Heart> enemyHearts = new ArrayList<>();
@@ -11,6 +12,7 @@ public class CombatScreen extends World {
     public CombatScreen(){   
         super(400,600,1);
         setBackground("Background.png");
+        combatMusic.playLoop();
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
