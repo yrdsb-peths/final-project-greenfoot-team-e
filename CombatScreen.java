@@ -8,7 +8,6 @@ public class CombatScreen extends World {
     private List<Heart> enemyHearts = new ArrayList<>();
     private static final Random random = new Random();
     InventoryChecker checkInventory=new InventoryChecker();
-    Label battleCircle;
     public CombatScreen(){   
         super(400,600,1);
         setBackground("background.png");
@@ -39,7 +38,7 @@ public class CombatScreen extends World {
         }
 
         EnemyCombatSprite enemy=new EnemyCombatSprite();
-        addObject(enemy,300,300);
+        addObject(enemy,200,300);
         addObject(new Button(this::attack, "Attack-button.png",150, 100), 100, 500);
         initializeHearts();
         initializeEnemyHearts();
