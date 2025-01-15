@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import greenfoot.*;
+// combat screen where player fights the enemy
 public class CombatScreen extends World {
     private boolean defeated=true;
     private List<Heart> hearts = new ArrayList<>();
@@ -11,6 +12,7 @@ public class CombatScreen extends World {
         super(400,600,1);
         setBackground("Background.png");
         switch (GameStateManager.currentEnemy) {
+            //sets the stats for the enemies. Case 0 is skeleton, 1 is slime, and 2 is zombie
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
                 CombatManager.currentEnemyMaxHP=CombatManager.skeletonHP;
@@ -43,12 +45,14 @@ public class CombatScreen extends World {
         initializeEnemyHearts();
     }
     public void returnGameScreen(){
+        //return to game screen
         if(CombatManager.currentEnemyHP<=0){
             System.out.println("You defeated the enemy!");
             Greenfoot.setWorld(new GameScreen());
         }
     }
     public void attack(){
+        //player attack mechanics
         int playerACC = Greenfoot.getRandomNumber(99);
         int enemyACC = Greenfoot.getRandomNumber(99);
         if(playerACC<CombatManager.playerACC){
