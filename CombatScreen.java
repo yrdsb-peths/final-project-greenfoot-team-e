@@ -7,14 +7,11 @@ public class CombatScreen extends World {
     private List<Heart> hearts = new ArrayList<>();
     private List<Heart> enemyHearts = new ArrayList<>();
     private static final Random random = new Random();
-    GreenfootImage battlImage=new GreenfootImage("BattleBackground.png");
     InventoryChecker checkInventory=new InventoryChecker();
     Label battleCircle;
     public CombatScreen(){   
         super(400,600,1);
         setBackground("background.png");
-        battleCircle=new Label(battlImage, "",0);
-        addObject(battleCircle, 200, 200);
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
