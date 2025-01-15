@@ -83,9 +83,11 @@ public class TileWorld {
         placeDoorsWithGap(world, xOffset, yOffset);
 
         // Spawn chest and trader
-        boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
-        traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
-        traderSpawner.spawnTrader(chestPresent);
+        if(GameStateManager.currentLevel<4){
+            boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+            traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
+            traderSpawner.spawnTrader(chestPresent);
+        }
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {

@@ -172,6 +172,8 @@ public class GameScreen extends World {
             case 2:
             default:
                 return new Zombie(defeated);
+            case 3:
+                return new DeathKnight(defeated);
         }
     }
     private void initializeHearts() {

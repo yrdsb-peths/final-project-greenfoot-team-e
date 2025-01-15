@@ -42,7 +42,7 @@ public abstract class Enemy extends Actor implements Lifeform {
         frameIndex = 0;
     }
 
-    private void updateAnimation() {
+    protected void updateAnimation() {
         if (currentAnimationFrames == null || currentAnimationFrames.length == 0) return;
 
         frameCounter++;

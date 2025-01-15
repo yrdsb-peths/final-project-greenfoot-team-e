@@ -1,2 +1,1 @@
-LesserHealthPot
-SwdT1
+RegularHealthPot

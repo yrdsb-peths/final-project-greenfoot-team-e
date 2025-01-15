@@ -14,7 +14,14 @@ public class DeathKnight extends Enemy
         changeState(State.IDLE);
         this.defeated=defeated;
     }
-
+    @Override
+    public void act() {
+        updateAnimation();
+        
+        if (!defeated) {
+            encounter(Player.class);
+        }
+    }
    
     @Override
     protected String[] getIdleFrames() {
