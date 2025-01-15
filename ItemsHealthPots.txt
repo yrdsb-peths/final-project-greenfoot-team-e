@@ -1,3 +1,1 @@
-LesserHealthPot
-RegularHealthPot
-GreaterHealthPot
+RegulartHealthPot
