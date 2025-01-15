@@ -52,9 +52,10 @@ public class CombatScreen extends World {
         }
     }
     public void attack(){
-        //player attack mechanics
+        //fight mechanics
         int playerACC = Greenfoot.getRandomNumber(99);
         int enemyACC = Greenfoot.getRandomNumber(99);
+        //player attack
         if(playerACC<CombatManager.playerACC){
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
@@ -62,6 +63,7 @@ public class CombatScreen extends World {
         }else{
             System.out.println("You missed!");
         }
+        //enemy attack
         if(enemyACC<CombatManager.currentEnemyACC){
             CombatManager.playerHP-=CombatManager.currentEnemyATK;
             System.out.println("The enemy dealt "+CombatManager.currentEnemyATK+" damage");
@@ -71,11 +73,13 @@ public class CombatScreen extends World {
 
         initializeHearts();
         initializeEnemyHearts();
+        //game lost
         if(CombatManager.playerHP<=0){
             handleGameOver();
         }
         returnGameScreen();
     }
+    //create enemy health bar
     private void initializeEnemyHearts() {
         enemyHearts.clear();
         int heartsCount = (int) Math.ceil(CombatManager.currentEnemyMaxHP / 2.0); // Total hearts needed
@@ -92,6 +96,7 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 200); // Adjust positions as needed
         }
     }
+    // create player health bar
     private void initializeHearts() {
         int heartsCount = (int) Math.ceil(CombatManager.playerHPMax / 2.0); // Total hearts needed
         for (int i = 0; i < heartsCount; i++) {

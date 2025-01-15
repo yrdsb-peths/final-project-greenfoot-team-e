@@ -32,13 +32,13 @@ public class Door extends Actor {
     }
 
     private boolean isPlayerNearDoor() {
-        int range = TILE_SIZE; // Define how close is considered "near" (e.g., one tile)
+        int range = TILE_SIZE; 
         int dx = GameStateManager.playerX - doorX; // Horizontal distance
         int dy = Math.abs(GameStateManager.playerY - doorY); // Vertical distance
         return (Math.abs(dx) <= range/2 && dy == -TILE_SIZE) || // Above the door
         (Math.abs(dx) <= range/2 && dy == TILE_SIZE);
     }
-
+    // exit and return to gameScreen
     private void handleExit() {
         if (!interacted) {
             interacted = true; // Mark as executed
