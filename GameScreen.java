@@ -6,10 +6,11 @@ import java.util.Random;
 
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
+import greenfoot.GreenfootSound;
 import greenfoot.World;
 
 public class GameScreen extends World {
-    
+    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     private static final int NUM_ENEMIES = 2;
     private Player player;
     private TileWorld tileWorld;

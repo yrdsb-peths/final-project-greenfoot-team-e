@@ -10,36 +10,27 @@ public class TreasureChest extends Actor {
     private static final int TILE_HEIGHT = 32;
     public static int randomNum; 
     private boolean isLooted = false;
-    InventoryChecker checkInventory=new InventoryChecker();
     public void act() {
         loot(Player.class);
-
     }
     public TreasureChest(World world)
     {   
-        if(!GameStateManager.chestLooted){
-            if(GameStateManager.treasureTypeClosed==null){
+        if(GameStateManager.treasureType==null){
             randomNum = Greenfoot.getRandomNumber(50);
             if (randomNum == 21 || randomNum == 24) {
                 setImage("images/ChestLeC.png");
-                GameStateManager.treasureTypeClosed="images/ChestLeC.png";
-                GameStateManager.treasureTypeOpen="images/ChestLeO.png";
+                GameStateManager.treasureType="images/ChestLeC.png";
             } else if (randomNum >= 30 && randomNum <= 40) {
                 setImage("images/ChestRaC.png");
-                GameStateManager.treasureTypeClosed="images/ChestRaC.png";
-                GameStateManager.treasureTypeOpen="images/ChestRaO.png";
+                GameStateManager.treasureType="images/ChestRaC.png";
             } else if (randomNum >= 0 && randomNum <= 50) {
                 setImage("images/ChestCoC.png");
-                GameStateManager.treasureTypeClosed="images/ChestCoC.png";
-                GameStateManager.treasureTypeOpen="images/ChestCoO.png";
-            } 
-            }else{
-                setImage(GameStateManager.treasureTypeClosed);
-            }
-        }else{
-            setImage(GameStateManager.treasureTypeOpen);
-        }
+                GameStateManager.treasureType="images/ChestCoC.png";
+        } 
+    }else{
+        setImage(GameStateManager.treasureType);
     }
+}
 
     public static boolean spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
     {
@@ -96,7 +87,6 @@ public class TreasureChest extends Actor {
             if (!itemList.isEmpty() || !itemHealthList.isEmpty()) {
                 String lootItem = null;
                 boolean lootAdded = false;
-    
                 while (!lootAdded) {
                     int listType = random.nextInt(2);
                     if (listType == 0 && !itemList.isEmpty()) {
