@@ -66,14 +66,26 @@ public class GameScreen extends World {
         removeObjects(getObjects(null));
         tileWorld = new TileWorld(seed); // Initialize tileWorld
         tileWorld.generateRoomIn(this);
-        if(GameStateManager.currentLevel<4){
+        if(GameStateManager.currentLevel==4){
+            int enemyType = 3;
+            Enemy enemy = createEnemyByType(enemyType, false);
+            if (enemy != null) {
+                enemy.gameScreen(this);
+                addObject(enemy, 200, 200);
+    
+                Map<String, Object> data = new HashMap<>();
+                data.put("x", 200);
+                data.put("y", 200);
+                data.put("type", enemyType);
+                data.put("defeated", false);
+                GameStateManager.enemyData.add(data);
+            }
+        }else{
             if (GameStateManager.enemyData.isEmpty()) {
                 createRandomEnemies(NUM_ENEMIES);
             } else {
                 reloadEnemies();
             }
-        }else{
-            
         }
     }
 
