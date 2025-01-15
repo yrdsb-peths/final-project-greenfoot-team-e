@@ -40,7 +40,6 @@ public class CombatScreen extends World {
         EnemyCombatSprite enemy=new EnemyCombatSprite();
         addObject(enemy,200,300);
         addObject(new Button(this::attack, "Attack-button.png",150, 100), 100, 500);
-        addObject(new Button(this::healthPotion, "heatlth-button.png",  150, 100), 100, 550  );
         initializeHearts();
         initializeEnemyHearts();
     }
@@ -110,21 +109,6 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 420); // Adjust positions as needed
         }
     }
-
-    private void healthPotion() 
-    {
-        if(CombatManager.playerHealthPot > 0)
-        {
-            CombatManager.playerHP += 5;
-            initializeHearts();
-            CombatManager.playerHealthPot--;
-        }
-        else 
-        {
-            System.out.println("you have no health potions");
-        }
-    }
-
     private void handleGameOver() {
         System.out.println("Game Over!");
         Greenfoot.stop(); // Stop the game

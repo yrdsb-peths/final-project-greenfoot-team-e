@@ -5,7 +5,6 @@ public class CombatManager {
      public static int playerATK=1;
      public static int playerSPD=2;
      public static int playerACC=80;
-     public static int playerHealthPot=1;
      public static int armorType=0;
      public static int swordType=0;
      public static int currentEnemyHP;
