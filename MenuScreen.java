@@ -7,6 +7,7 @@ import java.util.Map;
 import greenfoot.*;
 
 public class MenuScreen extends World {
+    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public MenuScreen() {
         super(400, 600, 1);
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 350);
@@ -14,7 +15,7 @@ public class MenuScreen extends World {
         Label titleLabel = new Label("Lurking Below", 40);
         addObject(titleLabel, 200, 175);
         GameStateManager.currentLevel = 1;
-
+        backgroudMusic.playLoop();
         try {
             ScannerClass.clearFile("Inventory.txt");
         } catch (IOException e) {
