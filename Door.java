@@ -11,7 +11,7 @@ public class Door extends Actor {
         setImage(imageFile);
         this.doorType = type;
     }
-
+    //add door to world
     public void addedToWorld(World world) {
         doorX = getX();
         doorY = getY();
@@ -22,6 +22,7 @@ public class Door extends Actor {
     }
 
     public void act() {
+        //exit button appears when close to door
         if (!interacted && isPlayerNearDoor()) {
             if (doorType == 1) {
                 GameScreen.exitText.setValue("Exit");
@@ -32,7 +33,7 @@ public class Door extends Actor {
             getWorld().removeObject(exitButton);
         }
     }
-
+    //check if player is near door
     private boolean isPlayerNearDoor() {
         int range = TILE_SIZE; 
         int dx = GameStateManager.playerX - doorX; // Horizontal distance
