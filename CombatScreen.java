@@ -14,12 +14,9 @@ public class CombatScreen extends World {
     Label enemyText=new Label(" ", 20);
     public CombatScreen(){  
         super(400,600,1);
-<<<<<<< HEAD
+
         setBackground("background.png");
-=======
-        setBackground("Background.png");
         combatMusic.playLoop();
->>>>>>> origin/add-music
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
@@ -94,12 +91,9 @@ public class CombatScreen extends World {
         if(playerACC<CombatManager.playerACC){
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
-<<<<<<< HEAD
             combatText.setValue("You dealt "+totalDamage+" damage");
-=======
             hitSound.play();
             System.out.println("You dealt "+totalDamage+" damage");
->>>>>>> origin/add-music
         }else{
             combatText.setValue("You missed!");
         }
