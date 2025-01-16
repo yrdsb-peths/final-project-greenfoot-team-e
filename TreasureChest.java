@@ -121,7 +121,7 @@ public class TreasureChest extends Actor {
                 }
     
                 if (lootItem != null) {
-                    System.out.println("Player looted: " + lootItem);
+                    GameScreen.text.setValue("Player looted: " + lootItem);
                     setImage(GameStateManager.treasureTypeOpen);
                     GameStateManager.chestLooted = true;
                     isLooted = true;

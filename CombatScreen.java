@@ -8,7 +8,9 @@ public class CombatScreen extends World {
     private List<Heart> enemyHearts = new ArrayList<>();
     private static final Random random = new Random();
     InventoryChecker checkInventory=new InventoryChecker();
-    public CombatScreen(){   
+    Label combatText;
+    Label enemyText=new Label(" ", 20);
+    public CombatScreen(){  
         super(400,600,1);
         setBackground("background.png");
         switch (GameStateManager.currentEnemy) {
@@ -42,20 +44,41 @@ public class CombatScreen extends World {
                 CombatManager.currentEnemyACC=CombatManager.deathKnightACC;
                 
         }
-
+        switch (GameStateManager.currentEnemy){
+            case 0:
+                combatText=new Label("a Skeleton has appeared!", 20);
+                break;
+            case 1:
+                combatText=new Label("a Slime has appeared!", 20);
+                break;
+            case 2:
+                combatText=new Label("a Zombie has appeared!", 20);
+                break;
+            case 3:
+                combatText=new Label("Valerius the Death knight challenges you", 20);
+                break;
+        }
         EnemyCombatSprite enemy=new EnemyCombatSprite();
+        addObject(combatText, 125, 425);
+        addObject(enemyText, 125, 450);
         addObject(enemy,200,300);
         addObject(new Button(this::attack, "Attack-button.png",150, 100), 100, 500);
         addObject(new Button(this::healthPotion, "heatlth-button.png",  150, 100), 300, 500  );
         initializeHearts();
         initializeEnemyHearts();
     }
-    public void returnGameScreen(){
+    public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
-            System.out.println("You defeated the enemy!");
+            combatText.setValue("You defeated the enemy!");
             loot();
-            Greenfoot.setWorld(new GameScreen());
+            for (Button btn : getObjects(Button.class)) {
+                removeObject(btn);
+            }
+            addObject(new Button(this::returnToGameScreen, "Continue.png",  150, 100), 100, 500);
         }
+    }
+    public void returnToGameScreen(){
+        Greenfoot.setWorld(new GameScreen());
     }
     public void attack(){
         int playerACC = Greenfoot.getRandomNumber(99);
@@ -63,17 +86,19 @@ public class CombatScreen extends World {
         if(playerACC<CombatManager.playerACC){
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
-            System.out.println("You dealt "+totalDamage+" damage");
+            combatText.setValue("You dealt "+totalDamage+" damage");
         }else{
-            System.out.println("You missed!");
+            combatText.setValue("You missed!");
         }
-        returnGameScreen();
-        if(!(CombatManager.currentEnemyHP<=0)&&enemyACC<CombatManager.currentEnemyACC){
-            CombatManager.playerHP-=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
-            int totalDamage=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
-                System.out.println("The enemy dealt "+CombatManager.currentEnemyATK+" damage");
-        }else{
-            System.out.println("Enemy missed!");
+        endSequences();
+        if(!(CombatManager.currentEnemyHP<=0)){
+            if(enemyACC<CombatManager.currentEnemyACC){
+                CombatManager.playerHP-=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
+                int totalDamage=Math.max(CombatManager.currentEnemyATK-CombatManager.armorType, 1);
+                    enemyText.setValue("The enemy dealt "+totalDamage+" damage");
+            }else{
+                enemyText.setValue("Enemy missed!");
+            }
         }
         if(CombatManager.playerHP<=0){
             handleGameOver();
@@ -123,7 +148,7 @@ public class CombatScreen extends World {
         }
         else 
         {
-            System.out.println("you have no health potions");
+            combatText.setValue("you have no health potions");
         }
     }
 
@@ -170,6 +195,7 @@ public class CombatScreen extends World {
                 }
     
                 if (lootItem != null) {
+                    enemyText.setValue("Player looted: " + lootItem);
                     System.out.println("Player looted: " + lootItem);
                 }
             }
