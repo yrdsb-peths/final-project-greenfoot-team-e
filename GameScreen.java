@@ -73,7 +73,7 @@ public class GameScreen extends World
             }
         }
     }
-
+    // Load the current level
     private void loadLevel(int levelToLoad) 
     {
         Long seed = GameStateManager.levelSeeds.get(levelToLoad);
@@ -108,7 +108,7 @@ public class GameScreen extends World
             }
         }
     }
-
+    //change level
     public void changeLevel(int newLevel) 
     {
         if (GameStateManager.levelSeeds.containsKey(newLevel)) 
@@ -118,14 +118,14 @@ public class GameScreen extends World
             loadLevel(newLevel);
         }
     }
-
+    //saves gamescreen so player can return after combat
     public void saveGameState() 
     {
         GameStateManager.playerX = player.getX();
         GameStateManager.playerY = player.getY();
         saveEnemyData();
     }
-
+    //saves enemy data
     private void saveEnemyData() 
     {
         GameStateManager.enemyData.clear();
@@ -138,6 +138,7 @@ public class GameScreen extends World
             GameStateManager.enemyData.add(data);
         }
     }
+    //reloads data to stop enemies from infinitely respawning after every combat
 
     private void reloadEnemies() 
     {
@@ -158,7 +159,7 @@ public class GameScreen extends World
             }
         }
     }
-
+    //creates random amount of new enemies
     public void createRandomEnemies(int numEnemies) 
     {
         int tileRows = 11;
@@ -190,6 +191,7 @@ public class GameScreen extends World
         }
         
     }
+    //chooses what type of enemies
     private Enemy createEnemyByType(int enemyType, boolean defeated) 
     {
         switch (enemyType) 
@@ -205,6 +207,7 @@ public class GameScreen extends World
                 return new DeathKnight(defeated);
         }
     }
+    //creates the hearts for the player so player can keep track out of combat
     private void initializeHearts() 
     {
         int heartsCount = (int) Math.ceil(CombatManager.playerHPMax / 2.0); // Total hearts needed

@@ -7,8 +7,10 @@ import java.util.Map;
 import greenfoot.*;
 
 public class MenuScreen extends World {
+    //Music
     GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public MenuScreen() {
+        //setup the menu screen
         super(400, 600, 1);
         setBackground("MenuBackground.png");
         addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 450);
@@ -23,7 +25,7 @@ public class MenuScreen extends World {
             e.printStackTrace();
         }
     }
-
+    //Creates new game
     public void goToGameScreen() {
         newGame();
         Greenfoot.setWorld(new GameScreen());

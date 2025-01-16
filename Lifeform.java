@@ -4,7 +4,7 @@ import java.util.List;
 import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.World;
-
+//Class for all lifeform movement
 public interface Lifeform {
     default void Movement(Lifeform enemy) {
         if (!(enemy instanceof Actor actor)) {
@@ -30,7 +30,7 @@ public interface Lifeform {
     
             int distanceX = Math.abs(playerX - enemyX);
             int distanceY = Math.abs(playerY - enemyY);
-            int distance = distanceX + distanceY; // Manhattan distance
+            int distance = distanceX + distanceY; //  distance beteen enemy
     
             if (distance <= 124 && distance < closestDistance) { // Within 2 tiles
                 closestDistance = distance;

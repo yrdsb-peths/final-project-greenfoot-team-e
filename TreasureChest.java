@@ -17,6 +17,7 @@ public class TreasureChest extends Actor {
     }
     public TreasureChest(World world)
     {   
+        //sets the treasure chest type
         if(!GameStateManager.chestLooted){
             if(GameStateManager.treasureTypeClosed==null){
             randomNum = Greenfoot.getRandomNumber(50);
@@ -40,7 +41,7 @@ public class TreasureChest extends Actor {
             setImage(GameStateManager.treasureTypeOpen);
         }
     }
-
+    //spawns in treasure chest
     public static boolean spawnIn(World world, String[][] grid, int xOffset, int yOffset) 
     {
         Random random = new Random();
@@ -81,7 +82,7 @@ public class TreasureChest extends Actor {
     }
 
 
-
+    //Loot for treasure chest
     public void loot(Class<?> Player) {
         Random random = new Random();
         ScannerClass inventory = new ScannerClass("Inventory.txt");

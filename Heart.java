@@ -6,7 +6,7 @@ public class Heart extends Actor {
     private GreenfootImage fullHeart;
     private GreenfootImage emptyHeart;
     private GreenfootImage halfHeart;
-
+    //Sets the images for heart
     public Heart() {
         fullHeart = new GreenfootImage("HeartFull.png");
         fullHeart.scale(24,27);

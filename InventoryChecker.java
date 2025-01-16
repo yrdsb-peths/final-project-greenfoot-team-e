@@ -4,6 +4,7 @@ import java.util.List;
 import greenfoot.*;
 
 public class InventoryChecker {
+    //automatically changes player's stats according to what they have in their inventory
     private ScannerClass inventory = new ScannerClass("Inventory.txt");
     private List<String> wordList;
 

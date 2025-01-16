@@ -17,7 +17,7 @@ public class ScannerClass {
         this.txtFile = txtFile;
         loadWords();
     }
-
+//loads words
     public void loadWords() {
         try (Scanner scan = new Scanner(new File(txtFile))) {
             while (scan.hasNextLine()) {
@@ -36,6 +36,7 @@ public class ScannerClass {
     public List<String> getWordList() {
         return new ArrayList<>(wordList); // Return a copy to prevent external modification
     }
+    //removes words
     public static void removeWord(String fileName, String wordToRemove) throws IOException {
         File file = new File(fileName);
     

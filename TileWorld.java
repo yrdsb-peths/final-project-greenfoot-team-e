@@ -21,7 +21,7 @@ public class TileWorld {
     private int door1Y = -1;
     private int door2X = -1;
     private int door2Y = -1;
-
+    //Creates world based on seed
     public TileWorld(long seed) {
         this.seed = seed;
         this.random = new Random(seed);

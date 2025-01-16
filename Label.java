@@ -3,6 +3,7 @@ import greenfoot.*;
 
 public class Label extends Actor
 {
+    //Label class
     private String value;
     private int fontSize;
     private Color lineColor = Color.BLACK;

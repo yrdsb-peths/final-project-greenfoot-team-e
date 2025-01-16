@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import greenfoot.Greenfoot;
 public class GameStateManager {
+    //stores all temporary data such as amount of enemies, player position, chest position, if chest has been looted, etc.
     public static int playerX;
     public static int playerY;
     public static int currentLevel = 1;

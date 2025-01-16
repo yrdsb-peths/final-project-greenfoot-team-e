@@ -9,7 +9,7 @@ public class TraderSpawner
     private int yOffset;
     private int tileWidth = 31;
     private int tileHeight = 32;
-
+    //Trader Spawner
     public TraderSpawner(World world, int roomWidth, int roomHeight, int xOffset, int yOffset) {
         this.world = world;
         this.roomWidth = roomWidth;
