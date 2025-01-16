@@ -70,6 +70,7 @@ public class CombatScreen extends World {
     public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
             combatText.setValue("You defeated the enemy!");
+            GameStateManager.totalEnemiesKilled++;
             loot();
             for (Button btn : getObjects(Button.class)) {
                 removeObject(btn);
