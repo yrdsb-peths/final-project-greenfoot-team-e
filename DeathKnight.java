@@ -1,5 +1,5 @@
 import greenfoot.*;
-
+//final boss
 public class DeathKnight extends Enemy 
 {
     private static final String[] IDLE_FRAMES = { "DeathKnightIdle0.png", "DeathKnightIdle1.png", "DeathKnightIdle2.png", "DeathKnightIdle3.png", "DeathKnightIdle4.png", "DeathKnightIdle5.png", "DeathKnightIdle6.png", "DeathKnightIdle7.png", "DeathKnightIdle8.png"};
