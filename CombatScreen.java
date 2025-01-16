@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Random;
 import greenfoot.*;
 public class CombatScreen extends World {
+    GreenfootSound hitSound = new GreenfootSound("hitSound.wav");
+    GreenfootSound combatMusic = new GreenfootSound("combatMusic.wav");
     private boolean defeated=true;
     private List<Heart> hearts = new ArrayList<>();
     private List<Heart> enemyHearts = new ArrayList<>();
@@ -12,9 +14,13 @@ public class CombatScreen extends World {
     Label enemyText=new Label(" ", 20);
     public CombatScreen(){  
         super(400,600,1);
+<<<<<<< HEAD
         setBackground("background.png");
+=======
+        setBackground("Background.png");
+        combatMusic.playLoop();
+>>>>>>> origin/add-music
         switch (GameStateManager.currentEnemy) {
-            //creates enemy stats for current battle
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
                 CombatManager.currentEnemyMaxHP=CombatManager.skeletonHP;
@@ -46,7 +52,6 @@ public class CombatScreen extends World {
                 
         }
         switch (GameStateManager.currentEnemy){
-            //enemy encounter
             case 0:
                 combatText=new Label("a Skeleton has appeared!", 20);
                 break;
@@ -69,7 +74,6 @@ public class CombatScreen extends World {
         initializeHearts();
         initializeEnemyHearts();
     }
-    //killed enemy
     public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
             combatText.setValue("You defeated the enemy!");
@@ -84,14 +88,18 @@ public class CombatScreen extends World {
     public void returnToGameScreen(){
         Greenfoot.setWorld(new GameScreen());
     }
-    //combat mechanics
     public void attack(){
         int playerACC = Greenfoot.getRandomNumber(99);
         int enemyACC = Greenfoot.getRandomNumber(99);
         if(playerACC<CombatManager.playerACC){
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
+<<<<<<< HEAD
             combatText.setValue("You dealt "+totalDamage+" damage");
+=======
+            hitSound.play();
+            System.out.println("You dealt "+totalDamage+" damage");
+>>>>>>> origin/add-music
         }else{
             combatText.setValue("You missed!");
         }
@@ -111,7 +119,6 @@ public class CombatScreen extends World {
         initializeHearts();
         initializeEnemyHearts();
     }
-    //create enemy health
     private void initializeEnemyHearts() {
         enemyHearts.clear();
         int heartsCount = (int) Math.ceil(CombatManager.currentEnemyMaxHP / 2.0); // Total hearts needed
@@ -128,7 +135,6 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 200); // Adjust positions as needed
         }
     }
-    //create player health
     private void initializeHearts() {
         int heartsCount = (int) Math.ceil(CombatManager.playerHPMax / 2.0); // Total hearts needed
         for (int i = 0; i < heartsCount; i++) {
@@ -144,7 +150,7 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 420); // Adjust positions as needed
         }
     }
-    //method for health potion
+
     private void healthPotion() 
     {
         if(CombatManager.playerHealthPot > 0)
@@ -158,12 +164,11 @@ public class CombatScreen extends World {
             combatText.setValue("you have no health potions");
         }
     }
-    //game over
+
     private void handleGameOver() {
         System.out.println("Game Over!");
         Greenfoot.stop(); // Stop the game
     }
-    //loot chest
     public void loot() {
         Random random = new Random();
         ScannerClass inventory = new ScannerClass("Inventory.txt");
