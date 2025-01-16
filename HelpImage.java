@@ -2,7 +2,7 @@ import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 import greenfoot.World;
-
+//help screen with instructions
 public class HelpImage extends Actor {
     GreenfootImage helpImage = new GreenfootImage("HelpImage.png");
     World world;
