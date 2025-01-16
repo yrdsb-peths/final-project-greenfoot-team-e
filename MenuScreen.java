@@ -32,6 +32,7 @@ public class MenuScreen extends World {
     public void helpButton(){
         addObject(new HelpImage(this), 200,300);
     }
+    //reset stats
     public void newGame(){
         CombatManager.playerHP=10;
         CombatManager.playerHPMax=10;
