@@ -19,6 +19,7 @@ public class GameScreen extends World {
     public GameScreen() {
         super(400, 600, 1);
         setBackground("Background.png");
+        backgroudMusic.playLoop();
         if (GameStateManager.levelSeeds.isEmpty()) {
             initializeSeeds();
         }
