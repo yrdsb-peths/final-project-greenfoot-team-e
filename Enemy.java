@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Random;
+
 import greenfoot.*;
 
 public abstract class Enemy extends Actor implements Lifeform {
@@ -8,10 +11,10 @@ public abstract class Enemy extends Actor implements Lifeform {
     private int frameDelay = 8; // Controls animation speed
     private int frameCounter = 0; // Counter to manage delay
     private String[] currentAnimationFrames; // Holds the current animation frames
-
     private boolean defeated;
     private GameScreen gameScreen;
-    
+    private TileWorld tileWorld;
+
     public Enemy() {
         updateAnimation();
         this.defeated = false;
@@ -39,7 +42,7 @@ public abstract class Enemy extends Actor implements Lifeform {
         frameIndex = 0;
     }
 
-    private void updateAnimation() {
+    protected void updateAnimation() {
         if (currentAnimationFrames == null || currentAnimationFrames.length == 0) return;
 
         frameCounter++;
@@ -138,10 +141,12 @@ public abstract class Enemy extends Actor implements Lifeform {
             }else if(this.getClass()==Zombie.class){
                 GameStateManager.currentEnemy=2;
             }
+            else if(this.getClass()==DeathKnight.class){
+                GameStateManager.currentEnemy=3;
+            }
             defeated=true; 
-            System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
-                gameScreen.saveGameState(); // Save the game state before transitioning
+            gameScreen.saveGameState(); // Save the game state before transitioning
             }   
             Greenfoot.setWorld(new CombatScreen());
         }

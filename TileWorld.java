@@ -83,9 +83,10 @@ public class TileWorld {
         placeDoorsWithGap(world, xOffset, yOffset);
 
         // Spawn chest and trader
-        boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
-        traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
-        traderSpawner.spawnTrader(chestPresent);
+        if(GameStateManager.currentLevel<4){
+            boolean chestPresent = TreasureChest.spawnIn(world, grid, xOffset, yOffset);
+            traderSpawner = new TraderSpawner(world, gridWidth, gridHeight, xOffset, yOffset);
+        }
     }
 
     private void placeDoorsWithGap(World world, int xOffset, int yOffset) {
@@ -96,7 +97,7 @@ public class TileWorld {
         if (doorChoice == 0 || doorChoice == 1) {
             placeDoorOnWall(world, doorPositions, xOffset, yOffset, 0);
         }
-
+    
         if (doorChoice == 0 || doorChoice == 2) {
             placeDoorOnWall(world, doorPositions, xOffset, yOffset + (gridHeight - 1) * TILE_HEIGHT, gridHeight - 1);
         }
@@ -128,13 +129,22 @@ public class TileWorld {
                 // Add the door object
                 if (wallYPosition == 0) {
                         if(doorPositions.size()==1){
-                            world.addObject(new Door("WallDTO.png", 1), xOffset + x * TILE_WIDTH, yOffset);
+                            if(GameStateManager.currentLevel<4){
+                                world.addObject(new Door("WallDTO.png", 1), xOffset + x * TILE_WIDTH, yOffset);
+                            }else{
+                                world.addObject(new Wall("WallT1.png"), xOffset + x * TILE_WIDTH, yOffset);
+                            }
                         }else{ 
                             world.addObject(new Door("WallDTC.png", 0), xOffset + x * TILE_WIDTH, yOffset);
                         }
                 } else {
+                    
                     if(doorPositions.size()==1){
-                        world.addObject(new Door("WallDBO.png",1), xOffset + x * TILE_WIDTH, yOffset);
+                        if(GameStateManager.currentLevel<4){
+                            world.addObject(new Door("WallDBO.png",1), xOffset + x * TILE_WIDTH, yOffset);
+                        }else{
+                            world.addObject(new Wall("WallT1.png"), xOffset + x * TILE_WIDTH, yOffset);
+                        }
                     }else{
                         world.addObject(new Door("WallDBC.png",0), xOffset + x * TILE_WIDTH, yOffset);
                     }
@@ -152,6 +162,7 @@ public class TileWorld {
     return placed;
 }
     
+
     public int[] getDoor1Position() {
         return new int[]{door1X, door1Y};
     }
@@ -159,6 +170,11 @@ public class TileWorld {
     public int[] getDoor2Position() {
         return new int[]{door2X, door2Y};
     }
+    
+    public String[][] getGrid() {
+        return grid;
+    }
+    
 }
 
 

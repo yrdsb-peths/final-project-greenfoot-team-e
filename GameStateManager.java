@@ -21,4 +21,5 @@ public class GameStateManager {
     public static Map<Integer, Long> levelSeeds = new HashMap<>();
     public static List<Map<String, Object>> enemyData = new ArrayList<>();
     public static int currentEnemy;
+    public static int totalEnemiesKilled=0;
 }
