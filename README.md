@@ -1,9 +1,22 @@
 How To Play Our Game "Lurking Below"
 Copy the `project.greenfoot.md` file and rename it to `project.greenfoot`
 
-Controls: WASD to move, mouse to click buttons, another help screen is avaliable to view in the menu screen
+Welcome to our game Lurking Below! In this simple dungeon crawler you play as a knight while trying to make your way to the fourth floor to fight the boss Death Kngiht.
+
+Controls: WASD to move, mouse to click buttons, another help screen is avaliable to view in the menu screen, go to the open door to ascend floors
 
 Project Contributors: Martin Ma, Jamie Wang, Nicholas Kulybanycz
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18,3 +31,9 @@ Used Data Structures:
 7. Player similar to that of the enemies uses different String arrays to store images for animations
 8. TileWorld, uses an ArrayList to help place doors when randomly generationg the rooms
 9. TreasureChest class uses List to track what items could be pulled from the chest then transfered into the player's inventory. 
+
+
+Types of Code Used: 
+1. The Case system was used fairly frequently with it being implemented in CombatScreen, Enemy, EnemyCombatSprite, GameScreen, Lifeform, and Player
+2. we have a single interface our lifeform class
+3. Class Hierarchy is used for all entities, with lifeform being at the top and branching into player and enemy, and enemy subsequently branching into our DeathKnight, Skeleton, Slime, and Zombie classes
