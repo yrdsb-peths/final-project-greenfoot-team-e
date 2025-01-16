@@ -6,7 +6,7 @@ public class EnemyCombatSprite extends Actor {
     private GreenfootImage zombieImage;
     private GreenfootImage slimeImage;
     private GreenfootImage deathKnightImage;
-
+    //default enemy images
     public EnemyCombatSprite() {
         skeletonImage = new GreenfootImage("SkelAttack0.png");
         zombieImage = new GreenfootImage("ZombieIdle0.png");
