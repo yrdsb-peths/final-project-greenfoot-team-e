@@ -17,6 +17,7 @@ public class CombatScreen extends World {
         setBackground("background.png");
         combatMusic.playLoop();
         switch (GameStateManager.currentEnemy) {
+            //set stats for enemies
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
                 CombatManager.currentEnemyMaxHP=CombatManager.skeletonHP;
@@ -48,6 +49,7 @@ public class CombatScreen extends World {
                 
         }
         switch (GameStateManager.currentEnemy){
+            //create text for enemy appearances
             case 0:
                 combatText=new Label("a Skeleton has appeared!", 20);
                 break;
@@ -61,6 +63,7 @@ public class CombatScreen extends World {
                 combatText=new Label("Valerius the Death knight challenges you", 20);
                 break;
         }
+        //enemy and health bar into combat screen
         EnemyCombatSprite enemy=new EnemyCombatSprite();
         addObject(combatText, 125, 425);
         addObject(enemyText, 125, 450);
@@ -70,6 +73,7 @@ public class CombatScreen extends World {
         initializeHearts();
         initializeEnemyHearts();
     }
+    //defeated enemy
     public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
                 combatText.setValue("You defeated the enemy!");
@@ -91,6 +95,7 @@ public class CombatScreen extends World {
     public void returnToGameScreen(){
         Greenfoot.setWorld(new GameScreen());
     }
+    //combat mechanics
     public void attack(){
         int playerACC = Greenfoot.getRandomNumber(99);
         int enemyACC = Greenfoot.getRandomNumber(99);
@@ -118,6 +123,7 @@ public class CombatScreen extends World {
         initializeHearts();
         initializeEnemyHearts();
     }
+    //method to create enemy health bar
     private void initializeEnemyHearts() {
         enemyHearts.clear();
         int heartsCount = (int) Math.ceil(CombatManager.currentEnemyMaxHP / 2.0); // Total hearts needed
@@ -134,6 +140,7 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 200); // Adjust positions as needed
         }
     }
+    //method to create player health bar
     private void initializeHearts() {
         int heartsCount = (int) Math.ceil(CombatManager.playerHPMax / 2.0); // Total hearts needed
         for (int i = 0; i < heartsCount; i++) {
@@ -149,7 +156,7 @@ public class CombatScreen extends World {
             addObject(heart, 375 - (i * 20), 420); // Adjust positions as needed
         }
     }
-
+    //method for using health potion
     private void healthPotion() 
     {
         if(CombatManager.playerHealthPot > 0)
@@ -167,6 +174,7 @@ public class CombatScreen extends World {
     private void handleGameOver() {
         Greenfoot.setWorld(new LoseScreen());
     }
+    //looting chests
     public void loot() {
         Random random = new Random();
         ScannerClass inventory = new ScannerClass("Inventory.txt");
