@@ -11,7 +11,7 @@ import greenfoot.World;
 public class WinScreen extends World {
     public WinScreen(){    
         super(400, 600, 1);
-        setBackground()
+        setBackground("You-Win.png");
     }
 
 }
