@@ -41,7 +41,7 @@ public abstract class Enemy extends Actor implements Lifeform {
         currentAnimationFrames = frames;
         frameIndex = 0;
     }
-
+    // change enemy animation
     protected void updateAnimation() {
         if (currentAnimationFrames == null || currentAnimationFrames.length == 0) return;
 
@@ -52,14 +52,14 @@ public abstract class Enemy extends Actor implements Lifeform {
             setImage(currentAnimationFrames[frameIndex]);
         }
     }
-
+    // changes enemy state 
     public void changeState(State newState) {
         if (currentState != newState) {
             currentState = newState;
             loadAnimationForState();
         }
     }
-
+    //loads animation for current state
     private void loadAnimationForState() {
         switch (currentState) {
             case IDLE:
