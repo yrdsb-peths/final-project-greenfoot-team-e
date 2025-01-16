@@ -17,6 +17,7 @@ public class GameScreen extends World
     private List<Heart> hearts = new ArrayList<>();
     static Label exitText=new Label(" ",20);
     static Label text=new Label(" ", 20);
+    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public GameScreen() 
     {
         super(400, 600, 1);
@@ -27,6 +28,7 @@ public class GameScreen extends World
         }
         initializeLevel();
         initializeHearts();
+        backgroudMusic.playLoop();
         addObject(exitText, 150, 425);
         addObject(text, 150, 425);
         addObject(new Button(this::itemList, "Items-button.png",  150, 100), 300, 500);
