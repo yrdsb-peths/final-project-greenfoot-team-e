@@ -35,6 +35,7 @@ public class Player extends Actor implements Lifeform {
     }
 
     private void movePlayer(String key) {
+        GameScreen.text.setValue(" ");
         int x = getX();
         int y = getY();
 

@@ -6,7 +6,7 @@ public class Door extends Actor {
     private int doorX;
     private int doorY;
     private static final int TILE_SIZE = 32;
-
+    private Button exitButton = new Button(this::handleExit, "Open.png", 150, 100);
     public Door(String imageFile, int type) {
         setImage(imageFile);
         this.doorType = type;
@@ -24,10 +24,12 @@ public class Door extends Actor {
     public void act() {
         if (!interacted && isPlayerNearDoor()) {
             if (doorType == 1) {
-                handleExit();
-            } else {
-                handleEntrance();
+                GameScreen.exitText.setValue("Exit");
+                getWorld().addObject(exitButton, 100, 500);
             }
+        }else{
+            GameScreen.exitText.setValue(" ");
+            getWorld().removeObject(exitButton);
         }
     }
 
@@ -42,7 +44,6 @@ public class Door extends Actor {
     private void handleExit() {
         if (!interacted) {
             interacted = true; // Mark as executed
-            System.out.println("Exit");
             GameStateManager.enemyData.clear();
             GameStateManager.chestLooted=false;
             GameStateManager.currentLevel++;
@@ -50,10 +51,5 @@ public class Door extends Actor {
             GameStateManager.playerY=0;
             Greenfoot.setWorld(new GameScreen());
         }
-    }
-
-    private void handleEntrance() {
-        System.out.println("Entrance");
-        interacted = true;
     }
 }
