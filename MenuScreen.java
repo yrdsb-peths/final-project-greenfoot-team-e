@@ -58,5 +58,9 @@ public class MenuScreen extends World {
         GameStateManager.levelSeeds.clear();
         GameStateManager.enemyData.clear();
         GameStateManager.currentEnemy=0;
+        CombatManager.playerHP=10;
+        CombatManager.playerATK=1;
+        CombatManager.playerHealthPot=1;
+        GameStateManager.totalEnemiesKilled=0;
     }
 }

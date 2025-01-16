@@ -1,4 +1,0 @@
-ArmT2
-SwdT1
-SwdT2
-ArmT1
