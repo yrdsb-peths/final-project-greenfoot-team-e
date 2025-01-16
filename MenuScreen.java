@@ -29,6 +29,7 @@ public class MenuScreen extends World {
     public void goToGameScreen() {
         newGame();
         Greenfoot.setWorld(new GameScreen());
+        backgroudMusic.pause();
         
     }
     public void helpButton(){

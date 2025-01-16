@@ -76,6 +76,7 @@ public class CombatScreen extends World {
     //defeated enemy
     public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
+                combatMusic.pause();
                 combatText.setValue("You defeated the enemy!");
                 GameStateManager.totalEnemiesKilled++;
                 loot();
@@ -90,9 +91,11 @@ public class CombatScreen extends World {
         }
     }
     public void win(){
+        combatMusic.pause();
         Greenfoot.setWorld(new WinScreen());
     }
     public void returnToGameScreen(){
+        combatMusic.pause();
         Greenfoot.setWorld(new GameScreen());
     }
     //combat mechanics
@@ -118,6 +121,7 @@ public class CombatScreen extends World {
             }
         }
         if(CombatManager.playerHP<=0){
+            combatMusic.pause();
             handleGameOver();
         }
         initializeHearts();

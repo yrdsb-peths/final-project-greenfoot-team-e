@@ -9,7 +9,7 @@ import greenfoot.GreenfootImage;
 import greenfoot.World;
 //Lose screen
 public class LoseScreen extends World {
-    Label stats=new Label(GameStateManager.totalEnemiesKilled,30);
+    Label stats=new Label("You killed "+GameStateManager.totalEnemiesKilled+" enemies",30);
     public LoseScreen(){    
         super(400, 600, 1);
         setBackground("You-Lose.png");

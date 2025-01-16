@@ -9,7 +9,7 @@ import greenfoot.GreenfootImage;
 import greenfoot.World;
 
 public class WinScreen extends World {
-    Label stats=new Label(GameStateManager.totalEnemiesKilled,30);
+    Label stats=new Label("You killed "+GameStateManager.totalEnemiesKilled+" enemies",30);
     public WinScreen(){    
         super(400, 600, 1);
         setBackground("You-Win.png");

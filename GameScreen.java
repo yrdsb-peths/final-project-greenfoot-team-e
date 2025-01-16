@@ -18,7 +18,7 @@ public class GameScreen extends World
     private List<Heart> hearts = new ArrayList<>();
     static Label exitText=new Label(" ",20);
     static Label text=new Label(" ", 20);
-    GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.mp3");
+    static GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.mp3");
     public GameScreen() 
     {
         super(400, 600, 1);
