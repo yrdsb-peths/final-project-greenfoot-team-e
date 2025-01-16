@@ -58,8 +58,6 @@ public class ScannerClass {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(modifiedContent.toString().trim());
         }
-    
-        System.out.println("Word '" + wordToRemove + "' removed successfully.");
     }
     
     public static void clearFile(String fileName) throws IOException {

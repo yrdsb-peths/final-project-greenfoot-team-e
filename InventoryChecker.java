@@ -9,7 +9,6 @@ public class InventoryChecker {
 
     public InventoryChecker() {
         wordList = inventory.getWordList();
-        System.out.println(wordList);
         EquipGear();
     }
 
@@ -32,7 +31,5 @@ public class InventoryChecker {
         } else{
             CombatManager.armorType=0;
         }
-        System.out.println(CombatManager.swordType);
-        System.out.println(CombatManager.armorType);
     }
 }
