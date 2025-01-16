@@ -10,12 +10,12 @@ public class MenuScreen extends World {
     GreenfootSound backgroudMusic = new GreenfootSound("backgroundMusic.wav");
     public MenuScreen() {
         super(400, 600, 1);
-        addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 350);
-        addObject(new Button(this::helpButton, "help-button.png",150,100),200,450);
+        setBackground("MenuBackground.png");
+        addObject(new Button(this::goToGameScreen, "StartButtonIdle.png", 114, 56), 200, 450);
+        addObject(new Button(this::helpButton, "help-button.png",150,100),200,550);
         Label titleLabel = new Label("Lurking Below", 40);
         addObject(titleLabel, 200, 175);
         GameStateManager.currentLevel = 1;
-        setBackground("MenuBackground");
         backgroudMusic.playLoop();
         try {
             ScannerClass.clearFile("Inventory.txt");
