@@ -69,14 +69,21 @@ public class CombatScreen extends World {
     }
     public void endSequences(){
         if(CombatManager.currentEnemyHP<=0){
-            combatText.setValue("You defeated the enemy!");
-            GameStateManager.totalEnemiesKilled++;
-            loot();
-            for (Button btn : getObjects(Button.class)) {
-                removeObject(btn);
-            }
-            addObject(new Button(this::returnToGameScreen, "Continue.png",  150, 100), 100, 500);
+                combatText.setValue("You defeated the enemy!");
+                GameStateManager.totalEnemiesKilled++;
+                loot();
+                for (Button btn : getObjects(Button.class)) {
+                    removeObject(btn);
+                }
+                if(GameStateManager.currentLevel==4){
+                    addObject(new Button(this::win, "Continue.png",  150, 100), 100, 500);
+                }else{
+                    addObject(new Button(this::returnToGameScreen, "Continue.png",  150, 100), 100, 500);
+                }
         }
+    }
+    public void win(){
+        Greenfoot.setWorld(new WinScreen());
     }
     public void returnToGameScreen(){
         Greenfoot.setWorld(new GameScreen());
@@ -154,8 +161,7 @@ public class CombatScreen extends World {
     }
 
     private void handleGameOver() {
-        System.out.println("Game Over!");
-        Greenfoot.stop(); // Stop the game
+        Greenfoot.setWorld(new LoseScreen());
     }
     public void loot() {
         Random random = new Random();
