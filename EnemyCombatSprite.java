@@ -2,6 +2,7 @@ import greenfoot.Actor;
 import greenfoot.Greenfoot;
 import greenfoot.GreenfootImage;
 public class EnemyCombatSprite extends Actor {
+    //enemy attack and idle images
     GreenfootImage skeletonImage = new GreenfootImage("SkelAttack0.png");
     GreenfootImage zombieImage = new GreenfootImage("ZombieIdle0.png");
     GreenfootImage slimeImage = new GreenfootImage("slime-idle-0.png");

@@ -116,7 +116,7 @@ public abstract class Enemy extends Actor implements Lifeform {
         return this.defeated;
     }
     public abstract int getType();
-
+    //movement control
     public void eMovement(boolean keyHeld) {
         if (keyHeld) {
             String key = Player.key;
@@ -130,6 +130,7 @@ public abstract class Enemy extends Actor implements Lifeform {
     }
     public void encounter(Class<?> Player) {
         if(!defeated&&this.isTouching(Player.class)){
+            //check which enemies is encountered
             if(this.getClass()==Skeleton.class){
                 GameStateManager.currentEnemy=0;
             }else if(this.getClass()==Slime.class){
