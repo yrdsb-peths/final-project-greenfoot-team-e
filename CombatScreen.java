@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Random;
 import greenfoot.*;
 public class CombatScreen extends World {
+    GreenfootSound hitSound = new GreenfootSound("hitSound.wav");
+    GreenfootSound combatMusic = new GreenfootSound("combatMusic.wav");
     private boolean defeated=true;
     private List<Heart> hearts = new ArrayList<>();
     private List<Heart> enemyHearts = new ArrayList<>();
@@ -12,7 +14,8 @@ public class CombatScreen extends World {
     Label enemyText=new Label(" ", 20);
     public CombatScreen(){  
         super(400,600,1);
-        setBackground("background.png");
+        setBackground("Background.png");
+        combatMusic.playLoop();
         switch (GameStateManager.currentEnemy) {
             case 0:
                 CombatManager.currentEnemyHP=CombatManager.skeletonHP;
@@ -95,6 +98,7 @@ public class CombatScreen extends World {
             CombatManager.currentEnemyHP-=CombatManager.playerATK+CombatManager.swordType;
             int totalDamage=CombatManager.playerATK+CombatManager.swordType;
             combatText.setValue("You dealt "+totalDamage+" damage");
+            hitSound.play();
         }else{
             combatText.setValue("You missed!");
         }
