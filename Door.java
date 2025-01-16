@@ -44,6 +44,7 @@ public class Door extends Actor {
     private void handleExit() {
         if (!interacted) {
             interacted = true; // Mark as executed
+            GameStateManager.treasureExists=false;
             GameStateManager.enemyData.clear();
             GameStateManager.chestLooted=false;
             GameStateManager.currentLevel++;

@@ -144,7 +144,7 @@ public class CombatScreen extends World {
         {
             CombatManager.playerHP += 5;
             initializeHearts();
-            CombatManager.playerHealthPot--;
+            CombatManager.playerHealthPot-=1;
         }
         else 
         {
@@ -196,7 +196,6 @@ public class CombatScreen extends World {
     
                 if (lootItem != null) {
                     enemyText.setValue("Player looted: " + lootItem);
-                    System.out.println("Player looted: " + lootItem);
                 }
             }
         }

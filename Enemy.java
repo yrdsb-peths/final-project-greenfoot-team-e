@@ -144,7 +144,6 @@ public abstract class Enemy extends Actor implements Lifeform {
                 GameStateManager.currentEnemy=3;
             }
             defeated=true; 
-            System.out.println("FIGHT STARTED");
             if (gameScreen != null) {
             gameScreen.saveGameState(); // Save the game state before transitioning
             }   

@@ -18,8 +18,8 @@ public class TraderSpawner
         this.yOffset = yOffset;
     }
 
-    public void spawnTrader(boolean chestPresent) {
-        int spawnChance = chestPresent ? 5 : 10; // 1 in 20 if chest present, 1 in 10 otherwise
+    public void spawnTrader() {
+        int spawnChance = 10; // 1 in 20 if chest present, 1 in 10 otherwise
 
         // Determine if the trader should spawn
         if (Greenfoot.getRandomNumber(100) < spawnChance) {
